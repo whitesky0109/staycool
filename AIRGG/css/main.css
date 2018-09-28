@@ -1,0 +1,16 @@
+body {
+	background: black;
+}
+
+#airSearchBtn {
+	background: black;
+	border: 0;
+	outline: 0;
+	focus
+}
+
+#airSearchBtn:focus {
+	background: blue;
+}
+
+
