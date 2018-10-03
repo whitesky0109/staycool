@@ -1,55 +1,70 @@
+@font-face{font-family: 'OpenSans-Light'; src:url(./font/OpenSans-Light.ttf);}
+
 body {
 	background: black;
+	font-family: 'OpenSans-Light';
+
 }
 
 .airSearchMenu{
-	 text-align: center;
+	text-align: center;
 }
 
 .airSearchBtn {
-	background: black;
+	background: transparent;
 	border: 0;
 	outline: 0;
 }
 
 .airSearchBtn:focus {
-	background: blue;
+	background: black;
 }
 
 .airSearchInput {
-	background: black;
-	border: 0;
-	outline: 0;
-	color: white;
+	width: 200px;
+	font-size: 1.5em;
+	text-align: left;
 }
 
 .airMenu{
-	text-align: center;
+	width: 1080px;
+	height: 60px;
+	margin-left: auto;
+	margin-right: auto;
+	background: gray;
 }
 
 .airMenuBar {
     list-style-type: none;
     margin: 0;
-    padding: 20px;
+    padding: 5px;
     overflow: hidden;
     background-color: transparent;
-    margin-left: auto;
-    margin-right: auto;
 }
 
-.airMenuBar.li-tag {
+.airMenuBar.li-category {
     font-size: 1.5em;
     float: left;
 }
 
-.airMenuBar.li-tag a{
+.airMenuBar.li-category a{
     display: block;
     color: white;
     text-align: center;
-    padding: 16px;
+    padding: 5px;
     text-decoration: none;
 }
 
-.airMenuBar.li-tag a:hover{
+.airMenuBar.li-category a:hover{
     background-color: #111111;
+}
+
+.airMenuBar.li-search {
+	float: right;
+}
+
+.airVideoWindow{
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
 }
