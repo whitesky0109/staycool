@@ -1,0 +1,47 @@
+{% load static %}
+<!doctype html>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<html>
+
+<link rel="stylesheet" href="{% static 'airgg/css/main.css' %}" />
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="{% static 'airgg/js/home.js' %}"></script>
+
+<script>
+
+$(document).ready(function() {
+    home.init();
+});
+
+</script>
+
+<body style="color:white">
+	<H1 style="font-style:italic; text-align: center; color:white">:League of Legends Clan: A Light REST</H1>
+	<div class="airMenu">
+		<ul class="airMenuBar">
+			<li class="airMenuBar li-category"><a href="/airgg/ranking">AlR랭킹</a></li>
+			<li class="airMenuBar li-category"><a href="/airgg/stats">통계</a></li>
+			<li class="airMenuBar li-category"><a href="/airgg/position">포지션예측</a></li>
+			<li class="airMenuBar li-category"><a href="https://cafe.naver.com/alightrest">커뮤니티</a></li>
+			<li class="airMenuBar li-search">
+				<input class="airSearchInput" type="text" placeholder="Search..">
+				<button class="airSearchBtn">
+					<img src="{% static 'airgg/img/search.png' %}"></img>
+				</button>
+			</li>
+		</ul>
+	</div>
+
+	<div class="airVideoWindow">
+		<iframe width="911" height="512" src="https://www.youtube.com/embed/URGNb5Q60cE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+	</div>
+	<div id="airBestPlayer"></div>
+	<input type="button" id="btn" value="click">
+<script type="text/javascript" src="{% static 'airgg/riot_api/dragonhead.js' %}"></script>
+<script type="text/javascript" src="{% static 'airgg/riot_api/8.15.1/manifest.js' %}"></script>
+<script type="text/javascript" src="{% static 'airgg/riot_api/8.15.1/js/dragonmagic.js' %}"></script>
+<!-- <script type="text/javascript" src="http://cdn.leagueoflegends.com/apollo/widgets/1.0.14/apollo.min.js"></script> -->
+
+</body>
+</html>
