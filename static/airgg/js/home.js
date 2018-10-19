@@ -2,7 +2,7 @@
 var home = {};
 
 home.init = function(){
-	home.test();
+//	home.test();
 	home.bestPlayer();
 };
 
@@ -29,10 +29,10 @@ home.bestPlayer = function(){
 	$.ajax({
 		type: "GET",
 		dataType: "json",
-		url: "/static/airgg/riot_api/8.15.1/data/ko_KR/champion/Ahri.json",
+		url: "/static/airgg/riot_api/8.15.1/data/ko_KR/champion/Akali.json",
 		success: function(data)
 		{
-			var championInfo = data.data.Ahri;
+			var championInfo = data.data.Akali;
 			var imgOption = {};
 			imgOption.src='full';
 			imgOption.version='8.15.1';
@@ -41,7 +41,7 @@ home.bestPlayer = function(){
 			imgOption.gray=false;
 			imgOption.size='normal';
 
-			$("#airBestPlayer").append(Riot.DDragon.fn.getImg(championInfo,imgOption));
+			$("#bestChampion").append(Riot.DDragon.fn.getImg(championInfo,imgOption));
 			
 		},
 		error: function(e)

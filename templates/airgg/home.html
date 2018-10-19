@@ -16,13 +16,13 @@ $(document).ready(function() {
 
 </script>
 
-<body style="color:white">
-	<H1 style="font-style:italic; text-align: center; color:white">:League of Legends Clan: A Light REST</H1>
+<body>
+	<H1 style="font-weight: bold; text-align: center;">:League of Legends Clan: A Light REST</H1>
 	<div class="airMenu">
 		<ul class="airMenuBar">
-			<li class="airMenuBar li-category"><a href="/airgg/ranking">AlR랭킹</a></li>
+			<li class="airMenuBar li-category" style="padding-left:20px"><a href="/airgg/ranking">랭킹</a></li>
 			<li class="airMenuBar li-category"><a href="/airgg/stats">통계</a></li>
-			<li class="airMenuBar li-category"><a href="/airgg/position">포지션예측</a></li>
+			<li class="airMenuBar li-category"><a href="/airgg/position">포지션 예측</a></li>
 			<li class="airMenuBar li-category"><a href="https://cafe.naver.com/alightrest">커뮤니티</a></li>
 			<li class="airMenuBar li-search">
 				<input class="airSearchInput" type="text" placeholder="Search..">
@@ -33,15 +33,23 @@ $(document).ready(function() {
 		</ul>
 	</div>
 
+	<div id="bestPlayer" class="airBestPlayerWindow">
+		<div style="height:60px;"></div>
+		<H2>The best of the month</H2>
+		<H3>AlR 뽀으</H3>
+		<div id="bestChampion"></div>
+		<p>Main Position: MID<br>Win Rate: 60%</p>
+	</div>
+
 	<div class="airVideoWindow">
 		<iframe width="911" height="512" src="https://www.youtube.com/embed/URGNb5Q60cE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 	</div>
-	<div id="airBestPlayer"></div>
-	<input type="button" id="btn" value="click">
-<script type="text/javascript" src="{% static 'airgg/riot_api/dragonhead.js' %}"></script>
-<script type="text/javascript" src="{% static 'airgg/riot_api/8.15.1/manifest.js' %}"></script>
-<script type="text/javascript" src="{% static 'airgg/riot_api/8.15.1/js/dragonmagic.js' %}"></script>
-<!-- <script type="text/javascript" src="http://cdn.leagueoflegends.com/apollo/widgets/1.0.14/apollo.min.js"></script> -->
+
+	<script type="text/javascript" src="{% static 'airgg/riot_api/dragonhead.js' %}"></script>
+	<script type="text/javascript" src="{% static 'airgg/riot_api/8.15.1/manifest.js' %}"></script>
+	<script type="text/javascript" src="{% static 'airgg/riot_api/8.15.1/js/dragonmagic.js' %}"></script>
 
 </body>
+<footer style="height:200px">
+</footer>
 </html>

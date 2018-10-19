@@ -1,5 +1,4 @@
 body {
-	background: black;
 	font-family: 'OpenSans-Light';
 
 }
@@ -14,10 +13,6 @@ body {
 	outline: 0;
 }
 
-.airSearchBtn:focus {
-	background: black;
-}
-
 .airSearchInput {
 	width: 200px;
 	font-size: 1.5em;
@@ -29,7 +24,9 @@ body {
 	height: 60px;
 	margin-left: auto;
 	margin-right: auto;
+	margin-bottom: 20px;
 	background: gray;
+	border-radius: 5px;
 }
 
 .airMenuBar {
@@ -49,20 +46,39 @@ body {
     display: block;
     color: white;
     text-align: center;
-    padding: 5px;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-right: 20px;
     text-decoration: none;
 }
 
 .airMenuBar.li-category a:hover{
-    background-color: #111111;
+    font-size: 1.6em;
+    padding-top:2px;
 }
 
 .airMenuBar.li-search {
 	float: right;
 }
 
+.airBestPlayerWindow{
+	width: 720px;
+	height: 550px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	background-image: url('best_ring2.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
 .airVideoWindow{
+	margin-top:20px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 }
+
+
+

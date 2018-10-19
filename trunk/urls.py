@@ -18,11 +18,14 @@ from django.urls import path
 from django.conf.urls import url, include
 from django.views.generic.base import TemplateView
 from rest_framework import routers
-from play import views
+from airgg import views
 
 router = routers.DefaultRouter()
-router.register(r'player', views.PlayerViewSet)
-router.register(r'game', views.GameViewSet)
+router.register(r'db/Game', views.GameViewSet)
+router.register(r'db/Users', views.UsersViewSet)
+router.register(r'db/Champion', views.ChampionViewSet)
+router.register(r'db/Ban', views.BanViewSet)
+router.register(r'db/UserGameData', views.UserGameDataViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
