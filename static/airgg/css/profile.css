@@ -1,0 +1,19 @@
+body {
+	font-family: 'OpenSans-Light';
+}
+
+.gamedata-table_header { 
+	text-align: center;
+}
+
+.gamedata-table_row {
+	text-align: center;
+}
+
+.gamedata-table_row.win {
+	background-color: #00D8FF;
+}
+
+.gamedata-table_row.lose {
+	background-color: #FF5A5A;
+}

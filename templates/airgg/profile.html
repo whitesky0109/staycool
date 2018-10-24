@@ -1,0 +1,132 @@
+{% load static %}
+<!doctype html>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<html>
+
+<link rel="stylesheet" href="{% static 'airgg/css/profile.css' %}" />
+
+<script type="text/javascript" src="{% static 'airgg/js/profile.js' %}"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<body>
+	<a href="#" class="ranking-highest_name">AlR 루리</a>
+	<div>나이:젊음</div>
+	<div class="game_winratio">시즌1 승률: 70%
+	</div>
+	<div class="mostpick_champions">
+				<H2>
+					Most picks
+				</H2>
+				<div class="most1">
+					<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Nidalee.png" width="50px" height="50px">
+					<span>90%</span>
+					<span>KDA: 3.4</span>
+				</div>
+				<div class="most2">
+					<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Darius.png" width="50px" height="50px">
+					<span>80%</span>
+					<span>KDA: 3.4</span>
+				</div>
+				<div class="most3">
+					<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Graves.png" width="50px" height="50px">
+					<span>80%</span>
+					<span>KDA: 3.4</span>
+				</div>
+	</div>
+	<div>
+
+<H2>Recently Game</H2>
+<table class="table ranking-table">
+	<colgroup>
+		<col width="100">
+		<col width="100">
+		<col width="230">
+		<col width="90">
+		<col width="90">
+		<col width="198">
+	</colgroup>
+	<thead class="thead">
+		<tr>
+			<th class="gamedata-table_header">Season</th>
+			<th class="gamedata-table_header">Game#</th>
+			<th class="gamedata-table_header">Champion</th>
+			<th class="gamedata-table_header">KDA</th>
+			<th class="gamedata-table_header">GameInfo</th>
+			<th class="gamedata-table_header">Other Users</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="gamedata-table_row lose">
+			<td>2</td>
+			<td>10: 패배</td>
+			<td>
+				<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Nidalee.png" width="50px" height="50px">
+			</td>
+			<td>7/5/6</td>
+			<td>CS: 124 / Gold: 123K</td>
+			<td>
+				User1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+			</td>
+		</tr>
+		<tr class="gamedata-table_row win">
+			<td>2</td>
+			<td>6: 승리</td>
+			<td>
+				<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Graves.png" width="50px" height="50px">
+			</td>
+			<td>6/1/6</td>
+			<td>CS: 124 / Gold: 123K</td>
+			<td>
+				User1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+			</td>
+		</tr>
+		<tr class="gamedata-table_row win">
+			<td>2</td>
+			<td>5: 승리</td>
+			<td>
+				<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Darius.png" width="50px" height="50px">
+			</td>
+			<td>12/0/8</td>
+			<td>CS: 124 / Gold: 123K</td>
+			<td>
+				User1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+			</td>
+		</tr>
+		<tr class="gamedata-table_row win">
+			<td>2</td>
+			<td>4: 승리</td>
+			<td>
+				<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Nidalee.png" width="50px" height="50px">
+			</td>
+			<td>12/0/8</td>
+			<td>CS: 124 / Gold: 123K</td>
+			<td>
+				User1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+			</td>
+		</tr>
+		<tr class="gamedata-table_row lose">
+			<td>2</td>
+			<td>3: 패배</td>
+			<td>
+				<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Nidalee.png" width="50px" height="50px">
+			</td>
+			<td>2/7/2</td>
+			<td>CS: 124 / Gold: 123K</td>
+			<td>
+				User1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+			</td>
+		</tr>
+	</tbody>
+	</tbody>
+	</tbody>
+	</tbody>
+</table>
+	
+	<script type="text/javascript" src="{% static 'airgg/riot_api/dragonhead.js' %}"></script>
+	<script type="text/javascript" src="{% static 'airgg/riot_api/8.15.1/manifest.js' %}"></script>
+	<script type="text/javascript" src="{% static 'airgg/riot_api/8.15.1/js/dragonmagic.js' %}"></script>
+</body>
+</html>

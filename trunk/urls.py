@@ -33,6 +33,7 @@ urlpatterns = [
     path('airgg/ranking/', views.ranking, name='ranking'),
     path('airgg/stats/', views.stats, name='stats'),
     path('airgg/position/', views.position, name='position'),
+    path('airgg/profile/', views.profile, name='profile'),
 
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

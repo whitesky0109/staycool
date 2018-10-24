@@ -48,4 +48,7 @@ def position(request):
 def stats(request):
 	return render(request, "airgg/stats.html")
 
+def profile(request):
+	return render(request, "airgg/profile.html")
+
 # Create your views here.
