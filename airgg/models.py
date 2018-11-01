@@ -47,6 +47,7 @@ class UserGameData(models.Model):
 	user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
 	game_num = models.ForeignKey(Game, on_delete=models.CASCADE)
 	champion = models.ForeignKey(Champion, on_delete=models.CASCADE)
+	line = models.CharField(max_length=100, default='unknown')
 	kill = models.SmallIntegerField()
 	death = models.SmallIntegerField()
 	asist = models.SmallIntegerField()

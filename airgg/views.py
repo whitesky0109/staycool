@@ -39,6 +39,9 @@ class UserGameDataViewSet(viewsets.ModelViewSet):
 def home(request):
 	return render(request, "airgg/home.html")
 
+def member(request):
+	return render(request, "airgg/member.html")
+
 def ranking(request):
 	return render(request, "airgg/ranking.html")
 

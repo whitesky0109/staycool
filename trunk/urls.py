@@ -30,6 +30,7 @@ router.register(r'db/UserGameData', views.UserGameDataViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('airgg/', views.home, name='airgg'),
+    path('airgg/member/', views.member, name='member'),
     path('airgg/ranking/', views.ranking, name='ranking'),
     path('airgg/stats/', views.stats, name='stats'),
     path('airgg/position/', views.position, name='position'),

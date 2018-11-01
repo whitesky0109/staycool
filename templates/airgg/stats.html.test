@@ -1,0 +1,112 @@
+{% load static %}
+<!doctype html>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<html>
+
+<link rel="stylesheet" href="{% static 'airgg/css/stats.css' %}" />
+
+<script type="text/javascript" src="{% static 'airgg/js/stats.js' %}"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<body>
+<H2>Ban Pick Ratio</H2>
+<table class="table banpick-table">
+	<colgroup>
+		<col width="100">
+		<col width="230">
+		<col width="90">
+		<col width="90">
+		<col width="198">
+	</colgroup>
+	<thead class="thead">
+		<tr>
+			<th class="stats-table_header">#</th>
+			<th class="stats-table_header">Champion</th>
+			<th class="stats-table_header">WinRatio</th>
+			<th class="stats-table_header">Plays</th>
+			<th class="stats-table_header">Ban</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="stats_row lose">
+			<td>1</td>
+			<td>
+				<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Kaisa.png" width="50px" height="50px">
+			</td>
+			<td>55%</td>
+			<td>10</td>
+			<td>10</td>
+		</tr>
+		<tr class="stats_row lose">
+			<td>2</td>
+			<td>
+				<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Ekko.png" width="50px" height="50px">
+			</td>
+			<td>54%</td>
+			<td>10</td>
+			<td>10</td>
+		</tr>
+		<tr class="stats_row lose">
+			<td>3</td>
+			<td>
+				<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Gragas.png" width="50px" height="50px">
+			</td>
+			<td>53%</td>
+			<td>10</td>
+			<td>10</td>
+		</tr>
+		<tr class="stats_row lose">
+			<td>4</td>
+			<td>
+				<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Gangplank.png" width="50px" height="50px">
+			</td>
+			<td>52%</td>
+			<td>10</td>
+			<td>10</td>
+		</tr>
+		<tr class="stats_row lose">
+			<td>5</td>
+			<td>
+				<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Gnar.png" width="50px" height="50px">
+			</td>
+			<td>51%</td>
+			<td>10</td>
+			<td>10</td>
+		</tr>
+		<tr class="stats_row lose">
+			<td>6</td>
+			<td>
+				<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Irelia.png" width="50px" height="50px">
+			</td>
+			<td>50%</td>
+			<td>8</td>
+			<td>0</td>
+		</tr>
+		<tr class="stats_row lose">
+			<td>7</td>
+			<td>
+				<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Ivern.png" width="50px" height="50px">
+			</td>
+			<td>49%</td>
+			<td>4</td>
+			<td>8</td>
+		</tr>
+		<tr class="stats_row lose">
+			<td>8</td>
+			<td>
+				<img class="" src="/static/airgg/riot_api/8.15.1/img/champion/Ashe.png" width="50px" height="50px">
+			</td>
+			<td>48%</td>
+			<td>10</td>
+			<td>5</td>
+		</tr>
+	<tbody>
+
+	<script type="text/javascript" src="{% static 'airgg/riot_api/dragonhead.js' %}"></script>
+	<script type="text/javascript" src="{% static 'airgg/riot_api/8.15.1/manifest.js' %}"></script>
+	<script type="text/javascript" src="{% static 'airgg/riot_api/8.15.1/js/dragonmagic.js' %}"></script>
+</body>
+</html>

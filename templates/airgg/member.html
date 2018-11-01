@@ -4,17 +4,19 @@
 <html>
 
 <link rel="stylesheet" href="{% static 'airgg/css/main.css' %}" />
+<link rel="stylesheet" href="{% static 'airgg/css/member.css' %}" />
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
 
-<script type="text/javascript" src="{% static 'airgg/js/home.js' %}"></script>
+<script type="text/javascript" src="{% static 'airgg/js/member.js' %}?ver=4"></script>
 <script>
 
 $(document).ready(function() {
-    home.init();
+    member.init();
 });
 
 </script>
@@ -36,24 +38,51 @@ $(document).ready(function() {
 			</li>
 		</ul>
 	</div>
-
-	<div id="bestPlayer" class="airBestPlayerWindow">
-		<div style="height:60px;"></div>
-		<H2>The best of the month</H2>
-		<H3>AlR 뽀으</H3>
-		<div id="bestChampion"></div>
-		<p>Main Position: MID<br>Win Rate: 60%</p>
-	</div>
-
-	<div class="airVideoWindow">
-		<iframe width="911" height="512" src="https://www.youtube.com/embed/URGNb5Q60cE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-	</div>
+<div class="member-title">
+	<img width="1080px" src="{% static 'airgg/img/alr_title.png' %}"></img>
+</div>
+<div class="chart-container">
+<table class="member-total-table">
+	<colgroup>
+		<col width="500">
+		<col width="500">
+	</colgroup>
+	<tbody>
+		<tr>
+			<td><img class='member-master' src="{% static 'airgg/img/master.jpg' %}"></img></td>
+			<td><canvas id="mostLinePie" height="300px"></canvas></td>
+		</tr>
+	</tbody>
+	
+</table>
+</div>
+<div class="container member-div">
+<table class="table table-hover member-table">
+	<colgroup>
+		<col width="100">
+		<col width="90">
+		<col width="90">
+		<col width="90">
+		<col width="100">
+	</colgroup>
+	<thead class="thead">
+		<tr>
+			<th class="ranking-table_header">USER_ID</th>
+			<th class="ranking-table_header">NAME</th>
+			<th class="ranking-table_header">AGE</th>
+			<th class="ranking-table_header">MOST LINE</th>
+			<th class="ranking-table_header">MOST CHAMP</th>
+		</tr>
+	</thead>
+	<tbody id="memberTableBody">
+	<!--	<img src="/static/airgg/riot_api/8.15.1/img/champion/Nidalee.png" class="rounded-circle" width="40px" height="40px">
+-->	</tbody>
+</table>
+</div>
 
 	<script type="text/javascript" src="{% static 'airgg/riot_api/dragonhead.js' %}"></script>
 	<script type="text/javascript" src="{% static 'airgg/riot_api/8.15.1/manifest.js' %}"></script>
 	<script type="text/javascript" src="{% static 'airgg/riot_api/8.15.1/js/dragonmagic.js' %}"></script>
 
 </body>
-<footer style="height:200px">
-</footer>
 </html>

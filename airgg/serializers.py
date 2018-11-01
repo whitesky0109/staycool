@@ -28,5 +28,5 @@ class BanSerializer(serializers.ModelSerializer):
 class UserGameDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserGameData
-        fields = ('user_id', 'game_num', 'champion', 'kill', 'death', 'asist', 'cs', 'gold', 'level', 'win', 'team_num')
+        fields = ('user_id', 'game_num', 'champion', 'line', 'kill', 'death', 'asist', 'cs', 'gold', 'level', 'win', 'team_num')
 
