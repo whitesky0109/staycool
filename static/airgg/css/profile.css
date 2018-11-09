@@ -2,18 +2,41 @@ body {
 	font-family: 'OpenSans-Light';
 }
 
-.gamedata-table_header { 
+.profile-name {
+	color: black;
+}
+
+.profile-summary {
+	float-right: auto;
+	float-left: auto;
 	text-align: center;
 }
 
-.gamedata-table_row {
+.row.profile-lineratio {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+/*	background-image:url('position_info.png'); 
+	background-repeat: no-repeat;
+	background-size: 1080px;*/
+	border-radius: 5px;
+}
+
+.container.profile-champions {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	padding-top: 30px;
+	border-radius: 5px;
+}
+
+.profile-champTable_row {
 	text-align: center;
 }
 
-.gamedata-table_row.win {
-	background-color: #00D8FF;
-}
-
-.gamedata-table_row.lose {
-	background-color: #FF5A5A;
+.img {
+	margin-left: auto;
+	margin-right: auto;
 }

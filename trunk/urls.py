@@ -38,4 +38,7 @@ urlpatterns = [
 
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^f/profile/$', views.filter_user_profile, name='profile'),
+    url(r'^f/season/users/$', views.filter_season_ranking, name='season'),
+    url(r'^f/month/users/$', views.filter_month_best, name='month'),
 ]

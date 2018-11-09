@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 <html>
 
-<link rel="stylesheet" href="{% static 'airgg/css/main.css' %}" />
+<link rel="stylesheet" href="{% static 'airgg/css/main.css' %}?ver=1" />
 <link rel="stylesheet" href="{% static 'airgg/css/member.css' %}" />
 
 
@@ -12,7 +12,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
 
-<script type="text/javascript" src="{% static 'airgg/js/member.js' %}?ver=4"></script>
+<script type="text/javascript" src="{% static 'airgg/js/member.js' %}?ver=6"></script>
 <script>
 
 $(document).ready(function() {
@@ -30,6 +30,7 @@ $(document).ready(function() {
 			<li class="airMenuBar li-category"><a href="/airgg/stats">통계</a></li>
 			<li class="airMenuBar li-category"><a href="/airgg/position">포지션 예측</a></li>
 			<li class="airMenuBar li-category"><a href="https://cafe.naver.com/alightrest">커뮤니티</a></li>
+			<li class="airMenuBar li-category"><a href="https://www.youtube.com/channel/UCGNbhTiN8xMGOKtiQbMxmkQ">하나튜브</a></li>
 			<li class="airMenuBar li-search">
 				<input class="airSearchInput" type="text" placeholder="Search..">
 				<button class="airSearchBtn">
@@ -59,19 +60,19 @@ $(document).ready(function() {
 <div class="container member-div">
 <table class="table table-hover member-table">
 	<colgroup>
-		<col width="100">
-		<col width="90">
-		<col width="90">
-		<col width="90">
-		<col width="100">
+		<col width="50">
+		<col width="50">
+		<col width="50">
+		<col width="50">
+		<col width="50">
 	</colgroup>
 	<thead class="thead">
 		<tr>
-			<th class="ranking-table_header">USER_ID</th>
-			<th class="ranking-table_header">NAME</th>
-			<th class="ranking-table_header">AGE</th>
-			<th class="ranking-table_header">MOST LINE</th>
-			<th class="ranking-table_header">MOST CHAMP</th>
+			<th class="ranking-table_header">아이디</th>
+			<th class="ranking-table_header">직책</th>
+			<th class="ranking-table_header">이름</th>
+			<th class="ranking-table_header">나이</th>
+			<th class="ranking-table_header">좋아하는 라인</th>
 		</tr>
 	</thead>
 	<tbody id="memberTableBody">

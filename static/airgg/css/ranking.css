@@ -2,25 +2,46 @@ body {
 	font-family: 'OpenSans-Light';
 }
 
-.ranking-highest_list {
-	list-style-type: none;
-	overflow: hidden;
+.ranking-highest {
+	float-right: auto;
+	float-left: auto;
 	text-align: center;
 }
 
-.ranking-highest_item-First {
-	width: 400px;
+.ranking-highest_first {
+	width: 500px;
 	height: 300px;
-}
-
-.ranking-highest_item {
-	width: 200px;
-	height: 250px;
 	margin-left: auto;
 	margin-right: auto;
-	float: left;
+	padding-top: 20px;
+	background-image:url('best_ring2.png');
+	background-repeat: no-repeat;
+	background-size: 500px 300px;
+	position: relative;
 }
 
-.ranking-table {
+.row.ranking-highest_high {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
 	text-align: center;
+}
+
+.container.ranking-list {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	padding-top: 30px;
+	border-radius: 5px;
+}
+
+.ranking-highest_name {
+	color: black;
+}
+
+.ranking-tier-img {
+	padding: 0;
+	margin: 0;
+	width: 50px;
 }

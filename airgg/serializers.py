@@ -13,12 +13,12 @@ class GameSerializer(serializers.ModelSerializer):
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
-        fields = ('user_id', 'age', 'location', 'preference_line', 'name' ,'member')
+        fields = ('user_id', 'age', 'location', 'preference_line', 'name' ,'member', 'position')
 
 class ChampionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Champion
-        fields = ('champion', 'img_url', 'info_url')
+        fields = ('champion', 'info_url')
 
 class BanSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,4 +29,3 @@ class UserGameDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserGameData
         fields = ('user_id', 'game_num', 'champion', 'line', 'kill', 'death', 'asist', 'cs', 'gold', 'level', 'win', 'team_num')
-

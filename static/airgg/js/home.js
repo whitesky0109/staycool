@@ -2,47 +2,41 @@
 var home = {};
 
 home.init = function(){
-//	home.test();
-	home.bestPlayer();
+	var year = 2018;
+	var month = 9;
+
+	home.setMonthTitle(year,month);
+	home.getMonthData(year,month);
 };
 
-home.test = function(){
-	$("#btn").click(function(){
-		$.ajax({
-			type: "GET",
-			dataType: "json",
-			url: "/player/1",
-			success: function(data)
-			{
-				$("#btn").attr("value",data.rank);
-			},
-			error: function(e)
-			{
-				console.log(e.responseText);
-			}
-		});
-	});
-};
+home.setMonthTitle = function(year, month)
+{
+	var obj = $("#bestMonthTitle");
 
-home.bestPlayer = function(){
+	obj.text(month + "월의 용사");
+}
 
-	$.ajax({
+home.getMonthData = function(year,month){
+	$.ajax ({
 		type: "GET",
 		dataType: "json",
-		url: "/static/airgg/riot_api/8.15.1/data/ko_KR/champion/Akali.json",
-		success: function(data)
+		url: "/f/month/users/?year="+year+"&month="+month,
+		success: function(userMonthData)
 		{
-			var championInfo = data.data.Akali;
-			var imgOption = {};
-			imgOption.src='full';
-			imgOption.version='8.15.1';
-			imgOption.wrap=2;
-			imgOption.skin=1;
-			imgOption.gray=false;
-			imgOption.size='normal';
+			var summaryUsers = [];
 
-			$("#bestChampion").append(Riot.DDragon.fn.getImg(championInfo,imgOption));
-			
+			summaryUsers = common.season.summaryUsers(userMonthData);
+
+			var keys = Object.keys(summaryUsers);
+			keys.sort(function (a,b) {
+				if ( summaryUsers[b].play == summaryUsers[a].play )
+				{
+					return  summaryUsers[b].winRatio - summaryUsers[a].winRatio;
+				}
+				return summaryUsers[b].play - summaryUsers[a].play;
+			});
+
+			home.setBestPlayer(keys[0],summaryUsers[keys[0]]);
 		},
 		error: function(e)
 		{
@@ -50,3 +44,46 @@ home.bestPlayer = function(){
 		}
 	});
 }
+
+home.setBestPlayer = function(userName, userData){
+	home.loadUserData(userName);
+}
+
+home.loadUserData = function(userName)
+{
+	$.ajax ({
+		type: "GET",
+		dataType: "json",
+		url: "/f/profile/?userName=" + userName,
+		success: function(userGameData)
+		{
+			var obj = $("#bestChampion");
+			$("#bestUserName").text(userName);
+			var mostData = common.user.summaryMostData(userGameData);
+
+			common.champion.getImg(obj,mostData.champion,null);
+			home.setMainInfo(mostData.line,mostData.winRatio);
+		},
+		error: function(e)
+		{
+			console.log(e.responseText);
+		}
+	});
+}
+
+home.setMainInfo = function(line,winRatio) {
+	var obj = $("#bestUserInfo");
+
+	if( line === undefined )
+	{
+		line = "Unknown";
+	}
+
+	if ( winRatio === undefined )
+	{
+		winRatio = 0;
+	}
+
+	obj.append( "주 라인: "+ line + "<br>" + "승률: " + winRatio + "%");
+}
+

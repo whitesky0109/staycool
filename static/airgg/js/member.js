@@ -66,20 +66,37 @@ member.getMembers = function(){
 				var $memberTableRow = $('<tr>',{'class':'member-table_row'});
 				var $memberUserId = $('<td>');
 				var $memberUserIdLink = $('<a>',
-					{'href':'/airgg/profile/?=' + data[index].user_id,
+					{'href':'/airgg/profile/?userName=' + data[index].user_id,
 					 'class':'member-table_link'}).text(data[index].user_id);
 				var $memberAge = $('<td>').text(data[index].age);
 				var $memberPreferLine = $('<td>').text(data[index].preference_line);
 				var $memberName = $('<td>').text(data[index].name);
-				var $memberMostChamp = $('<td>');
+				var $memberTitle = $('<td>');
+				var $memberTitleBadge = $('<span>');
+
+				if( data[index].position == "master")
+				{
+					$memberTitleBadge.attr('class','badge badge-success');
+				}
+				else if ( data[index].position == "manager" )
+				{
+					$memberTitleBadge.attr('class','badge badge-warning');
+				}
+				else
+				{
+					$memberTitleBadge.attr('class','badge badge-primary');
+				}
+				
+				$memberTitleBadge.text(data[index].position);
 
 				$memberUserId.append($memberUserIdLink);
+				$memberTitle.append($memberTitleBadge);
 
 				$memberTableRow.append($memberUserId);
+				$memberTableRow.append($memberTitle);
 				$memberTableRow.append($memberName);
 				$memberTableRow.append($memberAge);
 				$memberTableRow.append($memberPreferLine);
-				$memberTableRow.append($memberMostChamp);
 				table_body.append($memberTableRow);
 
 				member.setPositionArr(data[index].preference_line);

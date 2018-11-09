@@ -16,13 +16,13 @@ class Users(models.Model):
 	preference_line = models.CharField(max_length=100)
 	name = models.CharField(max_length=100)
 	member = models.BooleanField()
+	position = models.CharField(max_length=100, default='member')
 
 	def __str__(self):
 		return self.user_id
 
 class Champion(models.Model):
 	champion = models.CharField(max_length=100, primary_key=True)
-	img_url = models.CharField(max_length=255)
 	info_url = models.CharField(max_length=255)
 
 	def __str__(self):

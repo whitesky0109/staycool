@@ -53,8 +53,8 @@ body {
 }
 
 .airMenuBar.li-category a:hover{
-    font-size: 1.6em;
-    padding-top:2px;
+    font-size: 1.2em;
+    padding-top:1px;
 }
 
 .airMenuBar.li-search {
