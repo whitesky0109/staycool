@@ -14,7 +14,7 @@ profile.setUserName = function(name){
 	var profileNameObj = $('#profileName');
 
 	profileNameObj.append('<H3>' + name + '</H3>');
-	profileNameObj.attr("href","/airgg/profile/?userName=" + name);	
+	profileNameObj.attr("href","/profile/?userName=" + name);	
 };
 
 profile.getUserData = function(name){

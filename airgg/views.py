@@ -113,3 +113,64 @@ def filter_month_best(request):
 
 	return HttpResponse(qs_json, content_type='application/json')
 
+def filter_pick_ban(request):
+	season_user_data = []
+	season_ban_data = []
+	q = request.GET.get('season','')
+	
+	season_pick_ban = dict()
+	
+	if q.isdigit() and 0 < int(q) :
+		seasonVal = int(q)
+	else:
+		seasonVal = 1
+
+	game_qs = Game.objects.filter(season = seasonVal).values()
+	for obj in game_qs:
+		season_user_data += UserGameData.objects.filter(game_num = obj['game_num']).values()
+		season_ban_data += Ban.objects.filter(game_num = obj['game_num']).values()
+
+	for obj in season_user_data:
+		if obj['champion_id'] in season_pick_ban:
+			season_pick_ban[obj['champion_id']]['pick'] = season_pick_ban[obj['champion_id']]['pick'] + 1
+			if obj['win'] == 1:
+				season_pick_ban[obj['champion_id']]['win'] = season_pick_ban[obj['champion_id']]['win'] + 1
+		else:
+			season_pick_ban[obj['champion_id']] = dict();
+			season_pick_ban[obj['champion_id']]['pick'] = 1;
+			season_pick_ban[obj['champion_id']]['ban'] = 0;
+			season_pick_ban[obj['champion_id']]['win'] = obj['win'];
+		
+	for obj in season_ban_data:
+		if obj['champion_id'] in season_pick_ban:
+			season_pick_ban[obj['champion_id']]['ban'] = season_pick_ban[obj['champion_id']]['ban'] + 1
+		else:
+			season_pick_ban[obj['champion_id']] = dict();
+			season_pick_ban[obj['champion_id']]['pick'] = 0;
+			season_pick_ban[obj['champion_id']]['ban'] = 1;
+			season_pick_ban[obj['champion_id']]['win'] = 0;
+
+	return HttpResponse(json.dumps(season_pick_ban), content_type='application/json')
+
+def filter_game_win(request):
+	game_win_data = {'win1':0,'win2':0}
+	q = request.GET.get('season','')
+	game_qs = [];
+
+	if q.isdigit() and 0 < int(q) :
+		seasonVal = int(q)
+		game_qs = Game.objects.filter(season = seasonVal).values()
+	else:
+		seasonVal = 0
+		game_qs = Game.objects.all().values()
+
+
+	for obj in game_qs:
+		print(obj)
+		if obj['team1'] == 1:
+			game_win_data['win1'] = game_win_data['win1']+1;
+		elif obj['team2'] == 1:
+			game_win_data['win2'] = game_win_data['win2']+1;
+
+
+	return HttpResponse(json.dumps(game_win_data), content_type='application/json')

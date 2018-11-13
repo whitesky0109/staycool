@@ -54,7 +54,7 @@ ranking.setFirstMember = function(userName,userData) {
 				 'src':common.tier.challenger});
 	var $div = $('<div>');
 	var $userIdLink = $('<a>',
-			{'href':'/airgg/profile/?userName=' + userName,
+			{'href':'/profile/?userName=' + userName,
 			 'class':'ranking-highest_name'}).text(userName);
 	var $userInfo = $('<p>').append("승률: "+ userData.winRatio +"%<br>게임 수: "+ userData.play);
 
@@ -73,7 +73,7 @@ ranking.setSecondMember = function(userName,userData) {
 
 	var $div = $('<div>');
 	var $userIdLink = $('<a>',
-			{'href':'/airgg/profile/?userName=' + userName,
+			{'href':'/profile/?userName=' + userName,
 			 'class':'ranking-highest_name'}).text(userName);
 	var $userInfo = $('<p>').append("승률: "+ userData.winRatio +"%<br>게임 수: "+ userData.play);
 
@@ -91,7 +91,7 @@ ranking.setThirdMember = function(userName,userData) {
 				 'src':common.tier.diamond});
 	var $div = $('<div>');
 	var $userIdLink = $('<a>',
-			{'href':'/airgg/profile/?userName=' + userName,
+			{'href':'/profile/?userName=' + userName,
 			 'class':'ranking-highest_name'}).text(userName);
 	var $userInfo = $('<p>').append("승률: "+ userData.winRatio +" %<br>게임 수: "+ userData.play);
 
@@ -109,7 +109,7 @@ ranking.setRankingTable = function(userKeys, userDatas) {
 		var $tableRowObj = $('<tr>',{'class':'ranking-list-table_row'});
 		var $userIdObj = $('<td>');
 		var $userIdLink = $('<a>',
-			{'href':'/airgg/profile/?userName=' + userKeys[i],
+			{'href':'/profile/?userName=' + userKeys[i],
 			 'class':'ranking-highest_name'}).text(userKeys[i]);
 		var $tierObj = $('<td>');
 		var $tierImage = $('<img>',

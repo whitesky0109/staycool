@@ -66,7 +66,7 @@ member.getMembers = function(){
 				var $memberTableRow = $('<tr>',{'class':'member-table_row'});
 				var $memberUserId = $('<td>');
 				var $memberUserIdLink = $('<a>',
-					{'href':'/airgg/profile/?userName=' + data[index].user_id,
+					{'href':'/profile/?userName=' + data[index].user_id,
 					 'class':'member-table_link'}).text(data[index].user_id);
 				var $memberAge = $('<td>').text(data[index].age);
 				var $memberPreferLine = $('<td>').text(data[index].preference_line);

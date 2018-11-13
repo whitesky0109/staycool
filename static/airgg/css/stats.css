@@ -1,6 +1,25 @@
-.statsMainDiv {
+.stats-main-div {
 	width: 1080px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
+}
+
+.stats-title {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.img {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.row.stats-home-top {
+	height: 300px;
+}
+
+.row.stats-title-div {
+	padding: 10px;
 }
