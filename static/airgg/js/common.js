@@ -14,6 +14,14 @@ common.tier = {
 	'challenger':'/static/airgg/img/tier/challenger.png',
 };
 
+common.lineImg = {
+	'TOP':'/static/airgg/img/Top_icon.png',
+	'JUG':'/static/airgg/img/Jungle_icon.png',
+	'MID':'/static/airgg/img/Mid_icon.png',
+	'BOT':'/static/airgg/img/Bot_icon.png',
+	'SUP':'/static/airgg/img/Support_icon.png',
+}
+
 common.getRequest = function() {
 	if ( window.location.search.length > 1 ) {
 		var get = new Object();
@@ -233,3 +241,42 @@ common.season.summaryUsers = function(userSeasonData)
 
 	return summaryUsers;
 }
+
+common.season.summaryPositionUsers = function(userSeasonData)
+{
+	var summaryUsers = {};
+
+	for( var data in userSeasonData )
+	{
+		var position = userSeasonData[data].fields.line;
+		var userId = userSeasonData[data].fields.user_id;
+		if ( summaryUsers[position] === undefined )
+		{
+			summaryUsers[position] = {};
+		}
+
+		if ( summaryUsers[position][userId] === undefined )
+		{
+			summaryUsers[position][userId] = {};
+			summaryUsers[position][userId].kill = userSeasonData[data].fields.kill;
+			summaryUsers[position][userId].death = userSeasonData[data].fields.death;
+			summaryUsers[position][userId].asist = userSeasonData[data].fields.asist;
+			summaryUsers[position][userId].win = userSeasonData[data].fields.win;
+			summaryUsers[position][userId].play = 1;
+		}
+		else
+		{
+			summaryUsers[position][userId].kill += userSeasonData[data].fields.kill;
+			summaryUsers[position][userId].death += userSeasonData[data].fields.death;
+			summaryUsers[position][userId].asist += userSeasonData[data].fields.asist;
+			if ( userSeasonData[data].fields.win == 1 )
+			{
+				summaryUsers[position][userId].win++;
+			}
+			summaryUsers[position][userId].play++;
+		}
+	}
+
+	return summaryUsers;
+}
+

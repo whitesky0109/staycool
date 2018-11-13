@@ -5,6 +5,23 @@ stats.home = {};
 stats.home.gameWinChart = {};
 stats.pickBan = {};
 stats.title = {};
+stats.title.comments = {
+	'CARRY':'가장 높은 KDA 수치를 보유',
+	'MURDER':'내전에서 가장 높은 킬 수치를 보유',
+	'TERESA':'내전에서 가장 높은 어시스트 수치를 보유',
+	'JOINER':'내전  참가를 가장 많이한 사람',
+	'MOLA':'내전에서 가장 높은 데스 수치를 보유',
+	'THE_JUNGLE':'협곡 그 자체...'
+}
+
+stats.position = {};
+stats.position.lineComment = {
+	'TOP':'The Top liner',
+	'JUG':'The Jungle liner',
+	'MID':'The Mid liner',
+	'BOT':'The Bot liner',
+	'SUP':'The Support Liner',
+};
 
 stats.init = function(){
 	var getParams = common.getRequest();
@@ -21,7 +38,7 @@ stats.init = function(){
 	}
 	else if ( getParams.type === "position_rank" )
 	{
-		stats.test(getParams.type);
+		stats.position.getUserData(season);
 	}
 	else if ( getParams.type === "for_manager" )
 	{
@@ -256,19 +273,52 @@ stats.title.getSeasonUserData = function(season){
 
 			summaryUsers = common.season.summaryUsers(userSeasonData);
 
+			var carry = stats.title.findCarry(summaryUsers);
 			var murder = stats.title.findMurder(summaryUsers);
 			var teresa = stats.title.findTeresa(summaryUsers);
 			var mola = stats.title.findMola(summaryUsers);
+			var joiner = stats.title.findJoiner(summaryUsers);
+			var theJungle = stats.title.findUser("AlR 쩨이",summaryUsers);
 
-			stats.title.setTitle(murder,"학살자",common.tier.challenger,"다 비켜 내가 죽인다.");
-			stats.title.setTitle(teresa,"테레사",common.tier.challenger,"제가 살려드립니다.");
-			stats.title.setTitle(mola,"개복치",common.tier.challenger,"건드리지 마세요.");
+			stats.title.setTitle(carry,"케리",common.tier.challenger,stats.title.comments.CARRY);
+			stats.title.setTitle(murder,"학살자",common.tier.challenger,stats.title.comments.MURDER);
+			stats.title.setTitle(teresa,"테레사",common.tier.challenger,stats.title.comments.TERESA);
+			stats.title.setTitle(mola,"개복치",common.tier.challenger,stats.title.comments.MOLA);
+			stats.title.setTitle(joiner,"개근",common.tier.challenger,stats.title.comments.JOINER);
+			stats.title.setTitle(theJungle,"더 정글",common.tier.challenger,stats.title.comments.THE_JUNGLE);
 		},
 		error: function(e)
 		{
 			console.log(e.responseText);
 		}
 	});
+}
+
+stats.title.findCarry = function(summaryUsers){
+	var user = {'userId':'','kill':'','death':'','asist':'','win':'','play':'','winRatio':''};
+	var keys = Object.keys(summaryUsers);
+	keys.sort(function (a,b) {
+		if( summaryUsers[b].play < 10 )
+			return -1;
+
+		if ( summaryUsers[a].play < 10 )
+			return 1;
+
+		var kdab = (summaryUsers[b].kill + summaryUsers[b].asist)/summaryUsers[b].death;
+		var kdaa = (summaryUsers[a].kill + summaryUsers[a].asist)/summaryUsers[b].death;
+
+		return kdab - kdaa;
+	});
+
+	user.userId = keys[0];
+	user.kill = summaryUsers[keys[0]].kill;
+	user.death = summaryUsers[keys[0]].death;
+	user.asist = summaryUsers[keys[0]].asist;
+	user.win = summaryUsers[keys[0]].win;
+	user.play = summaryUsers[keys[0]].play;
+	user.winRatio = summaryUsers[keys[0]].winRatio;
+
+	return user;
 }
 
 stats.title.findMurder = function(summaryUsers){
@@ -353,7 +403,124 @@ stats.title.findMola = function(summaryUsers){
 	return user;
 }
 
+stats.title.findJoiner = function(summaryUsers){
+	var user = {'userId':'','kill':'','death':'','asist':'','win':'','play':'','winRatio':''};
+	var keys = Object.keys(summaryUsers);
+
+	keys.sort(function (a,b) {
+		return summaryUsers[b].play - summaryUsers[a].play;
+	});
+
+	user.userId = keys[0];
+	user.kill = summaryUsers[keys[0]].kill;
+	user.death = summaryUsers[keys[0]].death;
+	user.asist = summaryUsers[keys[0]].asist;
+	user.win = summaryUsers[keys[0]].win;
+	user.play = summaryUsers[keys[0]].play;
+	user.winRatio = summaryUsers[keys[0]].winRatio;
+
+	return user;
+}
+
+stats.title.findUser = function(userId,summaryUsers){
+	var user = {'userId':'','kill':'','death':'','asist':'','win':'','play':'','winRatio':''};
+
+	user.userId = userId;
+	user.kill = summaryUsers[userId].kill;
+	user.death = summaryUsers[userId].death;
+	user.asist = summaryUsers[userId].asist;
+	user.win = summaryUsers[userId].win;
+	user.play = summaryUsers[userId].play;
+	user.winRatio = summaryUsers[userId].winRatio;
+
+	return user;
+}
+
 stats.title.setTitle = function(user,title,img,desc){
+	var obj = $("#statsMainDiv");
+	var $titleDiv = $('<div>', {'class': 'row stats-title-div border border-info'});
+	var $titleImgDiv = $('<div>', {'class': 'col-sm'});
+	var $titleInfoDiv = $('<div>', {'class': 'col-sm'});
+	var $titleDocDiv = $('<div>', {'class': 'col-sm'});
+
+	var $imgObj = $('<img>',{src:img});
+	var $titleNameObj = $('<H4><span class="badge badge-primary">'+ title +'</H4>');
+	var $infoIdObj = $('<p>');
+	var $infoKdaObj = $('<p>');
+	var $infoPlayObj = $('<p>');
+	var $docObj = $('<p>');
+
+	var k = (user.kill/user.play).toFixed(1);
+	var d = (user.death/user.play).toFixed(1);
+	var a = (user.asist/user.play).toFixed(1);
+
+	$infoIdObj.text(user.userId);
+	$infoKdaObj.text('KDA: ' + k + '/' + d + '/ '+ a);
+	$infoPlayObj.text('Play: ' + user.play);
+	$docObj.text(desc);
+
+	$titleImgDiv.append($imgObj);
+	$titleInfoDiv.append($titleNameObj);
+	$titleInfoDiv.append($infoIdObj);
+	$titleInfoDiv.append($infoKdaObj);
+	$titleInfoDiv.append($infoPlayObj);
+	$titleDocDiv.append($docObj);
+
+	$titleDiv.append($titleImgDiv);
+	$titleDiv.append($titleInfoDiv);
+	$titleDiv.append($titleDocDiv);
+	obj.append($titleDiv);
+}
+
+stats.position.getUserData = function(season){
+	$.ajax ({
+		type: "GET",
+		dataType: "json",
+		url: "/f/season/users/?season=" + season,
+		success: function(userSeasonData)
+		{
+			var summaryPUsers = [];
+
+			summaryPUsers = common.season.summaryPositionUsers(userSeasonData);
+			var mostTopUser = stats.position.findMostLiner(summaryPUsers['TOP']);
+			var mostMidUser = stats.position.findMostLiner(summaryPUsers['MID']);
+			var mostJugUser = stats.position.findMostLiner(summaryPUsers['JUG']);
+			var mostBotUser = stats.position.findMostLiner(summaryPUsers['BOT']);
+			var mostSupUser = stats.position.findMostLiner(summaryPUsers['SUP']);
+
+			stats.position.setTitle (mostTopUser,'TOP',common.lineImg.TOP,stats.position.lineComment.TOP);
+			stats.position.setTitle (mostJugUser,'JUG',common.lineImg.JUG,stats.position.lineComment.JUG);
+			stats.position.setTitle (mostMidUser,'MID',common.lineImg.MID,stats.position.lineComment.MID);
+			stats.position.setTitle (mostBotUser,'BOT',common.lineImg.BOT,stats.position.lineComment.BOT);
+			stats.position.setTitle (mostSupUser,'SUP',common.lineImg.TOP,stats.position.lineComment.SUP);
+		},
+		error: function(e)
+		{
+			console.log(e.responseText);
+		}
+	});
+}
+
+stats.position.findMostLiner = function(summaryUsers){
+	var user = {'userId':'','kill':'','death':'','asist':'','win':'','play':'','winRatio':''};
+	var keys = Object.keys(summaryUsers);
+
+	keys.sort(function (a,b) {
+		return summaryUsers[b].play - summaryUsers[a].play;
+	});
+
+	user.userId = keys[0];
+	user.kill = summaryUsers[keys[0]].kill;
+	user.death = summaryUsers[keys[0]].death;
+	user.asist = summaryUsers[keys[0]].asist;
+	user.win = summaryUsers[keys[0]].win;
+	user.play = summaryUsers[keys[0]].play;
+	user.winRatio = summaryUsers[keys[0]].winRatio;
+
+	return user;
+}
+
+stats.position.setTitle = function(user,title,img,desc){
 	var obj = $("#statsMainDiv");
 	var $titleDiv = $('<div>', {'class': 'row stats-title-div border border-info'});
 	var $titleImgDiv = $('<div>', {'class': 'col-sm'});
