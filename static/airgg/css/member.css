@@ -3,11 +3,13 @@
 	width: 1080px;
 	margin-left: auto;
 	margin-right: auto;
+	text-align: center;
 }
 .member-div {
 	width: 1080px;
 	margin-left: auto;
 	margin-right: auto;
+	text-align: center;
 }
 
 .member-table_link {
@@ -15,9 +17,10 @@
 }
 
 .member-total-table {
+	width: 1080px;
 	margin-left: auto;
 	margin-right: auto;
-	
+	text-align: center;
 }
 
 .member-master {

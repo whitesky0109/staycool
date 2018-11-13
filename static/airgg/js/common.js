@@ -22,6 +22,12 @@ common.lineImg = {
 	'SUP':'/static/airgg/img/Support_icon.png',
 }
 
+common.onSearch = function() {
+	var name = $('#airSearchInput').val();
+
+	location.href = "/profile?userName=" + name;
+}
+
 common.getRequest = function() {
 	if ( window.location.search.length > 1 ) {
 		var get = new Object();

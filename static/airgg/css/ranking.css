@@ -3,6 +3,7 @@ body {
 }
 
 .ranking-highest {
+	width: 1080px;
 	float-right: auto;
 	float-left: auto;
 	text-align: center;
@@ -20,20 +21,18 @@ body {
 	position: relative;
 }
 
-.row.ranking-highest_high {
+.ranking-highest {
 	width: 1080px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 }
 
-.container.ranking-list {
+.ranking-list {
 	width: 1080px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
-	padding-top: 30px;
-	border-radius: 5px;
 }
 
 .ranking-highest_name {
@@ -41,7 +40,5 @@ body {
 }
 
 .ranking-tier-img {
-	padding: 0;
-	margin: 0;
 	width: 50px;
 }

@@ -31,8 +31,8 @@ $(document).ready(function() {
 			<li class="airMenuBar li-category"><a href="https://cafe.naver.com/alightrest">커뮤니티</a></li>
 			<li class="airMenuBar li-category"><a href="https://www.youtube.com/channel/UCGNbhTiN8xMGOKtiQbMxmkQ">하나튜브</a></li>
 			<li class="airMenuBar li-search">
-				<input class="airSearchInput" type="text" placeholder="Search..">
-				<button class="airSearchBtn">
+				<input id="airSearchInput" type="text" placeholder="Search..">
+				<button id="airSearchBtn" onclick="common.onSearch()">
 					<img src="{% static 'airgg/img/search.png' %}"></img>
 				</button>
 			</li>
