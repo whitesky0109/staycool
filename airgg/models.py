@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import timedelta
 
 class Game(models.Model):
 	game_num = models.AutoField(primary_key=True)
@@ -6,7 +7,7 @@ class Game(models.Model):
 	date = models.DateTimeField()
 	team1 = models.IntegerField()
 	team2 = models.IntegerField()
-	duration = models.DurationField()
+	duration = models.DurationField(default=timedelta)
 
 
 class Users(models.Model):

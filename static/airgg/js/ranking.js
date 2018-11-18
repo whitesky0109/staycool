@@ -1,9 +1,10 @@
 
 var ranking = {};
+ranking.season = 2;
 
 ranking.init = function(){
-	ranking.setSeasonTitle(1);
-	ranking.getSeasonData(1);
+	ranking.setSeasonTitle(ranking.season);
+	ranking.getSeasonData(ranking.season);
 }
 
 ranking.setSeasonTitle = function(season){

@@ -25,7 +25,7 @@ stats.position.lineComment = {
 
 stats.init = function(){
 	var getParams = common.getRequest();
-	var season = 1;
+	var season = 2;
 
 	if ( getParams.type === "unique_title" )
 	{
@@ -59,7 +59,6 @@ stats.test = function(text){
 }
 
 stats.home.getWinGameData = function(season){
-	var season = 0;
 
 	$.ajax ({
 		type: "GET",
@@ -78,7 +77,6 @@ stats.home.getWinGameData = function(season){
 }
 
 stats.home.getMostChampData = function(season){
-	var season = 1;
 
 	$.ajax ({
 		type: "GET",
@@ -182,7 +180,6 @@ stats.home.setMostChamp = function(keys,championPickBan){
 }
 
 stats.pickBan.getData = function(season){
-	var season = 1;
 
 	$.ajax ({
 		type: "GET",
