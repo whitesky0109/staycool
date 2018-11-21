@@ -302,7 +302,7 @@ stats.title.findCarry = function(summaryUsers){
 			return 1;
 
 		var kdab = (summaryUsers[b].kill + summaryUsers[b].asist)/summaryUsers[b].death;
-		var kdaa = (summaryUsers[a].kill + summaryUsers[a].asist)/summaryUsers[b].death;
+		var kdaa = (summaryUsers[a].kill + summaryUsers[a].asist)/summaryUsers[a].death;
 
 		return kdab - kdaa;
 	});
