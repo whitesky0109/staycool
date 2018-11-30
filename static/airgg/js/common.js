@@ -211,6 +211,10 @@ common.user.summaryLine = function(userGameData) {
 	return summaryLine;
 }
 
+common.season.getNow = function() {
+	return 2;
+}
+
 common.season.summaryUsers = function(userSeasonData)
 {
 	var summaryUsers = {};
@@ -256,6 +260,7 @@ common.season.summaryPositionUsers = function(userSeasonData)
 	{
 		var position = userSeasonData[data].fields.line;
 		var userId = userSeasonData[data].fields.user_id;
+	
 		if ( summaryUsers[position] === undefined )
 		{
 			summaryUsers[position] = {};
@@ -284,5 +289,69 @@ common.season.summaryPositionUsers = function(userSeasonData)
 	}
 
 	return summaryUsers;
+}
+
+common.season.summaryRelative = function(userSeasonData, player)
+{
+	var gameData = new Object;
+	var gameNumArr = new Array;
+	var relativeObj = new Object;
+
+	for( var data in userSeasonData )
+	{
+		var obj  = userSeasonData[data].fields;
+
+		if( obj.user_id === player )
+		{
+			gameNumArr.push(obj.game_num);
+		}
+
+		if ( gameData[obj.game_num] === undefined )
+		{
+			gameData[obj.game_num] = {};
+		}
+
+		if ( gameData[obj.game_num][obj.user_id] === undefined )
+		{
+			gameData[obj.game_num][obj.user_id] = {};
+			gameData[obj.game_num][obj.user_id].win = obj.win;
+		}
+	}
+
+	for( var num of gameNumArr )
+	{
+		for( var userId in gameData[num])
+		{
+			if( gameData[num][player].win === true && gameData[num][userId].win === false )
+			{
+				if( relativeObj[userId] === undefined )
+				{
+					relativeObj[userId] = {};
+					relativeObj[userId].win = 1;
+					relativeObj[userId].play = 1;
+				}
+				else
+				{
+					relativeObj[userId].win++;
+					relativeObj[userId].play++;
+				}
+			}
+			if( gameData[num][player].win === false && gameData[num][userId].win === true )
+			{
+				if( relativeObj[userId] === undefined )
+				{
+					relativeObj[userId] = {};
+					relativeObj[userId].win = 0;
+					relativeObj[userId].play = 1;
+				}
+				else
+				{
+					relativeObj[userId].play++;
+				}
+			}
+		}
+	}
+
+	return relativeObj;
 }
 

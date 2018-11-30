@@ -88,7 +88,13 @@ profile.setChampTable = function(champData)
 	var table_body = $("#profileChampTableBody");
 	var imgOption = {'src':'sprite','version':'8.15.1','wrap':2,'skin':1,'gray':false,'size':'normal'};
 
-	for ( var index in champData )
+	var keys = Object.keys(champData);
+
+	keys.sort(function(a,b){
+		return champData[b].play - champData[a].play;
+	});
+
+	for ( var index of keys )
 	{
 		var $tableRowObj = $('<tr>',{'class':'profile-champTable_row'});
 		var $championObj = $('<td>');

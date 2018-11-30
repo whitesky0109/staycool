@@ -18,8 +18,33 @@
 
 .row.stats-home-top {
 	height: 300px;
+	padding: 30px;
 }
 
 .row.stats-title-div {
 	padding: 10px;
+}
+
+.best-duo {
+	z-index:1;
+	position:relative;
+	width:512px;
+	height:300px;
+	margin:auto;
+}
+
+.best-duo:after{
+	width:512px;
+	height:300px;
+	z-index:-1;
+	position:absolute;
+	top:0;
+	left:0;
+	content:"";
+	background-image: url('background/slamdunk-hifive.jpg') ;
+	background-repeat:no-repeat;
+	background-position:center;
+	background-origin:content-box;
+	background-size: 100%;
+	opacity: 0.3!important; filter:alpha(opacity=30);
 }

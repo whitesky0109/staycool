@@ -5,10 +5,7 @@ class Game(models.Model):
 	game_num = models.AutoField(primary_key=True)
 	season = models.PositiveIntegerField()
 	date = models.DateTimeField()
-	team1 = models.IntegerField()
-	team2 = models.IntegerField()
 	duration = models.DurationField(default=timedelta)
-
 
 class Users(models.Model):
 	user_id = models.CharField(max_length=100, primary_key=True)
@@ -19,15 +16,9 @@ class Users(models.Model):
 	member = models.BooleanField()
 	position = models.CharField(max_length=100, default='member')
 
-	def __str__(self):
-		return self.user_id
-
 class Champion(models.Model):
 	champion = models.CharField(max_length=100, primary_key=True)
 	info_url = models.CharField(max_length=255)
-
-	def __str__(self):
-		return self.champion
 
 class Ban(models.Model):
 
@@ -37,18 +28,18 @@ class Ban(models.Model):
 	champion = models.ForeignKey(Champion, on_delete=models.CASCADE)
 	game_num = models.ForeignKey(Game, on_delete=models.CASCADE)
 
-	def __str__(self):
-		return self.champion
+class Line(models.Model):
+	line = models.CharField(max_length=5, default='UNKNOWN', primary_key=True)
 
 class UserGameData(models.Model):
 
 	class Meta:
-		unique_together = (('user_id','game_num','champion'),)
+		unique_together = (('user_id','game_num','champion','line'),)
 
 	user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
 	game_num = models.ForeignKey(Game, on_delete=models.CASCADE)
 	champion = models.ForeignKey(Champion, on_delete=models.CASCADE)
-	line = models.CharField(max_length=100, default='unknown')
+	line = models.ForeignKey(Line, on_delete=models.CASCADE)
 	kill = models.SmallIntegerField()
 	death = models.SmallIntegerField()
 	asist = models.SmallIntegerField()
@@ -56,9 +47,5 @@ class UserGameData(models.Model):
 	gold = models.PositiveIntegerField()
 	level = models.SmallIntegerField()
 	win = models.BooleanField()
-	team_num = models.SmallIntegerField()
 	
-	def __str__(self):
-		return self.user_id
-
 # Create your models here.

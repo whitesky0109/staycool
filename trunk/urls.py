@@ -20,13 +20,6 @@ from django.views.generic.base import TemplateView
 from rest_framework import routers
 from airgg import views
 
-router = routers.DefaultRouter()
-router.register(r'Game', views.GameViewSet)
-router.register(r'Users', views.UsersViewSet)
-router.register(r'Champion', views.ChampionViewSet)
-router.register(r'Ban', views.BanViewSet)
-router.register(r'UserGameData', views.UserGameDataViewSet)
-
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -36,13 +29,14 @@ urlpatterns = [
     url(r'^stats/', views.stats, name='stats'),
     url(r'^position/', views.position, name='position'),
     url(r'^profile/', views.profile, name='profile'),
-
-    url(r'^db/', include(router.urls)),
+    url(r'^dev/$',views.dev, name='dev'),
 
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^f/users/$', views.filter_members, name='users'),
     url(r'^f/profile/$', views.filter_user_profile, name='profile'),
     url(r'^f/season/gamewin/$', views.filter_game_win, name='gamewin'),
-    url(r'^f/season/users/$', views.filter_season_ranking, name='season'),
+    url(r'^f/season/users/$', views.filter_users, name='season'),
     url(r'^f/season/pickban/$', views.filter_pick_ban, name='month'),
-    url(r'^f/month/users/$', views.filter_month_best, name='month'),
+    url(r'^f/season/duo/$', views.filter_duo_win, name='duo'),
+    url(r'^f/month/users/$', views.filter_month_best, name='month')
 ]

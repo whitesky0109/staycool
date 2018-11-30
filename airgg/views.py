@@ -5,17 +5,23 @@ from rest_framework.response import Response
 from .serializers import GameSerializer
 from .serializers import UsersSerializer
 from .serializers import ChampionSerializer
+from .serializers import LineSerializer
 from .serializers import BanSerializer
 from .serializers import UserGameDataSerializer
 from .models import Game
 from .models import Users
 from .models import Champion
+from .models import Line
 from .models import Ban
 from .models import UserGameData
 
+from .forms import PostForm
+
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import HttpResponseBadRequest
 from django.core import serializers
+from django.db.models import Q
 
 from datetime import datetime
 
@@ -35,6 +41,10 @@ class UsersViewSet(viewsets.ModelViewSet):
 class ChampionViewSet(viewsets.ModelViewSet):
     queryset = Champion.objects.all()
     serializer_class = ChampionSerializer
+
+class ChampionViewSet(viewsets.ModelViewSet):
+    queryset = Line.objects.all()
+    serializer_class = LineSerializer
 
 class BanViewSet(viewsets.ModelViewSet):
     queryset = Ban.objects.all()
@@ -62,40 +72,48 @@ def stats(request):
 def profile(request):
 	return render(request, "airgg/profile.html")
 
+def dev(request):
+	return render(request, "airgg/test.html")
+
+def input_users(request):
+	form = PostForm()
+	return render(request, "airgg/input.html", {"form":form})
+
+def filter_members(request):
+	queryset = Users.objects.all()
+	qs_json = serializers.serialize('json',queryset)
+	
+	return HttpResponse(qs_json, content_type='application/json')
+
 def filter_user_profile(request):
-	queryset = UserGameData.objects.all()
 	q = request.GET.get('userName','')
 	if q:
-		queryset = queryset.filter(user_id = q)
+		queryset = UserGameData.objects.filter(user_id = q)
 		qs_json = serializers.serialize('json',queryset)
 
 	return HttpResponse(qs_json, content_type='application/json')
 
-def filter_season_ranking(request):
-	game_qs = Game.objects.all()
-	user_qs = UserGameData.objects.all()
+def filter_users(request):
 	q = request.GET.get('season','')
 	season_user_data = []
 
 	if q.isdigit() and 0 < int(q) :
 		seasonVal = int(q)
+		game_qs = Game.objects.filter(season = seasonVal).values()
 	else:
-		seasonVal = 1
+		game_qs = Game.objects.filter().values()
 
-	game_qs = game_qs.filter(season = seasonVal).values()
 	for obj in game_qs:
-		season_user_data += user_qs.filter(game_num = obj['game_num'])
+		season_user_data += UserGameData.objects.filter(game_num = obj['game_num'])
 		
 	qs_json = serializers.serialize('json',season_user_data)
 
 	return HttpResponse(qs_json, content_type='application/json')
 
 def filter_month_best(request):
-	game_qs = Game.objects.all()
-	user_qs = UserGameData.objects.all()
-	month_user_data = []
 	year = 2018
 	month = 9
+	month_user_data = []
 
 	q_year = request.GET.get('year','')
 	q_month = request.GET.get('month','')
@@ -105,9 +123,9 @@ def filter_month_best(request):
 	if q_month.isdigit():
 		month = int(q_month)
 
-	game_qs = game_qs.filter(date__year=year, date__month=month).values()
+	game_qs = Game.objects.filter(date__year=year, date__month=month).values()
 	for obj in game_qs:
-		month_user_data += user_qs.filter(game_num = obj['game_num'])
+		month_user_data += UserGameData.objects.filter(game_num = obj['game_num'])
 
 	qs_json = serializers.serialize('json',month_user_data)
 
@@ -166,11 +184,73 @@ def filter_game_win(request):
 
 
 	for obj in game_qs:
-		print(obj)
 		if obj['team1'] == 1:
 			game_win_data['win1'] = game_win_data['win1']+1;
 		elif obj['team2'] == 1:
 			game_win_data['win2'] = game_win_data['win2']+1;
 
-
 	return HttpResponse(json.dumps(game_win_data), content_type='application/json')
+
+def filter_duo_win(request):
+	duo_datas = dict()
+	q = request.GET.get('season','')
+	
+	if q.isdigit() and 0 < int(q) :
+		seasonVal = int(q)
+		game_qs = Game.objects.filter(season = seasonVal).values()
+	else:
+		seasonVal = 0
+		game_qs = Game.objects.all().values()
+
+	for obj in game_qs:
+		win_liner = UserGameData.objects.filter(Q(game_num = obj['game_num'], line = 'BOT', win = True)|Q(game_num = obj['game_num'], line = 'SUP', win = True)).values()
+		lose_liner = UserGameData.objects.filter(Q(game_num = obj['game_num'], line = 'BOT', win = False)|Q(game_num = obj['game_num'], line = 'SUP', win = False)).values()
+
+		if win_liner.count() == 2 :
+			temp = dict();
+			temp[win_liner[0]['line_id']] = win_liner[0]['user_id_id']
+			temp[win_liner[1]['line_id']] = win_liner[1]['user_id_id']
+
+			if 'SUP' in temp and 'BOT' in temp:
+				key = temp['BOT'] + temp['SUP']
+			else:
+				continue
+
+			if key in duo_datas:
+				duo_datas[key]['win'] = duo_datas[key]['win'] + 1
+				duo_datas[key]['play'] = duo_datas[key]['play'] + 1
+			else:
+				duo_datas[key] = dict()
+				duo_datas[key]['win'] = 1
+				duo_datas[key]['play'] = 1
+				duo_datas[key]['BOT'] = temp['BOT']
+				duo_datas[key]['SUP'] = temp['SUP']
+
+		if lose_liner.count() == 2 :
+			temp = dict();
+			temp[lose_liner[0]['line_id']] = lose_liner[0]['user_id_id']
+			temp[lose_liner[1]['line_id']] = lose_liner[1]['user_id_id']
+
+			if 'SUP' in temp and 'BOT' in temp:
+				key = temp['BOT'] + temp['SUP']
+			else:
+				continue
+
+			if key in duo_datas:
+				duo_datas[key]['play'] = duo_datas[key]['play'] + 1
+			else:
+				duo_datas[key] = dict()
+				duo_datas[key]['win'] = 0
+				duo_datas[key]['play'] = 1
+				duo_datas[key]['BOT'] = temp['BOT']
+				duo_datas[key]['SUP'] = temp['SUP']
+
+
+	return HttpResponse(json.dumps(duo_datas), content_type='application/json')
+
+def test_users(request):
+	game = {'win':0}
+	if request.method == "POST":
+		return HttpResponse("Post method")
+
+	return HttpResponseBadRequest()

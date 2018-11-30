@@ -57,28 +57,31 @@ member.getMembers = function(){
 	$.ajax({
 		type: "GET",
 		dataType: "json",
-		url: "/db/Users/",
+		url: "/f/users/",
 		success: function(data)
 		{
 			var table_body = $("#memberTableBody");
 
 			for( var index in data ) {
+				var user_id = data[index].pk;
+				var userFields = data[index].fields;
+
 				var $memberTableRow = $('<tr>',{'class':'member-table_row'});
 				var $memberUserId = $('<td>');
 				var $memberUserIdLink = $('<a>',
-					{'href':'/profile/?userName=' + data[index].user_id,
-					 'class':'member-table_link'}).text(data[index].user_id);
-				var $memberAge = $('<td>').text(data[index].age);
-				var $memberPreferLine = $('<td>').text(data[index].preference_line);
-				var $memberName = $('<td>').text(data[index].name);
+					{'href':'/profile/?userName=' + user_id,
+					 'class':'member-table_link'}).text(user_id);
+				var $memberAge = $('<td>').text(userFields.age);
+				var $memberPreferLine = $('<td>').text(userFields.preference_line);
+				var $memberName = $('<td>').text(userFields.name);
 				var $memberTitle = $('<td>');
 				var $memberTitleBadge = $('<span>');
 
-				if( data[index].position == "master")
+				if( userFields.position == "master")
 				{
 					$memberTitleBadge.attr('class','badge badge-success');
 				}
-				else if ( data[index].position == "manager" )
+				else if ( userFields.position == "manager" )
 				{
 					$memberTitleBadge.attr('class','badge badge-warning');
 				}
@@ -87,7 +90,7 @@ member.getMembers = function(){
 					$memberTitleBadge.attr('class','badge badge-primary');
 				}
 				
-				$memberTitleBadge.text(data[index].position);
+				$memberTitleBadge.text(userFields.position);
 
 				$memberUserId.append($memberUserIdLink);
 				$memberTitle.append($memberTitleBadge);
@@ -99,7 +102,7 @@ member.getMembers = function(){
 				$memberTableRow.append($memberPreferLine);
 				table_body.append($memberTableRow);
 
-				member.setPositionArr(data[index].preference_line);
+				member.setPositionArr(userFields.preference_line);
 			}
 
 			member.updateTitlePieChart(member.pieChart, "Total member: " + data.length);

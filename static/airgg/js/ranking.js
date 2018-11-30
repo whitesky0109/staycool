@@ -1,6 +1,6 @@
 
 var ranking = {};
-ranking.season = 2;
+ranking.season = common.season.getNow();
 
 ranking.init = function(){
 	ranking.setSeasonTitle(ranking.season);
@@ -36,8 +36,11 @@ ranking.getSeasonData = function(season){
 			});
 
 			ranking.setFirstMember(keys[0],summaryUsers[keys[0]]);
-			ranking.setSecondMember(keys[1],summaryUsers[keys[1]]);
-			ranking.setThirdMember(keys[2],summaryUsers[keys[2]]);
+			for ( var i = 1; i < 5; i++ )
+			{
+				ranking.setHighRanker(keys[i],summaryUsers[keys[i]]);
+			}
+
 			ranking.setRankingTable(keys, summaryUsers);
 		},
 		error: function(e)
@@ -48,64 +51,51 @@ ranking.getSeasonData = function(season){
 }
 
 ranking.setFirstMember = function(userName,userData) {
-	var obj = $("#firstClass");
+	var obj = $("#rankingFirst");
 
+	var $div = $('<div>');
 	var $tierImage = $('<img>',
 				{'class':'ranking-highest-tier-img',
 				 'src':common.tier.challenger});
-	var $div = $('<div>');
-	var $userIdLink = $('<a>',
-			{'href':'/profile/?userName=' + userName,
-			 'class':'ranking-highest_name'}).text(userName);
-	var $userInfo = $('<p>').append("승률: "+ userData.winRatio +"%<br>게임 수: "+ userData.play);
-
-	obj.append($tierImage);
-	$div.append($userIdLink);
-	$div.append($userInfo);
-	obj.append($div);
-}
-
-ranking.setSecondMember = function(userName,userData) {
-	var obj = $("#secondClass");
-
-	var $tierImage = $('<img>',
-				{'class':'ranking-highest-tier-img',
-				 'src':common.tier.master});
-
-	var $div = $('<div>');
-	var $userIdLink = $('<a>',
-			{'href':'/profile/?userName=' + userName,
-			 'class':'ranking-highest_name'}).text(userName);
-	var $userInfo = $('<p>').append("승률: "+ userData.winRatio +"%<br>게임 수: "+ userData.play);
-
-	obj.append($tierImage);
-	$div.append($userIdLink);
-	$div.append($userInfo);
-	obj.append($div);
-}
-
-ranking.setThirdMember = function(userName,userData) {
-	var obj = $("#thirdClass");
-
-	var $tierImage = $('<img>',
-				{'class':'ranking-highest-tier-img',
-				 'src':common.tier.diamond});
-	var $div = $('<div>');
+	var $infoDiv = $('<div>');
 	var $userIdLink = $('<a>',
 			{'href':'/profile/?userName=' + userName,
 			 'class':'ranking-highest_name'}).text(userName);
 	var $userInfo = $('<p>').append("승률: "+ userData.winRatio +" %<br>게임 수: "+ userData.play);
+	
+	$div.append($tierImage);
+	$infoDiv.append($userIdLink);
+	$infoDiv.append($userInfo);
+	$div.append($infoDiv);	
 
-	obj.append($tierImage);
-	$div.append($userIdLink);
-	$div.append($userInfo);
+	obj.append($div);
+}
+
+ranking.setHighRanker = function(userName,userData) {
+	var obj = $("#rankingHighRankers");
+
+	var $div = $('<div class="col-sm-3">');
+	var $tierImage = $('<img>',
+				{'class':'ranking-highest-tier-img',
+				 'src':common.tier.master});
+	var $infoDiv = $('<div>');
+	var $userIdLink = $('<a>',
+			{'href':'/profile/?userName=' + userName,
+			 'class':'ranking-highest_name'}).text(userName);
+	var $userInfo = $('<p>').append("승률: "+ userData.winRatio +" %<br>게임 수: "+ userData.play);
+	
+	$div.append($tierImage);
+	$infoDiv.append($userIdLink);
+	$infoDiv.append($userInfo);
+	$div.append($infoDiv);	
+
 	obj.append($div);
 }
 
 ranking.setRankingTable = function(userKeys, userDatas) {
 	var table = $("#rankingList");
 
-	for(var i=3 ; i < userKeys.length; i++)
+	for(var i=5 ; i < userKeys.length; i++)
 	{
 		var $tableRowObj = $('<tr>',{'class':'ranking-list-table_row'});
 		var $userIdObj = $('<td>');
@@ -121,11 +111,20 @@ ranking.setRankingTable = function(userKeys, userDatas) {
 		$playObj.text(userDatas[userKeys[i]].play);
 		$winRatioObj.text(userDatas[userKeys[i]].winRatio + " %");
 
+		if( userDatas[userKeys[i]].play < 4 )
+		{
+			$tableRowObj.addClass('table-danger');
+		}
+
 		if( userDatas[userKeys[i]].play < 10 )
 		{
 			$tierImage.attr('src',common.tier.unranked);
 		}
 		else if( Number(userDatas[userKeys[i]].winRatio) > 50)
+		{
+			$tierImage.attr('src',common.tier.diamond);
+		}
+		else if( Number(userDatas[userKeys[i]].winRatio) > 40)
 		{
 			$tierImage.attr('src',common.tier.platinum);
 		}

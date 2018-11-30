@@ -2,37 +2,16 @@ body {
 	font-family: 'OpenSans-Light';
 }
 
-.ranking-highest {
-	width: 1080px;
-	float-right: auto;
-	float-left: auto;
-	text-align: center;
-}
-
-.ranking-highest_first {
+.ranking-first {
 	width: 500px;
 	height: 300px;
 	margin-left: auto;
 	margin-right: auto;
 	padding-top: 20px;
-	background-image:url('best_ring2.png');
+	background-image:url('background/best_ring2.png');
 	background-repeat: no-repeat;
 	background-size: 500px 300px;
 	position: relative;
-}
-
-.ranking-highest {
-	width: 1080px;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-}
-
-.ranking-list {
-	width: 1080px;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
 }
 
 .ranking-highest_name {

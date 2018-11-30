@@ -23,9 +23,11 @@ stats.position.lineComment = {
 	'SUP':'The Support Liner',
 };
 
+stats.relative = {};
+
 stats.init = function(){
 	var getParams = common.getRequest();
-	var season = 2;
+	var season = common.season.getNow();
 
 	if ( getParams.type === "unique_title" )
 	{
@@ -40,6 +42,10 @@ stats.init = function(){
 	{
 		stats.position.getUserData(season);
 	}
+	else if ( getParams.type === "relative_total" )
+	{
+		stats.relative.initSearchButton();
+	}
 	else if ( getParams.type === "for_manager" )
 	{
 		stats.test(getParams.type);
@@ -47,16 +53,10 @@ stats.init = function(){
 	else
 	{	
 		stats.home.initContents();
-		stats.home.getWinGameData(season);
 		stats.home.getMostChampData(season);
+		stats.home.getMostDuoData(season);
 	}
 };
-
-stats.test = function(text){
-	var obj = $("#statsMainDiv");
-
-	obj.append(text);
-}
 
 stats.home.getWinGameData = function(season){
 
@@ -101,12 +101,44 @@ stats.home.getMostChampData = function(season){
 	});
 }
 
+stats.home.getMostDuoData = function(season){
+
+	$.ajax ({
+		type: "GET",
+		dataType: "json",
+		url: "/f/season/duo/?season=0",
+		success: function(duoDatas)
+		{
+			var obj = $("#statsMainDiv");
+			var keys = Object.keys(duoDatas)
+			keys.sort(function (a,b) {
+				if( duoDatas[b].play < 5 )
+					return -1;
+
+				if ( duoDatas[a].play < 5 )
+					return 1;
+
+				var beta = duoDatas[b].win/duoDatas[b].play;
+				var alpha = duoDatas[a].win/duoDatas[a].play;
+
+				return beta - alpha;
+			})
+
+			stats.home.setMostDuo(obj,duoDatas[keys[0]]);
+		},
+		error: function(e)
+		{
+			console.log(e.responseText);
+		}
+	});
+}
+
 stats.home.initContents = function(){
 	var obj = $("#statsMainDiv");
 
-	$divTop = $("<div id='topDiv' class='row stats-home-top'><div>");
-	$divTop1 = $("<div class='col-sm'><div>");
-	$divTop2 = $("<div class='col-sm'><div>");
+	$divTop = $("<div id='topDiv' class='row stats-home'><div>");
+	$divTop1 = $("<div class='col-sm-6'><div>");
+	$divTop2 = $("<div class='col-sm-6'><div>");
 
 	stats.home.initMostChamp($divTop1);
 	stats.home.initGameWinPie($divTop2);
@@ -118,7 +150,7 @@ stats.home.initContents = function(){
 }
 
 stats.home.initGameWinPie = function(obj){
-	$titleObj = $('<H2>Clan Team 승률</H2>');
+	$titleObj = $('<H2>공사중.</H2>');
 	$canvasObj = $("<canvas id='gameWinPie' height='100px'></canvas>");
 	obj.append($titleObj);
 	obj.append($canvasObj);
@@ -177,6 +209,19 @@ stats.home.setMostChamp = function(keys,championPickBan){
 
 	obj.append($pickBanObj);
 	obj.append($winRatioObj);
+}
+
+stats.home.setMostDuo = function(obj,duo){
+	var $div = $('<div class="best-duo">');
+	var $bestDuoTitle = $('<h2>Clan BEST DUO</h2>');
+	var $duoNameInfo = $('<h6 style="padding-top:130px"> BOT: ' + duo.BOT + '/ SUP: ' + duo.SUP + '</h6>');
+	var $duoGameInfo = $('<h6> PLAY: ' + duo.play + '/ WIN: ' + duo.win + '</h6>');
+
+	$div.append($duoNameInfo);
+	$div.append($duoGameInfo);
+
+	obj.append($bestDuoTitle);
+	obj.append($div);
 }
 
 stats.pickBan.getData = function(season){
@@ -266,7 +311,7 @@ stats.title.getSeasonUserData = function(season){
 		url: "/f/season/users/?season=" + season,
 		success: function(userSeasonData)
 		{
-			var summaryUsers = [];
+			var summaryUsers = {};
 
 			summaryUsers = common.season.summaryUsers(userSeasonData);
 
@@ -436,9 +481,9 @@ stats.title.findUser = function(userId,summaryUsers){
 stats.title.setTitle = function(user,title,img,desc){
 	var obj = $("#statsMainDiv");
 	var $titleDiv = $('<div>', {'class': 'row stats-title-div border border-info'});
-	var $titleImgDiv = $('<div>', {'class': 'col-sm'});
-	var $titleInfoDiv = $('<div>', {'class': 'col-sm'});
-	var $titleDocDiv = $('<div>', {'class': 'col-sm'});
+	var $titleImgDiv = $('<div>', {'class': 'col-sm-4'});
+	var $titleInfoDiv = $('<div>', {'class': 'col-sm-4'});
+	var $titleDocDiv = $('<div>', {'class': 'col-sm-4'});
 
 	var $imgObj = $('<img>',{src:img});
 	var $titleNameObj = $('<H4><span class="badge badge-primary">'+ title +'</H4>');
@@ -520,9 +565,9 @@ stats.position.findMostLiner = function(summaryUsers){
 stats.position.setTitle = function(user,title,img,desc){
 	var obj = $("#statsMainDiv");
 	var $titleDiv = $('<div>', {'class': 'row stats-title-div border border-info'});
-	var $titleImgDiv = $('<div>', {'class': 'col-sm'});
-	var $titleInfoDiv = $('<div>', {'class': 'col-sm'});
-	var $titleDocDiv = $('<div>', {'class': 'col-sm'});
+	var $titleImgDiv = $('<div>', {'class': 'col-sm-4'});
+	var $titleInfoDiv = $('<div>', {'class': 'col-sm-4'});
+	var $titleDocDiv = $('<div>', {'class': 'col-sm-4'});
 
 	var $imgObj = $('<img>',{src:img});
 	var $titleNameObj = $('<H4><span class="badge badge-primary">'+ title +'</H4>');
@@ -552,3 +597,121 @@ stats.position.setTitle = function(user,title,img,desc){
 	$titleDiv.append($titleDocDiv);
 	obj.append($titleDiv);
 }
+
+stats.relative.initSearchButton = function(){
+	var obj = $("#statsMainDiv");
+
+	var $div = $('<div>',{class: 'input-group mb-3 input-group-lg col-lg-6 col-sm-7'});
+	var $divAppendObj = $('<div>',{class: 'input-group-append'});
+	var $divPrependObj = $('<div>',{class: 'input-group-prepend'});
+	var $divPrependValObj = $('<span>',{class: 'input-group-text'}).text('USER_ID');
+	var $searchInputObj = $("<input id='relativeSearchInput' class='form-control' type='text' placeholder='Search..'>'");
+	var $searchButtonObj = $("<button>",{
+				id: 'relativeSearchBtn',
+				onclick: 'stats.relative.onSearch()',
+				});
+
+	var $searchButtonImg = $("<img>",{
+				id: 'relativeSearchBtnImg',
+				src: '/static/airgg/img/search.png'
+				});
+
+	$div.append($divPrependObj);
+
+	$searchButtonObj.append($searchButtonImg);
+	$divPrependObj.append($divPrependValObj);
+	$div.append($searchInputObj);
+	$divAppendObj.append($searchButtonObj);
+
+	$div.append($divAppendObj);
+	obj.append($div);	
+}
+
+stats.relative.onSearch = function() {
+	var name = $('#relativeSearchInput').val();
+	var season = common.season.getNow();
+
+	$('#statsRelativeTable').remove();
+
+	stats.relative.getData(season,name);
+}
+
+stats.relative.getData = function(season ,userId){
+	$.ajax ({
+		type: "GET",
+		dataType: "json",
+		url: "/f/season/users/?season=" + season,
+		success: function(userSeasonData)
+		{
+			var summaryRelative = {};
+			summaryRelative = common.season.summaryRelative(userSeasonData, userId);
+
+			var keys = Object.keys(summaryRelative);
+			keys.sort(function (a,b) {
+				return summaryRelative[b].play - summaryRelative[a].play;
+			});
+
+			stats.relative.initTable();
+			stats.relative.setTable(keys, summaryRelative);
+
+		},
+		error: function(e)
+		{
+			console.log(e.responseText);
+		}
+	});
+}
+
+stats.relative.initTable = function (){
+	var obj = $("#statsMainDiv");
+
+	var $tableContainer = $("<table id='statsRelativeTable' class='table table-hover stats-table'> </table>");
+	var $tableColgroup = $("<colgroup><col width='50'><col width='50'><col width='50'><col width='50'></colgroup>");
+	var $tableThead = $("<thead class='thead'></thead>");
+	var $tableTheadTr = $("<tr></tr>");
+	var $tableTheadTitleUser = $("<th class='stats-table_header'>USER</th>");
+	var $tableTheadTitleWin = $("<th class='stats-table_header'>WIN</th>");
+	var $tableTheadTitlePlay = $("<th class='stats-table_header'>PLAY</th>");
+	var $tableTheadTitleWinratio = $("<th class='stats-table_header'>WINRATIO</th>");
+	var $tableBody = $("<tbody id='statsRelativeTableBody'></tbody>");
+
+	$tableTheadTr.append($tableTheadTitleUser);
+	$tableTheadTr.append($tableTheadTitleWin);
+	$tableTheadTr.append($tableTheadTitlePlay);
+	$tableTheadTr.append($tableTheadTitleWinratio);
+	$tableThead.append($tableTheadTr);
+
+	$tableContainer.append($tableColgroup);
+	$tableContainer.append($tableThead);
+	$tableContainer.append($tableBody);
+
+	obj.append($tableContainer);
+}
+
+stats.relative.setTable = function (keys, relativeObj){
+	var obj = $('#statsRelativeTableBody');
+
+        for(var id of keys )
+        {
+                var $tableRowObj = $('<tr>');
+                var $userObj = $('<td>');
+		var $userLink = $('<a>',
+			{'href':'/profile/?userName=' + id}).text(id);
+                var $winObj = $('<td>').text(relativeObj[id].win);
+                var $playObj = $('<td>').text(relativeObj[id].play);
+                var $winRatioObj = $('<td>');
+
+		var winRatio = (relativeObj[id].win/relativeObj[id].play * 100).toFixed(2);
+
+		$winRatioObj.text(winRatio + "%");
+
+                $userObj.append($userLink);
+
+                $tableRowObj.append($userObj);
+                $tableRowObj.append($winObj);
+                $tableRowObj.append($playObj);
+                $tableRowObj.append($winRatioObj);
+                obj.append($tableRowObj);
+        }
+}
+
