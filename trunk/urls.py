@@ -32,11 +32,12 @@ urlpatterns = [
     url(r'^dev/$',views.dev, name='dev'),
 
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^f/users/$', views.filter_members, name='users'),
+    url(r'^f/members/$', views.filter_members, name='users'),
     url(r'^f/profile/$', views.filter_user_profile, name='profile'),
     url(r'^f/season/gamewin/$', views.filter_game_win, name='gamewin'),
     url(r'^f/season/users/$', views.filter_users, name='season'),
     url(r'^f/season/pickban/$', views.filter_pick_ban, name='month'),
     url(r'^f/season/duo/$', views.filter_duo_win, name='duo'),
-    url(r'^f/month/users/$', views.filter_month_best, name='month')
+    url(r'^f/month/users/$', views.filter_month_best, name='month'),
+    url(r'^f/team/$', views.filter_team, name='team')
 ]

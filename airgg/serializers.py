@@ -14,7 +14,7 @@ class GameSerializer(serializers.ModelSerializer):
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
-        fields = ('user_id', 'age', 'location', 'preference_line', 'name' ,'member', 'position')
+        fields = ('user_id', 'preference_line', 'member', 'position')
 
 class ChampionSerializer(serializers.ModelSerializer):
     class Meta:

@@ -50,7 +50,7 @@ common.champion.getImg = function(obj, champion, option) {
 	if ( (option === undefined) || (option == null) )
 	{
 		imgOption.src='full';
-		imgOption.version='8.15.1';
+		imgOption.version='8.24.1';
 		imgOption.wrap=2;
 		imgOption.skin=1;
 		imgOption.gray=false;
@@ -64,7 +64,7 @@ common.champion.getImg = function(obj, champion, option) {
 	$.ajax({
 		type: "GET",
 		dataType: "json",
-		url: "/static/airgg/riot_api/8.15.1/data/ko_KR/champion/" + champion + ".json" ,
+		url: "/static/airgg/riot_api/8.24.1/data/ko_KR/champion/" + champion + ".json" ,
 		success: function(data)
 		{
 			var championInfo = data.data[champion];
@@ -212,7 +212,7 @@ common.user.summaryLine = function(userGameData) {
 }
 
 common.season.getNow = function() {
-	return 2;
+	return 3;
 }
 
 common.season.summaryUsers = function(userSeasonData)
@@ -315,6 +315,7 @@ common.season.summaryRelative = function(userSeasonData, player)
 		{
 			gameData[obj.game_num][obj.user_id] = {};
 			gameData[obj.game_num][obj.user_id].win = obj.win;
+			gameData[obj.game_num][obj.user_id].line = obj.line;
 		}
 	}
 
@@ -329,11 +330,19 @@ common.season.summaryRelative = function(userSeasonData, player)
 					relativeObj[userId] = {};
 					relativeObj[userId].win = 1;
 					relativeObj[userId].play = 1;
+					relativeObj[userId]['TOP'] = 0;
+					relativeObj[userId]['JUG'] = 0;
+					relativeObj[userId]['MID'] = 0;
+					relativeObj[userId]['BOT'] = 0;
+					relativeObj[userId]['SUP'] = 0;
+
+					relativeObj[userId][gameData[num][userId].line]++;
 				}
 				else
 				{
 					relativeObj[userId].win++;
 					relativeObj[userId].play++;
+					relativeObj[userId][gameData[num][userId].line]++;
 				}
 			}
 			if( gameData[num][player].win === false && gameData[num][userId].win === true )
@@ -343,10 +352,18 @@ common.season.summaryRelative = function(userSeasonData, player)
 					relativeObj[userId] = {};
 					relativeObj[userId].win = 0;
 					relativeObj[userId].play = 1;
+					relativeObj[userId]['TOP'] = 0;
+					relativeObj[userId]['JUG'] = 0;
+					relativeObj[userId]['MID'] = 0;
+					relativeObj[userId]['BOT'] = 0;
+					relativeObj[userId]['SUP'] = 0;
+
+					relativeObj[userId][gameData[num][userId].line]++;
 				}
 				else
 				{
 					relativeObj[userId].play++;
+					relativeObj[userId][gameData[num][userId].line]++;
 				}
 			}
 		}

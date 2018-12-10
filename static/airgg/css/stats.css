@@ -48,3 +48,7 @@
 	background-size: 100%;
 	opacity: 0.3!important; filter:alpha(opacity=30);
 }
+
+.stats-relative-searchBtn{
+	background-color:darkgray;
+}

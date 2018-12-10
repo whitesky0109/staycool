@@ -9,10 +9,7 @@ class Game(models.Model):
 
 class Users(models.Model):
 	user_id = models.CharField(max_length=100, primary_key=True)
-	age = models.PositiveIntegerField()
-	location = models.CharField(max_length=100)
 	preference_line = models.CharField(max_length=100)
-	name = models.CharField(max_length=100)
 	member = models.BooleanField()
 	position = models.CharField(max_length=100, default='member')
 

@@ -24,6 +24,7 @@ stats.position.lineComment = {
 };
 
 stats.relative = {};
+stats.member = {};
 
 stats.init = function(){
 	var getParams = common.getRequest();
@@ -48,7 +49,9 @@ stats.init = function(){
 	}
 	else if ( getParams.type === "for_manager" )
 	{
-		stats.test(getParams.type);
+		stats.member.initTable();
+		stats.member.setMemberNames();
+		stats.member.getData(season);
 	}
 	else
 	{	
@@ -193,7 +196,7 @@ stats.home.setGameWinPie = function(gameWinData){
 
 stats.home.setMostChamp = function(keys,championPickBan){
 	var obj = $('#clanMostChamp');
-	var imgOption = {'src':'full','version':'8.15.1','wrap':2,'skin':1,'gray':false,'size':'normal'};
+	var imgOption = {'src':'full','version':'8.24.1','wrap':2,'skin':1,'gray':false,'size':'normal'};
 	var $pickBanObj = $('<H6></H6>');
 	var $winRatioObj = $('<H6></H6>');
 
@@ -249,7 +252,7 @@ stats.pickBan.getData = function(season){
 	});
 }
 
-stats.pickBan.initTable = function (){
+stats.pickBan.initTable = function (season){
 	var obj = $("#statsMainDiv");
 
 	var $tableContainer = $("<table class='table table-hover stats-table'> </table>");
@@ -277,7 +280,7 @@ stats.pickBan.initTable = function (){
 
 stats.pickBan.setTable = function (keys, championPickBan){
 	var obj = $('#statsPickBanTableBody');
-	var imgOption = {'src':'sprite','version':'8.15.1','wrap':2,'skin':1,'gray':false,'size':'normal'};
+	var imgOption = {'src':'sprite','version':'8.24.1','wrap':2,'skin':1,'gray':false,'size':'normal'};
 
         for(var i=0 ; i < keys.length; i++)
         {
@@ -609,11 +612,12 @@ stats.relative.initSearchButton = function(){
 	var $searchButtonObj = $("<button>",{
 				id: 'relativeSearchBtn',
 				onclick: 'stats.relative.onSearch()',
+				class: 'stats-relative-searchBtn'
 				});
 
 	var $searchButtonImg = $("<img>",{
 				id: 'relativeSearchBtnImg',
-				src: '/static/airgg/img/search.png'
+				src: '/static/airgg/img/search.png',
 				});
 
 	$div.append($divPrependObj);
@@ -666,19 +670,29 @@ stats.relative.initTable = function (){
 	var obj = $("#statsMainDiv");
 
 	var $tableContainer = $("<table id='statsRelativeTable' class='table table-hover stats-table'> </table>");
-	var $tableColgroup = $("<colgroup><col width='50'><col width='50'><col width='50'><col width='50'></colgroup>");
+	var $tableColgroup = $("<colgroup><col width='100'><col width='40'><col width='40'><col width='50'><col width='30'><col width='30'><col width='30'><col width='30'><col width='30'></colgroup>");
 	var $tableThead = $("<thead class='thead'></thead>");
 	var $tableTheadTr = $("<tr></tr>");
 	var $tableTheadTitleUser = $("<th class='stats-table_header'>USER</th>");
+	var $tableTheadTitleWinratio = $("<th class='stats-table_header'>WINRATIO</th>");
 	var $tableTheadTitleWin = $("<th class='stats-table_header'>WIN</th>");
 	var $tableTheadTitlePlay = $("<th class='stats-table_header'>PLAY</th>");
-	var $tableTheadTitleWinratio = $("<th class='stats-table_header'>WINRATIO</th>");
+	var $tableTheadTitleTop = $("<th class='stats-table_header'>TOP</th>");
+	var $tableTheadTitleJug = $("<th class='stats-table_header'>JUG</th>");
+	var $tableTheadTitleMid = $("<th class='stats-table_header'>MID</th>");
+	var $tableTheadTitleBot = $("<th class='stats-table_header'>BOT</th>");
+	var $tableTheadTitleSup = $("<th class='stats-table_header'>SUP</th>");
 	var $tableBody = $("<tbody id='statsRelativeTableBody'></tbody>");
 
 	$tableTheadTr.append($tableTheadTitleUser);
+	$tableTheadTr.append($tableTheadTitleWinratio);
 	$tableTheadTr.append($tableTheadTitleWin);
 	$tableTheadTr.append($tableTheadTitlePlay);
-	$tableTheadTr.append($tableTheadTitleWinratio);
+	$tableTheadTr.append($tableTheadTitleTop);
+	$tableTheadTr.append($tableTheadTitleJug);
+	$tableTheadTr.append($tableTheadTitleMid);
+	$tableTheadTr.append($tableTheadTitleBot);
+	$tableTheadTr.append($tableTheadTitleSup);
 	$tableThead.append($tableTheadTr);
 
 	$tableContainer.append($tableColgroup);
@@ -700,6 +714,11 @@ stats.relative.setTable = function (keys, relativeObj){
                 var $winObj = $('<td>').text(relativeObj[id].win);
                 var $playObj = $('<td>').text(relativeObj[id].play);
                 var $winRatioObj = $('<td>');
+                var $topObj = $('<td>').text(relativeObj[id].TOP);
+                var $jugObj = $('<td>').text(relativeObj[id].JUG);
+                var $midObj = $('<td>').text(relativeObj[id].MID);
+                var $botObj = $('<td>').text(relativeObj[id].BOT);
+                var $supObj = $('<td>').text(relativeObj[id].SUP);
 
 		var winRatio = (relativeObj[id].win/relativeObj[id].play * 100).toFixed(2);
 
@@ -708,10 +727,109 @@ stats.relative.setTable = function (keys, relativeObj){
                 $userObj.append($userLink);
 
                 $tableRowObj.append($userObj);
+                $tableRowObj.append($winRatioObj);
                 $tableRowObj.append($winObj);
                 $tableRowObj.append($playObj);
-                $tableRowObj.append($winRatioObj);
+                $tableRowObj.append($topObj);
+                $tableRowObj.append($jugObj);
+                $tableRowObj.append($midObj);
+                $tableRowObj.append($botObj);
+                $tableRowObj.append($supObj);
                 obj.append($tableRowObj);
         }
+}
+
+stats.member.initTable = function (){
+	var obj = $("#statsMainDiv");
+
+	var $tableContainer = $("<table class='table table-hover stats-table'> </table>");
+	var $tableColgroup = $("<colgroup><col width='50'><col width='50'></colgroup>");
+	var $tableThead = $("<thead class='thead'></thead>");
+	var $tableTheadTr = $("<tr></tr>");
+	var $tableTheadTitleUserId = $("<th class='stats-table_header'>USER_ID</th>");
+	var $tableTheadTitlePlays = $("<th class='stats-table_header'>PLAYS</th>");
+	var $tableBody = $("<tbody id='statsMemberTableBody'></tbody>");
+
+	$tableTheadTr.append($tableTheadTitleUserId);
+	$tableTheadTr.append($tableTheadTitlePlays);
+	$tableThead.append($tableTheadTr);
+
+	$tableContainer.append($tableColgroup);
+	$tableContainer.append($tableThead);
+	$tableContainer.append($tableBody);
+
+	obj.append($tableContainer);
+
+}
+
+stats.member.memberHashKeys = [];
+
+stats.member.setMemberNames = function()
+{
+	$.ajax({
+		type: "GET",
+		dataType: "json",
+		url: "/f/members/",
+		success: function(members)
+		{
+			var obj = $("#statsMemberTableBody");
+			var i = 0;
+
+			for( var index in members) {
+				var userId = members[index].pk;
+                		var $tableRowObj = $('<tr>',{'class':'member-list-table_row'});
+                		var $userIdObj = $('<td>').text(userId);
+                		var $playsObj = $('<td>',{'id':'userId'+i}).text('0');
+
+				stats.member.memberHashKeys[userId] = i;
+				i++;
+
+				$tableRowObj.append($userIdObj);
+				$tableRowObj.append($playsObj);
+				obj.append($tableRowObj);
+			}
+		},
+		error: function(e)
+		{
+			console.log(e.responseText);
+		}
+	});
+}
+
+stats.member.getData = function(season){
+	$.ajax ({
+		type: "GET",
+		dataType: "json",
+		url: "/f/season/users/?season=" + season,
+		success: function(userSeasonData)
+		{
+			var playObj = {};
+
+			for( var index in userSeasonData)
+			{
+				var tempObj = userSeasonData[index].fields;
+
+				if( playObj[tempObj.user_id] === undefined )
+				{
+					playObj[tempObj.user_id] = 1;
+				}
+				else
+				{
+					playObj[tempObj.user_id]++;
+				}
+			}
+
+			for( var index in playObj )
+			{
+				var obj = $("#userId" + stats.member.memberHashKeys[index]);
+
+				obj.text(playObj[index]);
+			}
+		},
+		error: function(e)
+		{
+			console.log(e.responseText);
+		}
+	});
 }
 

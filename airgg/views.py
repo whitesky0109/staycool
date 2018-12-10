@@ -248,6 +248,20 @@ def filter_duo_win(request):
 
 	return HttpResponse(json.dumps(duo_datas), content_type='application/json')
 
+def filter_team(request):
+	getMembers = request.GET
+	teamInfos = dict()
+	queryset = [];
+
+	for index in getMembers:
+		queryset = UserGameData.objects.filter(user_id = getMembers[index])
+		qs_json = serializers.serialize('json',queryset)
+
+		teamInfos[getMembers[index]] = json.loads(qs_json)
+
+
+	return HttpResponse(json.dumps(teamInfos), content_type='application/json')
+
 def test_users(request):
 	game = {'win':0}
 	if request.method == "POST":

@@ -57,7 +57,7 @@ member.getMembers = function(){
 	$.ajax({
 		type: "GET",
 		dataType: "json",
-		url: "/f/users/",
+		url: "/f/members/",
 		success: function(data)
 		{
 			var table_body = $("#memberTableBody");
@@ -71,9 +71,7 @@ member.getMembers = function(){
 				var $memberUserIdLink = $('<a>',
 					{'href':'/profile/?userName=' + user_id,
 					 'class':'member-table_link'}).text(user_id);
-				var $memberAge = $('<td>').text(userFields.age);
 				var $memberPreferLine = $('<td>').text(userFields.preference_line);
-				var $memberName = $('<td>').text(userFields.name);
 				var $memberTitle = $('<td>');
 				var $memberTitleBadge = $('<span>');
 
@@ -97,8 +95,6 @@ member.getMembers = function(){
 
 				$memberTableRow.append($memberUserId);
 				$memberTableRow.append($memberTitle);
-				$memberTableRow.append($memberName);
-				$memberTableRow.append($memberAge);
 				$memberTableRow.append($memberPreferLine);
 				table_body.append($memberTableRow);
 

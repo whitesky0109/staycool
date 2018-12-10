@@ -3,7 +3,7 @@ var home = {};
 
 home.init = function(){
 	var year = 2018;
-	var month = 11;
+	var month = 12;
 
 	home.setMonthTitle(year,month);
 	home.getMonthData(year,month);
