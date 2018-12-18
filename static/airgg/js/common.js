@@ -4,14 +4,14 @@ common.champion = {};
 common.user = {};
 common.season = {};
 common.tier = {
-	'unranked':'/static/airgg/img/tier/provisional.png',
-	'bronze':'/static/airgg/img/tier/bronze.png',
-	'silver':'/static/airgg/img/tier/silver.png',
-	'gold':'/static/airgg/img/tier/gold.png',
-	'platinum':'/static/airgg/img/tier/platinum.png',
-	'diamond':'/static/airgg/img/tier/diamond.png',
-	'master':'/static/airgg/img/tier/master.png',
-	'challenger':'/static/airgg/img/tier/challenger.png',
+	'unranked':'/static/airgg/img/tier/Iron_Emblem.png',
+	'bronze':'/static/airgg/img/tier/Bronze_Emblem.png',
+	'silver':'/static/airgg/img/tier/Silver_Emblem.png',
+	'gold':'/static/airgg/img/tier/Gold_Emblem.png',
+	'platinum':'/static/airgg/img/tier/Platinum_Emblem.png',
+	'diamond':'/static/airgg/img/tier/Diamond_Emblem.png',
+	'master':'/static/airgg/img/tier/Master_Emblem.png',
+	'challenger':'/static/airgg/img/tier/Challenger_Emblem.png',
 };
 
 common.lineImg = {
@@ -26,6 +26,12 @@ common.onSearch = function() {
 	var name = $('#airSearchInput').val();
 
 	location.href = "/profile?userName=" + name;
+}
+
+common.changeSeason = function() {
+	var season = $('#airSeason').val();
+
+	common.season.update(season);
 }
 
 common.getRequest = function() {
@@ -211,8 +217,19 @@ common.user.summaryLine = function(userGameData) {
 	return summaryLine;
 }
 
-common.season.getNow = function() {
-	return 3;
+common.season.update = {};
+common.season.setUpdateFunc = function(func)
+{
+	common.season.update = func;
+}
+
+common.season.getSeason = function(season) {
+	if( season === undefined || season === null )
+	{
+		return 3;
+	}
+
+	return season;
 }
 
 common.season.summaryUsers = function(userSeasonData)
@@ -372,3 +389,25 @@ common.season.summaryRelative = function(userSeasonData, player)
 	return relativeObj;
 }
 
+common.version = function() {
+	var $versionDivObj = $('#airVersion');
+	var $stampObj = $('<p>').text("Produced by 'AlR 펌프'");
+
+	$versionDivObj.append($stampObj);
+
+	$.ajax({
+		type: "GET",
+		dataType: "json",
+		url: "/f/updatedate/" ,
+		success: function(data)
+		{
+			var $versionObj = $('<p>').text("Updated by " + data.date);
+
+			$versionDivObj.append($versionObj);
+		},
+		error: function(e)
+		{
+			console.log(e.responseText);
+		}
+	});
+}

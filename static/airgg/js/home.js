@@ -7,6 +7,8 @@ home.init = function(){
 
 	home.setMonthTitle(year,month);
 	home.getMonthData(year,month);
+
+	common.version();
 };
 
 home.setMonthTitle = function(year, month)

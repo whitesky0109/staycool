@@ -3,16 +3,16 @@
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 <html>
 
-<link rel="stylesheet" href="{% static 'airgg/css/main.css' %}?ver=2" />
-<link rel="stylesheet" href="{% static 'airgg/css/ranking.css' %}?ver=9"/>
+<link rel="stylesheet" href="{% static 'airgg/css/main.css' %}?ver=10" />
+<link rel="stylesheet" href="{% static 'airgg/css/ranking.css' %}?ver=10"/>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
 
-<script type="text/javascript" src="{% static 'airgg/js/common.js' %}?ver=2"></script>
-<script type="text/javascript" src="{% static 'airgg/js/ranking.js' %}?ver=4"></script>
+<script type="text/javascript" src="{% static 'airgg/js/common.js' %}?ver=10"></script>
+<script type="text/javascript" src="{% static 'airgg/js/ranking.js' %}?ver=10"></script>
 <script>
 
 $(document).ready(function() {
@@ -38,6 +38,18 @@ $(document).ready(function() {
 			</li>
 		</ul>
 	</div>
+	<div class="sub-nav-div col-lg-3 col-sm-4">
+		<div class="row input-group ml-2 mt-1 mb-2 mr-1 input-group-sm">
+			<div class="input-group-append">
+				<span class="input-group-text">Season</span>
+			</div>
+			<select class="form-control input-sm-7" id="airSeason" onchange='common.changeSeason()'>
+				<option>3</option>
+				<option>2</option>
+				<option>1</option>
+			</select>
+		</div>
+	</div>
 
 	<script type="text/javascript" src="{% static 'airgg/riot_api/dragonhead.js' %}"></script>
 	<script type="text/javascript" src="{% static 'airgg/riot_api/8.24.1/manifest.js' %}"></script>
@@ -59,17 +71,21 @@ $(document).ready(function() {
 		                <col width="50">
 		                <col width="50">
 		        </colgroup>
-	        <thead class="thead">
-	                <tr>
-	                        <th>아이디</th>
-	                        <th>티어</th>
-	                        <th>플레이</th>
-	                        <th>승률</th>
-	                </tr>
-	        </thead>
-	        <tbody id="rankingList">
-			<!-- Do sometihng -->
-		</tbody>
+		        <thead class="thead">
+		                <tr>
+		                        <th>아이디</th>
+		                        <th>티어</th>
+		                        <th>플레이</th>
+		                        <th>승률</th>
+		                </tr>
+		        </thead>
+		        <tbody id="rankingList">
+				<!-- Do sometihng -->
+			</tbody>
+		</table>
 	</div>
 </body>
+<footer id="airFooter" class="main-func-div">
+	<div id="airVersion"></div>
+</footer>
 </html>

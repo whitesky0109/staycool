@@ -10,6 +10,8 @@ member.init = function(){
 
 	member.initPieChart();
 	member.getMembers();
+
+	common.version();
 };
 
 member.setPositionArr = function(line) {

@@ -25,41 +25,73 @@ stats.position.lineComment = {
 
 stats.relative = {};
 stats.member = {};
+stats.season = {};
 
 stats.init = function(){
 	var getParams = common.getRequest();
-	var season = common.season.getNow();
-
+	var season = common.season.getSeason(getParams.season);
+	
 	if ( getParams.type === "unique_title" )
 	{
 		stats.title.getSeasonUserData(season);
+		common.season.setUpdateFunc(function(season){
+			$("#statsMainDiv").empty();
+			stats.title.getSeasonUserData(season);
+		});
 	}
 	else if ( getParams.type === "pick_ban" )
 	{
 		stats.pickBan.initTable();
 		stats.pickBan.getData(season);
+		common.season.setUpdateFunc(function(season){
+			$("#statsMainDiv").empty();
+			stats.pickBan.initTable();
+			stats.pickBan.getData(season);
+		});
 	}
 	else if ( getParams.type === "position_rank" )
 	{
 		stats.position.getUserData(season);
+		common.season.setUpdateFunc(function(season){
+			$("#statsMainDiv").empty();
+			stats.position.getUserData(season);
+		});
 	}
 	else if ( getParams.type === "relative_total" )
 	{
-		stats.relative.initSearchButton();
+		stats.relative.initSearchButton(season);
+		common.season.setUpdateFunc(function(season){
+			stats.relative.onSearch(season);
+		});
 	}
 	else if ( getParams.type === "for_manager" )
 	{
 		stats.member.initTable();
 		stats.member.setMemberNames();
 		stats.member.getData(season);
+		common.season.setUpdateFunc(function(season){
+			$("#statsMainDiv").empty();
+			stats.member.initTable();
+			stats.member.setMemberNames();
+			stats.member.getData(season);
+		});
 	}
 	else
 	{	
 		stats.home.initContents();
 		stats.home.getMostChampData(season);
 		stats.home.getMostDuoData(season);
+		common.season.setUpdateFunc(function(season){
+			$("#statsMainDiv").empty();
+			stats.home.initContents();
+			stats.home.getMostChampData(season);
+			stats.home.getMostDuoData(season);
+		});
 	}
+
+	common.version();
 };
+
 
 stats.home.getWinGameData = function(season){
 
@@ -488,7 +520,7 @@ stats.title.setTitle = function(user,title,img,desc){
 	var $titleInfoDiv = $('<div>', {'class': 'col-sm-4'});
 	var $titleDocDiv = $('<div>', {'class': 'col-sm-4'});
 
-	var $imgObj = $('<img>',{src:img});
+	var $imgObj = $('<img>',{'src':img,'class':'stats-title-img'});
 	var $titleNameObj = $('<H4><span class="badge badge-primary">'+ title +'</H4>');
 	var $infoIdObj = $('<p>');
 	var $infoKdaObj = $('<p>');
@@ -601,7 +633,7 @@ stats.position.setTitle = function(user,title,img,desc){
 	obj.append($titleDiv);
 }
 
-stats.relative.initSearchButton = function(){
+stats.relative.initSearchButton = function(season){
 	var obj = $("#statsMainDiv");
 
 	var $div = $('<div>',{class: 'input-group mb-3 input-group-lg col-lg-6 col-sm-7'});
@@ -611,7 +643,7 @@ stats.relative.initSearchButton = function(){
 	var $searchInputObj = $("<input id='relativeSearchInput' class='form-control' type='text' placeholder='Search..'>'");
 	var $searchButtonObj = $("<button>",{
 				id: 'relativeSearchBtn',
-				onclick: 'stats.relative.onSearch()',
+				onclick: 'stats.relative.onSearch('+ season +')',
 				class: 'stats-relative-searchBtn'
 				});
 
@@ -631,9 +663,8 @@ stats.relative.initSearchButton = function(){
 	obj.append($div);	
 }
 
-stats.relative.onSearch = function() {
+stats.relative.onSearch = function(season) {
 	var name = $('#relativeSearchInput').val();
-	var season = common.season.getNow();
 
 	$('#statsRelativeTable').remove();
 

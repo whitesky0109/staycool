@@ -1,10 +1,23 @@
 
 var ranking = {};
-ranking.season = common.season.getNow();
 
 ranking.init = function(){
-	ranking.setSeasonTitle(ranking.season);
-	ranking.getSeasonData(ranking.season);
+	var getParams = common.getRequest();
+	var season = common.season.getSeason(getParams.season);
+
+	ranking.setSeasonTitle(season);
+	ranking.getSeasonData(season);
+
+	common.season.setUpdateFunc(function(season){
+		$("#seasonTitle").empty();
+		$("#rankingFirst").empty();
+		$("#rankingHighRankers").empty();
+		$("#rankingList").empty();
+
+		ranking.setSeasonTitle(season);
+		ranking.getSeasonData(season);
+	});
+	common.version();
 }
 
 ranking.setSeasonTitle = function(season){

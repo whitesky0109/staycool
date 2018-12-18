@@ -262,6 +262,23 @@ def filter_team(request):
 
 	return HttpResponse(json.dumps(teamInfos), content_type='application/json')
 
+def filter_update_date(request):
+	updateDate = dict()
+	queryset = Game.objects.order_by('-date')[0]
+	updateDate['date'] = queryset.date.strftime("%Y-%m-%d")
+
+	return HttpResponse(json.dumps(updateDate), content_type='application/json')
+
+def filter_test(request):
+	userName = request.GET.get('userName','')
+	season = request.GET.get('season','')
+
+	if userName:
+		queryset = UserGameData.objects.selected_related('game_num')
+		qs_json = serializers.serialize('json',queryset)
+
+	return HttpResponse(qs_json, content_type='application/json')
+
 def test_users(request):
 	game = {'win':0}
 	if request.method == "POST":

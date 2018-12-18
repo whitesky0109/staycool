@@ -21,3 +21,8 @@ body {
 .ranking-tier-img {
 	width: 50px;
 }
+
+.ranking-highest-tier-img {
+	width: 100px;
+	height: 100px;
+}

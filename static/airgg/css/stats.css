@@ -52,3 +52,8 @@
 .stats-relative-searchBtn{
 	background-color:darkgray;
 }
+
+.stats-title-img {
+	width: 200px;
+	height: 200px;
+}

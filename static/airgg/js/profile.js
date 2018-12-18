@@ -8,6 +8,8 @@ profile.init = function(){
 	profile.userName = getParams['userName'];
 	profile.setUserName(profile.userName);
 	profile.getUserData(profile.userName);
+
+	common.version();
 };
 
 profile.setUserName = function(name){

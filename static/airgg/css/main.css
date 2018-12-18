@@ -81,6 +81,16 @@ body {
 	text-align: center;
 }
 
+.airVersion{
+    text-align: center;
+}
+
+.sub-nav-div{	
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
 
 .main-func-div{	
 	width: 1080px;

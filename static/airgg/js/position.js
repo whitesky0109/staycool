@@ -6,6 +6,8 @@ position.team2Prefix = 'team2UserId';
 
 position.init = function (){
 	position.getUserIds();
+
+	common.version();
 };
 
 position.getUserIds = function () {
