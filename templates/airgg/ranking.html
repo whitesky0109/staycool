@@ -11,8 +11,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
 
-<script type="text/javascript" src="{% static 'airgg/js/common.js' %}?ver=10"></script>
-<script type="text/javascript" src="{% static 'airgg/js/ranking.js' %}?ver=10"></script>
+<script type="text/javascript" src="{% static 'airgg/js/common.js' %}?ver=12"></script>
+<script type="text/javascript" src="{% static 'airgg/js/ranking.js' %}?ver=12"></script>
 <script>
 
 $(document).ready(function() {
@@ -44,6 +44,7 @@ $(document).ready(function() {
 				<span class="input-group-text">Season</span>
 			</div>
 			<select class="form-control input-sm-7" id="airSeason" onchange='common.changeSeason()'>
+				<option>4</option>
 				<option>3</option>
 				<option>2</option>
 				<option>1</option>
@@ -52,8 +53,8 @@ $(document).ready(function() {
 	</div>
 
 	<script type="text/javascript" src="{% static 'airgg/riot_api/dragonhead.js' %}"></script>
-	<script type="text/javascript" src="{% static 'airgg/riot_api/8.24.1/manifest.js' %}"></script>
-	<script type="text/javascript" src="{% static 'airgg/riot_api/8.24.1/js/dragonmagic.js' %}"></script>
+	<script type="text/javascript" src="{% static 'airgg/riot_api/9.2.1/manifest.js' %}"></script>
+	<script type="text/javascript" src="{% static 'airgg/riot_api/9.2.1/js/dragonmagic.js' %}"></script>
 
 	<div class="main-func-div col-lg-7">
 		<h3 id="seasonTitle"></h3>

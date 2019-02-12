@@ -2,8 +2,8 @@
 var home = {};
 
 home.init = function(){
-	var year = 2018;
-	var month = 12;
+	var year = 2019;
+	var month = 1;
 
 	home.setMonthTitle(year,month);
 	home.getMonthData(year,month);

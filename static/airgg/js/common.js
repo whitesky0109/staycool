@@ -56,7 +56,7 @@ common.champion.getImg = function(obj, champion, option) {
 	if ( (option === undefined) || (option == null) )
 	{
 		imgOption.src='full';
-		imgOption.version='8.24.1';
+		imgOption.version='9.2.1';
 		imgOption.wrap=2;
 		imgOption.skin=1;
 		imgOption.gray=false;
@@ -70,7 +70,7 @@ common.champion.getImg = function(obj, champion, option) {
 	$.ajax({
 		type: "GET",
 		dataType: "json",
-		url: "/static/airgg/riot_api/8.24.1/data/ko_KR/champion/" + champion + ".json" ,
+		url: "/static/airgg/riot_api/9.2.1/data/ko_KR/champion/" + champion + ".json" ,
 		success: function(data)
 		{
 			var championInfo = data.data[champion];
@@ -226,7 +226,7 @@ common.season.setUpdateFunc = function(func)
 common.season.getSeason = function(season) {
 	if( season === undefined || season === null )
 	{
-		return 3;
+		return 4;
 	}
 
 	return season;

@@ -92,7 +92,7 @@ position.getTeamData = function(teamNum, obj, memberIDs)
 		success: function(teamData)
 		{
 			var imgOption = {'src':'sprite',
-					'version':'8.24.1',
+					'version':'9.2.1',
 					'wrap':2,
 					'skin':1,
 					'gray':false,
