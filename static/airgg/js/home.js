@@ -2,43 +2,51 @@
 var home = {};
 
 home.init = function(){
-	var year = 2019;
-	var month = 1;
+	var getParams = common.getRequest();
+	var season = common.season.getSeason(getParams.season);
 
-	home.setMonthTitle(year,month);
-	home.getMonthData(year,month);
+	home.setSeasonTitle(season);
+	home.getSeasonData(season);
+
+	common.season.setUpdateFunc(function(season){
+		home.clearPage();
+
+		home.setSeasonTitle(season);
+		home.getSeasonData(season);
+	});
 
 	common.version();
 };
 
-home.setMonthTitle = function(year, month)
+home.clearPage = function()
 {
-	var obj = $("#bestMonthTitle");
-
-	obj.text(month + "월의 용사");
+	$("#bestTitle").empty();
+	$("#bestUserName").empty();
+	$("#bestChampion").empty();
+	$("#bestUserLine").empty();
+	$("#bestUserKDA").empty();
 }
 
-home.getMonthData = function(year,month){
+home.setSeasonTitle = function(season)
+{
+	var objTitle = $("#bestTitle");
+
+	objTitle.text(season + " 시즌 MVP");
+}
+
+home.getSeasonData = function(season){
 	$.ajax ({
 		type: "GET",
 		dataType: "json",
-		url: "/f/month/users/?year="+year+"&month="+month,
+		url: "/f/season/users/?season=" + season,
 		success: function(userMonthData)
 		{
 			var summaryUsers = [];
 
 			summaryUsers = common.season.summaryUsers(userMonthData);
-
-			var keys = Object.keys(summaryUsers);
-			keys.sort(function (a,b) {
-				if ( summaryUsers[b].play == summaryUsers[a].play )
-				{
-					return  summaryUsers[b].winRatio - summaryUsers[a].winRatio;
-				}
-				return summaryUsers[b].play - summaryUsers[a].play;
-			});
-
-			home.setBestPlayer(keys[0],summaryUsers[keys[0]]);
+			var carry = stats.title.findCarry(summaryUsers);
+			home.setBestPlayer(carry.userId);
+			home.setUserKDA(carry);
 		},
 		error: function(e)
 		{
@@ -59,12 +67,16 @@ home.loadUserData = function(userName)
 		url: "/f/profile/?userName=" + userName,
 		success: function(userGameData)
 		{
-			var obj = $("#bestChampion");
-			$("#bestUserName").text(userName);
+			var objChamp = $("#bestChampion");
+			var objUser = $("#bestUserName");
+		        var $userIdLink = $('<a>',
+                	        {'href':'/profile/?userName=' + userName,
+                	         'class':'home-user-name'}).text(userName);
 			var mostData = common.user.summaryMostData(userGameData);
 
-			common.champion.getImg(obj,mostData.champion,null);
-			home.setMainInfo(mostData.line,mostData.winRatio);
+			objUser.append($userIdLink);
+			common.champion.getImg(objChamp,mostData.champion,null);
+			home.setUserLine(mostData.line);
 		},
 		error: function(e)
 		{
@@ -73,19 +85,28 @@ home.loadUserData = function(userName)
 	});
 }
 
-home.setMainInfo = function(line,winRatio) {
-	var obj = $("#bestUserInfo");
+home.setUserLine = function(line) {
+	var obj = $("#bestUserLine");
 
 	if( line === undefined )
 	{
 		line = "Unknown";
 	}
 
-	if ( winRatio === undefined )
+	obj.append( "주 라인: "+ line);
+}
+
+home.setUserKDA = function(result) {
+	var obj = $("#bestUserKDA");
+	var kda = 0;
+
+	if( result.death === 0 )
 	{
-		winRatio = 0;
+		result.death = 1;
 	}
 
-	obj.append( "주 라인: "+ line + "<br>" + "승률: " + winRatio + "%");
+	kda = ((result.kill + result.asist)/result.death).toFixed(2);
+
+	obj.append("KDA: " + kda);
 }
 

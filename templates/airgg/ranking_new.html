@@ -3,25 +3,23 @@
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 <html>
 
-<link rel="stylesheet" href="{% static 'airgg/css/main.css' %}?ver=20190218" />
-<link rel="stylesheet" href="{% static 'airgg/css/member.css' %}?ver=20190218" />
-
+<link rel="stylesheet" href="{% static 'airgg/css/main.css' %}?ver=10" />
+<link rel="stylesheet" href="{% static 'airgg/css/ranking.css' %}?ver=10"/>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
 
-<script type="text/javascript" src="{% static 'airgg/js/common.js' %}?ver=20190218"></script>
-<script type="text/javascript" src="{% static 'airgg/js/member.js' %}?ver=20190218"></script>
+<script type="text/javascript" src="{% static 'airgg/js/common.js' %}?ver=12"></script>
+<script type="text/javascript" src="{% static 'airgg/js/ranking.js' %}?ver=12"></script>
 <script>
 
 $(document).ready(function() {
-    member.init();
+   ranking.init();
 });
 
 </script>
-
 <body>
 	<H1 style="font-weight: bold; text-align: center; "><a href="/" style="color:black;">:League of Legends Clan: A Light REST</a></H1>
 	<div class="airMenu">
@@ -34,53 +32,61 @@ $(document).ready(function() {
 			<li class="airMenuBar li-category"><a href="https://www.youtube.com/channel/UCGNbhTiN8xMGOKtiQbMxmkQ">하나튜브</a></li>
 			<li class="airMenuBar li-search">
 				<input id="airSearchInput" type="text" placeholder="Search..">
-				<button id="airSearchBtn" onclick="common.onSearch()">
+				<button id="airSearchBtn" onclick='common.onSearch()'>
 					<img src="{% static 'airgg/img/search.png' %}"></img>
 				</button>
 			</li>
 		</ul>
 	</div>
-<div class="member-title">
-	<img width="1080px" src="{% static 'airgg/img/alr_title.png' %}"></img>
-</div>
-<div class="chart-container">
-<table class="member-total-table">
-	<colgroup>
-		<col width="500">
-		<col width="500">
-	</colgroup>
-	<tbody>
-		<tr>
-			<td><img class='member-master' src="{% static 'airgg/img/master.jpg' %}"></img></td>
-			<td><canvas id="mostLinePie" height="300px"></canvas></td>
-		</tr>
-	</tbody>
-	
-</table>
-</div>
-<div class="member-div col-lg-7">
-<table class="table table-hover">
-	<colgroup>
-		<col width="50">
-		<col width="50">
-		<col width="50">
-	</colgroup>
-	<thead class="thead">
-		<tr>
-			<th class="ranking-table_header">아이디</th>
-			<th class="ranking-table_header">직책</th>
-			<th class="ranking-table_header">좋아하는 라인</th>
-		</tr>
-	</thead>
-	<tbody id="memberTableBody">
-	</tbody>
-</table>
-</div>
+	<div class="sub-nav-div">
+		<div class="row input-group ml-2 mt-1 mb-2 mr-1 input-group-sm">
+			<div class="input-group-append">
+				<span class="input-group-text">Season</span>
+			</div>
+			<select class="form-control input-sm-7" id="airSeason" onchange='common.changeSeason()'>
+				<option>4</option>
+				<option>3</option>
+				<option>2</option>
+				<option>1</option>
+				<option>ALL</option>
+			</select>
+			<div class="sub-nav-div-dummy"></div>
+		</div>
+	</div>
 
 	<script type="text/javascript" src="{% static 'airgg/riot_api/dragonhead.js' %}"></script>
 	<script type="text/javascript" src="{% static 'airgg/riot_api/9.2.1/manifest.js' %}"></script>
 	<script type="text/javascript" src="{% static 'airgg/riot_api/9.2.1/js/dragonmagic.js' %}"></script>
 
+	<div class="main-func-div col-lg-7">
+		<h3 id="seasonTitle"></h3>
+
+		<div id="rankingFirst" class="ranking-first">
+		</div>
+
+		<div id="rankingHighRankers" class="row ranking-highest">
+		</div>
+
+		<table class="table table-hover">
+		        <colgroup>
+		                <col width="50">
+		                <col width="50">
+		                <col width="50">
+		                <col width="50">
+		        </colgroup>
+		        <thead class="thead">
+		                <tr>
+		                        <th>아이디</th>
+		                        <th>티어</th>
+		                        <th>플레이</th>
+		                        <th>승률</th>
+		                </tr>
+		        </thead>
+		        <tbody id="rankingList">
+				<!-- Do sometihng -->
+			</tbody>
+		</table>
+	</div>
 </body>
 <footer id="airFooter" class="main-func-div">
 	<div id="airVersion"></div>

@@ -3,11 +3,11 @@
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 <html>
 
-<link rel="stylesheet" href="{% static 'airgg/css/main.css' %}?ver=10" />
-<link rel="stylesheet" href="{% static 'airgg/css/profile.css' %}?ver=10" />
+<link rel="stylesheet" href="{% static 'airgg/css/main.css' %}?ver=20190218" />
+<link rel="stylesheet" href="{% static 'airgg/css/profile.css' %}?ver=20190218" />
 
-<script type="text/javascript" src="{% static 'airgg/js/common.js' %}?ver=12"></script>
-<script type="text/javascript" src="{% static 'airgg/js/profile.js' %}?ver=12"></script>
+<script type="text/javascript" src="{% static 'airgg/js/common.js' %}?ver=20190218"></script>
+<script type="text/javascript" src="{% static 'airgg/js/profile.js' %}?ver=13"></script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -40,58 +40,64 @@ $(document).ready(function() {
 			</li>
 		</ul>
 	</div>
+
+	<div id="profileSeasonMonitor" class="sub-nav-div">
+		<div class="row input-group ml-2 mt-1 mb-2 mr-1 input-group-sm">
+			<div class="input-group-append">
+				<span class="input-group-text">Season</span>
+			</div>
+			<select class="form-control input-sm-7" id="airSeason" onchange='common.changeSeason()'>
+				<option>ALL</option>
+				<option>4</option>
+				<option>3</option>
+				<option>2</option>
+				<option>1</option>
+			</select>
+			<div class="sub-nav-div-dummy"></div>
+		</div>
+	</div>
+
+	<div id="profileMainDiv" class="profile-main-div col-lg-7">
+		<div class="row ml-2 mt-1 mb-2 mr-1">
+			<div class="col-3 profile-user-info ml-2 mt-1 mb-2 mr-1">
+				<a id="profileName" href="" class="profile-name"></a>
+				<div id="profileMainInfo"></div>
+			</div>
+			<div class="col-8">
+				<div id="profileStatus" class="row ml-2 mt-1 mb-2 mr-1 profile-user-rader">
+					<canvas id="profileRadar"></canvas>
+				</div>
+<!--				<div id="profileHighlight" class="row ml-2 mt-1 mb-2 mr-1 profile-user-highlight">
+					<H3>Highlight</H3>
+					<iframe class="col-12" width=500px height=298px src="https://www.youtube.com/embed/URGNb5Q60cE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				</div>-->
+			</div>
+		</div>
+
+		<div class="row ml-2 mt-1 mb-2 mr-1 profile-champions">
+			<table class="table table-hover">
+		        <colgroup>
+		                <col width="30">
+		                <col width="30">
+		                <col width="30">
+		                <col width="30">
+		                <col width="30">
+		        </colgroup>
+		        <thead class="thead">
+		                <tr>
+		                        <th>챔피언</th>
+		                        <th>플레이</th>
+		                        <th>AVR KDA</th>
+		                        <th>K/D/A</th>
+		                        <th>승률</th>
+		                </tr>
+		        </thead>
+		        	<tbody id="profileChampTableBody">
+				</tbody>
+			</table>
+		</div>
+	</div>
 	
-	<div id="profileSummary" class="profile-summary">
-		<a id="profileName" href="" class="profile-name"></a>
-		<H5 id="profileMainInfo"></H5>
-	</div>
-
-	<div class="row profile-lineratio">
-		<div class="col-sm profile-lineratio_item">
-			<img src="{% static 'airgg/img/Top_icon.png' %}"></img>
-			<span id="profileTopLineInfo"></span>
-		</div>
-		<div class="col-sm profile-lineratio_item">
-			<img src="{% static 'airgg/img/Jungle_icon.png' %}"></img>
-			<span id="profileJugLineInfo"></span>
-		</div>
-		<div class="col-sm profile-lineratio_item">
-			<img src="{% static 'airgg/img/Mid_icon.png' %}"></img>
-			<span id="profileMidLineInfo"></span>
-		</div>
-		<div class="col-sm profile-lineratio_item">
-			<img src="{% static 'airgg/img/Bot_icon.png' %}"></img>
-			<span id="profileBotLineInfo"></span>
-		</div>
-		<div class="col-sm profile-lineratio_item">
-			<img src="{% static 'airgg/img/Support_icon.png' %}"></img>
-			<span id="profileSupLineInfo"></span>
-		</div>
-	</div>
-
-	<div class="container profile-champions">
-	<table class="table table-hover">
-        <colgroup>
-                <col width="30">
-                <col width="30">
-                <col width="30">
-                <col width="30">
-                <col width="30">
-        </colgroup>
-        <thead class="thead">
-                <tr>
-                        <th>챔피언</th>
-                        <th>플레이</th>
-                        <th>AVR KDA</th>
-                        <th>K/D/A</th>
-                        <th>승률</th>
-                </tr>
-        </thead>
-        <tbody id="profileChampTableBody">
-
-	</tbody>
-	</table>
-	</div>
 
 	<script type="text/javascript" src="{% static 'airgg/riot_api/dragonhead.js' %}"></script>
 	<script type="text/javascript" src="{% static 'airgg/riot_api/9.2.1/manifest.js' %}"></script>

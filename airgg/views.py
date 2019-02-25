@@ -63,6 +63,9 @@ def member(request):
 def ranking(request):
 	return render(request, "airgg/ranking.html")
 
+def ranking_new(request):
+	return render(request, "airgg/ranking_new.html")
+
 def position(request):
 	return render(request, "airgg/position.html")
 
@@ -86,10 +89,20 @@ def filter_members(request):
 	return HttpResponse(qs_json, content_type='application/json')
 
 def filter_user_profile(request):
-	q = request.GET.get('userName','')
-	if q:
-		queryset = UserGameData.objects.filter(user_id = q)
-		qs_json = serializers.serialize('json',queryset)
+	qUserName = request.GET.get('userName','')
+	qSeason = request.GET.get('season','')
+	season_user_data = []
+
+	if qSeason.isdigit() and 0 < int(qSeason) :
+		seasonVal = int(qSeason)
+		game_qs = Game.objects.filter(season = seasonVal).values()
+	else:
+		game_qs = Game.objects.filter().values()
+
+	for obj in game_qs:
+		season_user_data += UserGameData.objects.filter(game_num = obj['game_num'] , user_id = qUserName)
+		
+	qs_json = serializers.serialize('json',season_user_data)
 
 	return HttpResponse(qs_json, content_type='application/json')
 
@@ -269,19 +282,4 @@ def filter_update_date(request):
 
 	return HttpResponse(json.dumps(updateDate), content_type='application/json')
 
-def filter_test(request):
-	userName = request.GET.get('userName','')
-	season = request.GET.get('season','')
 
-	if userName:
-		queryset = UserGameData.objects.selected_related('game_num')
-		qs_json = serializers.serialize('json',queryset)
-
-	return HttpResponse(qs_json, content_type='application/json')
-
-def test_users(request):
-	game = {'win':0}
-	if request.method == "POST":
-		return HttpResponse("Post method")
-
-	return HttpResponseBadRequest()

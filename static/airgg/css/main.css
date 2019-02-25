@@ -61,26 +61,6 @@ body {
 	float: right;
 }
 
-.airBestPlayerWindow{
-	padding-top: 60px;
-	width: 720px;
-	height: 550px;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-	background-image: url('background/best_ring2.png');
-	background-repeat: no-repeat;
-	background-size: cover;
-	position: relative;
-}
-
-.airVideoWindow{
-	margin-top:20px;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-}
-
 .airVersion{
     text-align: center;
 }
@@ -90,6 +70,10 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
+}
+
+.sub-nav-div-dummy {
+	width: 80%;
 }
 
 .main-func-div{	

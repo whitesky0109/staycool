@@ -2,6 +2,38 @@ body {
 	font-family: 'OpenSans-Light';
 }
 
+.profile-main-div {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.profile-user-background {
+	z-index: -1;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	opacity: 0.6;
+	width:100%;
+}
+
+.profile-user-info {
+	border: 1px solid;
+}
+
+.profile-user-champimg {
+	border-radius: 8px;
+}
+
+.profile-user-rader {
+	border: 1px solid;
+}
+
+.profile-user-highlight {
+	border: 1px solid;
+}
+
 .profile-name {
 	color: black;
 }
@@ -33,7 +65,12 @@ body {
 	text-align: center;
 }
 
+.profile-champTable_img {
+	border-radius: 8px;
+}
+
 .img {
 	margin-left: auto;
 	margin-right: auto;
 }
+
