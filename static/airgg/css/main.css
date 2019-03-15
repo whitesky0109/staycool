@@ -65,6 +65,14 @@ body {
     text-align: center;
 }
 
+.main-title {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	border: 2px solid;
+}
+
 .sub-nav-div{	
 	width: 1080px;
 	margin-left: auto;

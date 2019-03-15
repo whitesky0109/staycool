@@ -6,10 +6,6 @@
 	text-align: center;
 }
 
-.home-highlight {
-	border: 1px solid;
-}
-
 .home-bestplayer{
 	padding-top: 60px;
 	width: 720px;
@@ -38,3 +34,10 @@
 	margin-top: 50px;
 }
 
+.home-addbanner-div {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	border: 1px solid;
+}
