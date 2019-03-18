@@ -2,7 +2,6 @@
 var stats = {};
 
 stats.home = {};
-stats.home.gameWinChart = {};
 stats.pickBan = {};
 stats.title = {};
 stats.title.comments = {
@@ -28,8 +27,15 @@ stats.member = {};
 stats.season = {};
 
 stats.init = function(){
+	var objHome = $('#alrHome');
+	var objMenu = $('#alrMenu');
+	var objSeasonMonitor = $('#seasonMonitor');
 	var getParams = common.getRequest();
 	var season = common.season.getSeason(getParams.season);
+
+	common.createHomeBanner(objHome);
+	common.createMenubar(objMenu);
+	common.createSeasonMonitor(objSeasonMonitor);
 	
 	if ( getParams.type === "unique_title" )
 	{
@@ -78,12 +84,12 @@ stats.init = function(){
 	}
 	else
 	{	
-		stats.home.initContents();
+		stats.home.initMostChamp();
 		stats.home.getMostChampData(season);
 		stats.home.getMostDuoData(season);
 		common.season.setUpdateFunc(function(season){
 			$("#statsMainDiv").empty();
-			stats.home.initContents();
+			stats.home.initMostChamp();
 			stats.home.getMostChampData(season);
 			stats.home.getMostDuoData(season);
 		});
@@ -91,25 +97,6 @@ stats.init = function(){
 
 	common.version();
 };
-
-
-stats.home.getWinGameData = function(season){
-
-	$.ajax ({
-		type: "GET",
-		dataType: "json",
-		url: "/f/season/gamewin/?season" + season,
-		success: function(gameWinData)
-		{
-			stats.home.setGameWinPie(gameWinData);
-			stats.home.gameWinChart.update();
-		},
-		error: function(e)
-		{
-			console.log(e.responseText);
-		}
-	});
-}
 
 stats.home.getMostChampData = function(season){
 
@@ -168,82 +155,42 @@ stats.home.getMostDuoData = function(season){
 	});
 }
 
-stats.home.initContents = function(){
+stats.home.initMostChamp = function(){
 	var obj = $("#statsMainDiv");
+	var $mostChampObj = $("<div id='clanMostChamp' class='stats-main-most mb-4'></div>");
 
-	$divTop = $("<div id='topDiv' class='row stats-home'><div>");
-	$divTop1 = $("<div class='col-sm-6'><div>");
-	$divTop2 = $("<div class='col-sm-6'><div>");
-
-	stats.home.initMostChamp($divTop1);
-	stats.home.initGameWinPie($divTop2);
-
-	$divTop.append($divTop1);
-	$divTop.append($divTop2);
-
-	obj.append($divTop);
-}
-
-stats.home.initGameWinPie = function(obj){
-	$titleObj = $('<H2>공사중.</H2>');
-	$canvasObj = $("<canvas id='gameWinPie' height='100px'></canvas>");
-	obj.append($titleObj);
-	obj.append($canvasObj);
-}
-
-stats.home.initMostChamp = function(obj){
-	$mostChampObj = $("<div id='clanMostChamp'><H2>Clan Most Champ</H2></div>");
+	obj.append('<H2>Clan Most Champ</H2>');
 	obj.append($mostChampObj);
-}
-
-stats.home.setGameWinPie = function(gameWinData){
-        var ctx = $('#gameWinPie');
-	var total = gameWinData.win1 + gameWinData.win2;
-	var win1 = (gameWinData.win1/total * 100).toFixed(2);
-	var win2 = (gameWinData.win2/total * 100).toFixed(2);
-
-        var gameWinArr = {
-                datasets:[{
-                        backgroundColor: ["#F7464A", "#46BFBD",],
-                        hoverBackgroundColor: ["#FF5A5E", "#5AD3D1"],
-			data:[gameWinData.win1,gameWinData.win2]
-                }],
-		labels:['1 TEAM:'+win1+'%', '2 TEAM:'+win2+'%'],
-        }
-
-        stats.home.gameWinChart = new Chart(ctx,{
-                type: 'pie',
-                data: gameWinArr,
-                options:{
-                        title: {
-				text: "Team 승률",
-                                display: true,
-                        },
-                        animation: {
-                                animateScale: true,
-                        },
-                }
-        });
 }
 
 stats.home.setMostChamp = function(keys,championPickBan){
 	var obj = $('#clanMostChamp');
+	var $rowDiv = $('<div>',{'class':'row'});
 	var imgOption = {'src':'full','version':'9.2.1','wrap':2,'skin':1,'gray':false,'size':'normal'};
-	var $pickBanObj = $('<H6></H6>');
-	var $winRatioObj = $('<H6></H6>');
 
 	var winRatio = 0;
-	if (championPickBan[keys[0]].pick != 0)
+
+	for( i = 0; i < 3; i++ )
 	{
-		winRatio = (championPickBan[keys[0]].win/championPickBan[keys[0]].pick * 100).toFixed(2);
+		var $divObj = $('<div class="col">');
+		var $pickBanObj = $('<H6>');
+		var $winRatioObj = $('<H6>');
+		var index = keys[i];
+
+		if (championPickBan[index].pick != 0)
+		{
+			winRatio = (championPickBan[index].win/championPickBan[index].pick * 100).toFixed(2);
+		}
+		common.champion.getImg($divObj,index,imgOption);
+		$pickBanObj.text("Pick: " + championPickBan[index].pick + " Ban: " + championPickBan[index].ban );
+		$winRatioObj.text("승률: " + winRatio + "%");
+
+		$divObj.append($pickBanObj);
+		$divObj.append($winRatioObj);
+
+		$rowDiv.append($divObj);
 	}
-
-	common.champion.getImg(obj,keys[0],imgOption);
-	$pickBanObj.text("Pick: " + championPickBan[keys[0]].pick + " Ban: " + championPickBan[keys[0]].ban );
-	$winRatioObj.text("승률: " + winRatio + "%");
-
-	obj.append($pickBanObj);
-	obj.append($winRatioObj);
+	obj.append($rowDiv);
 }
 
 stats.home.setMostDuo = function(obj,duo){

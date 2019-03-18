@@ -23,39 +23,9 @@ $(document).ready(function() {
 </script>
 
 <body>
-	<H1 style="font-weight: bold; text-align: center; "><a href="/" style="color:black;">:League of Legends Clan: A Light REST</a></H1>
-	<div class="airMenu">
-		<ul class="airMenuBar">
-			<li class="airMenuBar li-category" style="padding-left:20px"><a href="/member">멤버</a></li>
-			<li class="airMenuBar li-category"><a href="/ranking">랭킹</a></li>
-			<li class="airMenuBar li-category"><a href="/stats">통계</a></li>
-			<li class="airMenuBar li-category"><a href="/position">포지션 예측</a></li>
-			<li class="airMenuBar li-category"><a href="https://cafe.naver.com/alightrest">커뮤니티</a></li>
-			<li class="airMenuBar li-category"><a href="https://www.youtube.com/channel/UCGNbhTiN8xMGOKtiQbMxmkQ">하나튜브</a></li>
-			<li class="airMenuBar li-search">
-				<input id="airSearchInput" type="text" placeholder="Search..">
-				<button id="airSearchBtn" onclick='common.onSearch()'>
-					<img src="{% static 'airgg/img/search.png' %}"></img>
-				</button>
-			</li>
-		</ul>
-	</div>
-
-	<div id="profileSeasonMonitor" class="sub-nav-div">
-		<div class="row input-group ml-2 mt-1 mb-2 mr-1 input-group-sm">
-			<div class="input-group-append">
-				<span class="input-group-text">Season</span>
-			</div>
-			<select class="form-control input-sm-7" id="airSeason" onchange='common.changeSeason()'>
-				<option>ALL</option>
-				<option>4</option>
-				<option>3</option>
-				<option>2</option>
-				<option>1</option>
-			</select>
-			<div class="sub-nav-div-dummy"></div>
-		</div>
-	</div>
+	<div id ='alrHome' class="main-title mb-2"></div>
+	<div id="alrMenu" class="alr-menu"></div>
+	<div id="seasonMonitor" class="sub-nav-div"></div>
 
 	<div id="profileMainDiv" class="profile-main-div col-lg-7">
 		<div class="row ml-2 mt-1 mb-2 mr-1">
@@ -67,10 +37,6 @@ $(document).ready(function() {
 				<div id="profileStatus" class="row ml-2 mt-1 mb-2 mr-1 profile-user-rader">
 					<canvas id="profileRadar"></canvas>
 				</div>
-<!--				<div id="profileHighlight" class="row ml-2 mt-1 mb-2 mr-1 profile-user-highlight">
-					<H3>Highlight</H3>
-					<iframe class="col-12" width=500px height=298px src="https://www.youtube.com/embed/URGNb5Q60cE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-				</div>-->
 			</div>
 		</div>
 

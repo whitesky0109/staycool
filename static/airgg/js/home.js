@@ -2,8 +2,15 @@
 var home = {};
 
 home.init = function(){
+	var objHome = $('#alrHome');
+	var objMenu = $('#alrMenu');
+	var objSeasonMonitor = $('#seasonMonitor');
 	var getParams = common.getRequest();
 	var season = common.season.getSeason(getParams.season);
+
+	common.createHomeBanner(objHome);
+	common.createMenubar(objMenu);
+	common.createSeasonMonitor(objSeasonMonitor);
 
 	home.setSeasonTitle(season);
 	home.getSeasonData(season);

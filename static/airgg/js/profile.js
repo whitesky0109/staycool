@@ -5,8 +5,15 @@ profile.userName = "";
 profile.radarChart = {};
 
 profile.init = function(){
+	var objHome = $('#alrHome');
+	var objMenu = $('#alrMenu');
+	var objSeasonMonitor = $('#seasonMonitor');
 	var getParams = common.getRequest();
 	var season = 'ALL';
+
+	common.createHomeBanner(objHome);
+	common.createMenubar(objMenu);
+	common.createSeasonMonitor(objSeasonMonitor);
 
 	profile.initRadarChart();
 

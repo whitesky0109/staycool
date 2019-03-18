@@ -16,16 +16,12 @@
 	margin-right: auto;
 }
 
-.row.stats-home-top {
-	height: 300px;
-	padding: 30px;
-}
-
 .row.stats-title-div {
 	padding: 10px;
 }
 
 .best-duo {
+	border: 1px solid;
 	z-index:1;
 	position:relative;
 	width:512px;
@@ -56,4 +52,11 @@
 .stats-title-img {
 	width: 200px;
 	height: 200px;
+}
+
+.stats-main-most {
+	border: 1px solid;
+	width: 512px;
+	margin:auto;
+	padding-bottom: 10px;
 }

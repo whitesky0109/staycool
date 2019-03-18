@@ -5,6 +5,11 @@ position.team1Prefix = 'team1UserId';
 position.team2Prefix = 'team2UserId';
 
 position.init = function (){
+	var objHome = $('#alrHome');
+	var objMenu = $('#alrMenu');
+
+	common.createHomeBanner(objHome);
+	common.createMenubar(objMenu);
 	position.getUserIds();
 
 	common.version();
