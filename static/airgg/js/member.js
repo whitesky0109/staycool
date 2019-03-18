@@ -5,6 +5,12 @@ member.positionArr = {TOP:0, JUG:0, MID:0, BOT:0, SUP:0};
 member.pieChart = {};
 
 member.init = function(){
+	var objHome = $('#alrHome');
+	var objMenu = $('#alrMenu');
+
+	common.createHomeBanner(objHome);
+	common.createMenubar(objMenu);
+
 	Chart.defaults.global.maintainAspectRatio = false;
 	Chart.defaults.global.responsive = false;
 

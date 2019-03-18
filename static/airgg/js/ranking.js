@@ -2,8 +2,13 @@
 var ranking = {};
 
 ranking.init = function(){
+	var objHome = $('#alrHome');
+	var objMenu = $('#alrMenu');
 	var getParams = common.getRequest();
 	var season = common.season.getSeason(getParams.season);
+
+	common.createHomeBanner(objHome);
+	common.createMenubar(objMenu);
 
 	ranking.setSeasonTitle(season);
 	ranking.getSeasonData(season);

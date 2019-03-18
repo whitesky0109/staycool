@@ -20,12 +20,27 @@ common.lineImg = {
 	'MID':'/static/airgg/img/Mid_icon.png',
 	'BOT':'/static/airgg/img/Bot_icon.png',
 	'SUP':'/static/airgg/img/Support_icon.png',
-}
+};
+
+common.homeBanner = "/static/airgg/img/alr_spring.jpg";
+
+common.menuList = [
+	{title:'멤버', 		href:'/member'},
+	{title:'랭킹', 		href:'/ranking'},
+	{title:'통계', 		href:'/stats'},
+	{title:'포지션 예측', 	href:'/position'},
+	{title:'커뮤니티', 	href:'https://cafe.naver.com/alightrest'},
+	{title:'하나튜브', 	href:'https://www.youtube.com/channel/UCGNbhTiN8xMGOKtiQbMxmkQ'},
+];
 
 common.onSearch = function() {
 	var name = $('#airSearchInput').val();
 
 	location.href = "/profile?userName=" + name;
+}
+
+common.moveHome = function() {
+	location.href = "/";
 }
 
 common.changeSeason = function() {
@@ -48,6 +63,41 @@ common.getRequest = function() {
 	{
 		return false;
 	}
+}
+
+common.createHomeBanner = function(obj) {
+	var $objHomeBanner = $('<img>',{src:common.homeBanner, width:'1060px', onclick:'common.moveHome()'});
+
+	obj.append($objHomeBanner);
+}
+
+common.createMenubar = function(obj) {
+	var $objMenuBar = $('<ul>',{'class':'alr-menubar'});
+
+	for( i in common.menuList)
+	{
+		var $aItem = $('<a>',{'href':common.menuList[i].href}).text(common.menuList[i].title);
+		var $liItem = $('<li>',{'class':'alr-menubar li-category'});
+		
+		$liItem.append($aItem);
+		$objMenuBar.append($liItem);
+	}
+
+	{
+		var $liItem = $('<li>',{'class':'alr-menubar li-search'});
+		var $input = $('<input>',{id:'airSearchInput', type:'text', placeholder:'Search..'});
+		var $searchBtn = $('<button>',{id:'airSearchBtn',onclick:'common.onSearch()'});
+		var $searchBtnImg = $('<img>',{src:'/static/airgg/img/search.png'});
+
+		$searchBtn.append($searchBtnImg);
+
+		$liItem.append($input);
+		$liItem.append($searchBtn);
+	
+		$objMenuBar.append($liItem);
+	}
+
+	obj.append($objMenuBar);
 }
 
 common.champion.getImg = function(obj, champion, option) {

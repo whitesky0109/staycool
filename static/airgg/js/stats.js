@@ -28,8 +28,13 @@ stats.member = {};
 stats.season = {};
 
 stats.init = function(){
+	var objHome = $('#alrHome');
+	var objMenu = $('#alrMenu');
 	var getParams = common.getRequest();
 	var season = common.season.getSeason(getParams.season);
+
+	common.createHomeBanner(objHome);
+	common.createMenubar(objMenu);
 	
 	if ( getParams.type === "unique_title" )
 	{
