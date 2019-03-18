@@ -153,10 +153,10 @@ def filter_pick_ban(request):
 	
 	if q.isdigit() and 0 < int(q) :
 		seasonVal = int(q)
+		game_qs = Game.objects.filter(season = seasonVal).values()
 	else:
-		seasonVal = 1
+		game_qs = Game.objects.filter().values()
 
-	game_qs = Game.objects.filter(season = seasonVal).values()
 	for obj in game_qs:
 		season_user_data += UserGameData.objects.filter(game_num = obj['game_num']).values()
 		season_ban_data += Ban.objects.filter(game_num = obj['game_num']).values()

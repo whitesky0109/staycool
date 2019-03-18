@@ -33,6 +33,8 @@ common.menuList = [
 	{title:'하나튜브', 	href:'https://www.youtube.com/channel/UCGNbhTiN8xMGOKtiQbMxmkQ'},
 ];
 
+common.nowSeason = 4;
+
 common.onSearch = function() {
 	var name = $('#airSearchInput').val();
 
@@ -98,6 +100,29 @@ common.createMenubar = function(obj) {
 	}
 
 	obj.append($objMenuBar);
+}
+
+common.createSeasonMonitor = function(obj) {
+	var $objSeasonMonitor = $('<div>',{'class':'row input-group ml-2 mt-1 mb-2 mr-1 input-group-sm'});
+	var $objInputDiv = $('<div>',{'class':'input-group-append'});
+	var $objSpan = $('<span>',{'class':'input-group-text'}).text("Season");
+	var $objSelect = $('<select>',{'id':'airSeason', 'class':'form-control input-sm-7', 'onchange':'common.changeSeason()'});
+	var $objDummy = $('<div>',{'class':'sub-nav-div-dummy'});
+
+	for( var i = common.nowSeason; i > 0; i-- )
+	{
+		var $item = $('<option>').text(i);
+		$objSelect.append($item);
+	}
+
+	$objSelect.append($('<option>').text('ALL'));
+
+	$objInputDiv.append($objSpan);
+	$objSeasonMonitor.append($objInputDiv);
+	$objSeasonMonitor.append($objSelect);
+	$objSeasonMonitor.append($objDummy);
+
+	obj.append($objSeasonMonitor);
 }
 
 common.champion.getImg = function(obj, champion, option) {

@@ -23,45 +23,32 @@ $(document).ready(function() {
 <body>
 	<div id ='alrHome' class="main-title mb-2"></div>
 	<div id="alrMenu" class="alr-menu"></div>
-
+	<div id="seasonMonitor" class="sub-nav-div"></div>
 	<div class="stats-title">
 		<ul class="nav">
-			<li>
-				<div class="row input-group ml-2 mt-1 mb-2 mr-1 input-group-sm">
-					<div class="input-group-append">
-						<span class="input-group-text">Season</span>
-					</div>
-					<select class="form-control input-sm-7" id="airSeason" onchange='common.changeSeason()'>
-						<option>4</option>
-						<option>3</option>
-						<option>2</option>
-						<option>1</option>
-					</select>
-				</div>
-	 		 </li>
-	  <li class="nav-item">
-	  <a class="nav-link" href="/stats/?type=home">메인</a>
-	  </li>
-	  <li class="nav-item">
-	  <a class="nav-link" href="/stats/?type=pick_ban">밴픽</a>
-	  </li>
-	  <li class="nav-item">
-	  <a class="nav-link" href="/stats/?type=unique_title">타이틀</a>
-	  </li>
-	  <li class="nav-item">
-	  <a class="nav-link" href="/stats/?type=position_rank">포지션랭킹</a>
-	  </li>
-	  <li class="nav-item">
-	  <a class="nav-link" href="/stats/?type=relative_total">상대전적</a>
-	  </li>
-	  <li class="nav-item">
-	  <a class="nav-link" href="/stats/?type=for_manager">시즌출석률</a>
-	  </li>
-	</ul>
-</div>
+			<li class="nav-item">
+				<a class="nav-link" href="/stats/?type=home">메인</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/stats/?type=pick_ban">밴픽</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/stats/?type=unique_title">타이틀</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/stats/?type=position_rank">포지션랭킹</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/stats/?type=relative_total">상대전적</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/stats/?type=for_manager">시즌출석률</a>
+			</li>
+		</ul>
+	</div>
 
-<div id="statsMainDiv" class="stats-main-div col-lg-7">
-</div>
+	<div id="statsMainDiv" class="stats-main-div col-lg-7">
+	</div>
 	
 	<script type="text/javascript" src="{% static 'airgg/riot_api/dragonhead.js' %}"></script>
 	<script type="text/javascript" src="{% static 'airgg/riot_api/9.2.1/manifest.js' %}"></script>
