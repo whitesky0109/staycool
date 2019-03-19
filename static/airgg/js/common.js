@@ -9,24 +9,25 @@ import 'bootstrap';
 
 class Common {
   constructor() {
+    this.baseImgPath = '/static/airgg/img';
     this.tier = {
-      unranked: '/static/airgg/img/tier/Iron_Emblem.png',
-      bronze: '/static/airgg/img/tier/Bronze_Emblem.png',
-      silver: '/static/airgg/img/tier/Silver_Emblem.png',
-      gold: '/static/airgg/img/tier/Gold_Emblem.png',
-      platinum: '/static/airgg/img/tier/Platinum_Emblem.png',
-      diamond: '/static/airgg/img/tier/Diamond_Emblem.png',
-      master: '/static/airgg/img/tier/Master_Emblem.png',
-      challenger: '/static/airgg/img/tier/Challenger_Emblem.png',
+      unranked: `${this.baseImgPath}/tier/Iron_Emblem.png`,
+      bronze: `${this.baseImgPath}/tier/Bronze_Emblem.png`,
+      silver: `${this.baseImgPath}tier/Silver_Emblem.png`,
+      gold: `${this.baseImgPath}/tier/Gold_Emblem.png`,
+      platinum: `${this.baseImgPath}/tier/Platinum_Emblem.png`,
+      diamond: `${this.baseImgPath}/tier/Diamond_Emblem.png`,
+      master: `${this.baseImgPath}/tier/Master_Emblem.png`,
+      challenger: `${this.baseImgPath}/tier/Challenger_Emblem.png`,
     };
     this.lineImg = {
-      TOP: '/static/airgg/img/Top_icon.png',
-      JUG: '/static/airgg/img/Jungle_icon.png',
-      MID: '/static/airgg/img/Mid_icon.png',
-      BOT: '/static/airgg/img/Bot_icon.png',
-      SUP: '/static/airgg/img/Support_icon.png',
+      TOP: `${this.baseImgPath}/Top_icon.png`,
+      JUG: `${this.baseImgPath}/Jungle_icon.png`,
+      MID: `${this.baseImgPath}/Mid_icon.png`,
+      BOT: `${this.baseImgPath}/Bot_icon.png`,
+      SUP: `${this.baseImgPath}/Support_icon.png`,
     };
-    this.homeBanner = '/static/airgg/img/alr_spring.jpg';
+    this.homeBanner = `${this.baseImgPath}/alr_spring.jpg`;
     this.menuList = [
       { title: '멤버', href: '/member' },
       { title: '랭킹', href: '/ranking' },
@@ -52,9 +53,9 @@ class Common {
       if (window.location.search.length > 1) {
         const get = {};
         const ret = window.location.search.substr(1).split('&');
-        for (let i = 0; i < ret.length; i += 1) {
-          const r = ret[i].split('=');
-          get[r[0]] = decodeURIComponent(r[1]);
+        for (const r of ret) {
+          const rs = r.split('=');
+          get[rs[0]] = decodeURIComponent(rs[1]);
         }
         return get;
       }
@@ -139,7 +140,7 @@ class Common {
       getImg: (obj, champion, option) => {
         let imgOption = {};
 
-        if ((option === undefined) || (option == null)) {
+        if ((option === undefined) || (option === null)) {
           imgOption = Object.assign(imgOption, {
             src: 'full',
             version: '9.2.1',
@@ -156,8 +157,8 @@ class Common {
           type: 'GET',
           dataType: 'json',
           url: `/static/airgg/riot_api/9.2.1/data/ko_KR/champion/${champion}.json`,
-          success: (data) => {
-            const championInfo = data.data[champion];
+          success: ({ data }) => {
+            const championInfo = data[champion];
             obj.append(Riot.DDragon.fn.getImg(championInfo, imgOption));
           },
           error(e) {
@@ -178,14 +179,12 @@ class Common {
         let maxLine = 0;
 
         for (const data in userGameData) {
-          const { fields } = userGameData[data];
-          const champ = fields.champion;
-          const { line } = fields;
+          const { champion, line, win } = userGameData[data].fields;
 
-          if (!championList[champ]) {
-            championList[champ] = 1;
+          if (!championList[champion]) {
+            championList[champion] = 1;
           } else {
-            championList[champ] += 1;
+            championList[champion] += 1;
           }
 
           if (!lineList[line]) {
@@ -194,13 +193,13 @@ class Common {
             lineList[line] += 1;
           }
 
-          if (fields.win === 1) {
+          if (win === 1) {
             winCnt += 1;
           }
 
-          if (maxChamp < championList[champ]) {
-            summaryMostData.champion = champ;
-            maxChamp = championList[champ];
+          if (maxChamp < championList[champion]) {
+            summaryMostData.champion = champion;
+            maxChamp = championList[champion];
           }
 
           if (maxLine < lineList[line]) {
@@ -217,27 +216,23 @@ class Common {
         const summaryChampion = {};
 
         for (const data in userGameData) {
-          const { fields } = userGameData[data];
-          const champ = fields;
           const {
-            kill, death, asist, cs, win,
-          } = fields;
+            kill, death, asist, cs, win, champion,
+          } = userGameData[data].fields;
 
-          if (summaryChampion[champ] === undefined) {
-            const obj = {
+          if (!summaryChampion[champion]) {
+            summaryChampion[champion] = {
               kill, death, asist, cs, win: win === 1 ? 1 : 0, play: 1,
             };
-
-            summaryChampion[champ] = obj;
           } else {
-            summaryChampion[champ].kill += kill;
-            summaryChampion[champ].death += death;
-            summaryChampion[champ].asist += asist;
-            summaryChampion[champ].cs += cs;
+            summaryChampion[champion].kill += kill;
+            summaryChampion[champion].death += death;
+            summaryChampion[champion].asist += asist;
+            summaryChampion[champion].cs += cs;
             if (win === 1) {
-              summaryChampion[champ].win += 1;
+              summaryChampion[champion].win += 1;
             }
-            summaryChampion[champ].play += 1;
+            summaryChampion[champion].play += 1;
           }
         }
 
@@ -253,17 +248,14 @@ class Common {
         };
 
         for (const data in userGameData) {
-          const { line } = userGameData[data].fields;
-          const { win } = userGameData[data].fields;
+          const { line, win } = userGameData[data].fields;
 
-          if (summaryLine[line] === undefined) {
-            continue;
-          } else {
-            if (win === 1) {
-              summaryLine[line].win += 1;
-            }
-            summaryLine[line].games += 1;
+          if (!summaryLine[line]) { continue; }
+
+          if (win === 1) {
+            summaryLine[line].win += 1;
           }
+          summaryLine[line].games += 1;
         }
 
         return summaryLine;
@@ -285,12 +277,11 @@ class Common {
         const summaryUsers = {};
 
         for (const data in userSeasonData) {
-          const userId = userSeasonData[data].fields.user_id;
           const {
-            kill, death, asist, win,
+            kill, death, asist, win, user_id,
           } = userSeasonData[data].fields;
-          if (summaryUsers[userId] === undefined) {
-            summaryUsers[userId] = {
+          if (!summaryUsers[user_id]) {
+            summaryUsers[user_id] = {
               kill,
               death,
               asist,
@@ -298,13 +289,13 @@ class Common {
               play: 1,
             };
           } else {
-            summaryUsers[userId].kill += kill;
-            summaryUsers[userId].death += death;
-            summaryUsers[userId].asist += asist;
+            summaryUsers[user_id].kill += kill;
+            summaryUsers[user_id].death += death;
+            summaryUsers[user_id].asist += asist;
             if (win === 1) {
-              summaryUsers[userId].win += 1;
+              summaryUsers[user_id].win += 1;
             }
-            summaryUsers[userId].play += 1;
+            summaryUsers[user_id].play += 1;
           }
         }
 
@@ -319,18 +310,16 @@ class Common {
         const summaryUsers = {};
 
         for (const data in userSeasonData) {
-          const position = userSeasonData[data].fields.line;
-          const userId = userSeasonData[data].fields.user_id;
+          const {
+            kill, win, asist, death, user_id, line,
+          } = userSeasonData[data].fields;
 
-          if (!summaryUsers[position]) {
-            summaryUsers[position] = {};
+          if (!summaryUsers[line]) {
+            summaryUsers[line] = {};
           }
 
-          const {
-            kill, win, asist, death,
-          } = userSeasonData[data].fields;
-          if (!summaryUsers[position][userId]) {
-            summaryUsers[position][userId] = {
+          if (!summaryUsers[line][user_id]) {
+            summaryUsers[line][user_id] = {
               kill,
               death,
               asist,
@@ -338,13 +327,13 @@ class Common {
               play: 1,
             };
           } else {
-            summaryUsers[position][userId].kill += kill;
-            summaryUsers[position][userId].death += death;
-            summaryUsers[position][userId].asist += asist;
+            summaryUsers[line][user_id].kill += kill;
+            summaryUsers[line][user_id].death += death;
+            summaryUsers[line][user_id].asist += asist;
             if (userSeasonData[data].fields.win === 1) {
-              summaryUsers[position][userId].win += 1;
+              summaryUsers[line][user_id].win += 1;
             }
-            summaryUsers[position][userId].play += 1;
+            summaryUsers[line][user_id].play += 1;
           }
         }
 
@@ -377,8 +366,9 @@ class Common {
         }
 
         for (const num of gameNumArr) {
-          for (const userId in gameData[num]) {
-            if (gameData[num][player].win === true && gameData[num][userId].win === false) {
+          const game = gameData[num];
+          for (const userId in game) {
+            if (game[player].win === true && game[userId].win === false) {
               if (!relativeObj[userId]) {
                 relativeObj[userId] = {
                   win: 1,
@@ -389,14 +379,14 @@ class Common {
                   BOT: 0,
                   SUP: 0,
                 };
-                relativeObj[userId][gameData[num][userId].line] += 1;
               } else {
                 relativeObj[userId].win += 1;
                 relativeObj[userId].play += 1;
-                relativeObj[userId][gameData[num][userId].line] += 1;
               }
+              relativeObj[userId][game[userId].line] += 1;
             }
-            if (gameData[num][player].win === false && gameData[num][userId].win === true) {
+
+            if (game[player].win === false && game[userId].win === true) {
               if (!relativeObj[userId]) {
                 relativeObj[userId] = {
                   win: 0,
@@ -407,11 +397,10 @@ class Common {
                   BOT: 0,
                   SUP: 0,
                 };
-                relativeObj[userId][gameData[num][userId].line] += 1;
               } else {
                 relativeObj[userId].play += 1;
-                relativeObj[userId][gameData[num][userId].line] += 1;
               }
+              relativeObj[userId][game[userId].line] += 1;
             }
           }
         }
