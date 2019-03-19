@@ -1,119 +1,115 @@
+/* eslint-disable no-console */
+/* eslint-disable no-param-reassign */
 
-var home = {};
+import $ from 'jquery';
+import common from './common';
+import stats from './stats';
 
-home.init = function(){
-	var objHome = $('#alrHome');
-	var objMenu = $('#alrMenu');
-	var objSeasonMonitor = $('#seasonMonitor');
-	var getParams = common.getRequest();
-	var season = common.season.getSeason(getParams.season);
+class Home {
+  constructor() {
+    this.init = () => {
+      const objHome = $('#alrHome');
+      const objMenu = $('#alrMenu');
+      const objSeasonMonitor = $('#seasonMonitor');
+      const getParams = common.getRequest();
+      const season = common.season.getSeason(getParams.season);
 
-	common.createHomeBanner(objHome);
-	common.createMenubar(objMenu);
-	common.createSeasonMonitor(objSeasonMonitor);
+      common.createHomeBanner(objHome);
+      common.createMenubar(objMenu);
+      common.createSeasonMonitor(objSeasonMonitor);
 
-	home.setSeasonTitle(season);
-	home.getSeasonData(season);
+      this.setSeasonTitle(season);
+      this.getSeasonData(season);
 
-	common.season.setUpdateFunc(function(season){
-		home.clearPage();
+      common.season.setUpdateFunc((s) => {
+        this.clearPage();
 
-		home.setSeasonTitle(season);
-		home.getSeasonData(season);
-	});
+        this.setSeasonTitle(s);
+        this.getSeasonData(s);
+      });
 
-	common.version();
-};
+      common.version();
+    };
+    this.clearPage = () => {
+      $('#bestTitle').empty();
+      $('#bestUserName').empty();
+      $('#bestChampion').empty();
+      $('#bestUserLine').empty();
+      $('#bestUserKDA').empty();
+    };
+    this.setSeasonTitle = (season) => {
+      const objTitle = $('#bestTitle');
 
-home.clearPage = function()
-{
-	$("#bestTitle").empty();
-	$("#bestUserName").empty();
-	$("#bestChampion").empty();
-	$("#bestUserLine").empty();
-	$("#bestUserKDA").empty();
+      objTitle.text(`${season} 시즌 MVP`);
+    };
+    this.getSeasonData = (season) => {
+      $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: `/f/season/users/?season=${season}`,
+        success: (userMonthData) => {
+          const summaryUsers = common.season.summaryUsers(userMonthData);
+          const carry = stats.title.findCarry(summaryUsers);
+          this.setBestPlayer(carry.userId);
+          this.setUserKDA(carry);
+        },
+        error: (e) => {
+          console.log(e.responseText);
+        },
+      });
+    };
+    this.setBestPlayer = (userName) => {
+      this.loadUserData(userName);
+    };
+    this.loadUserData = (userName) => {
+      $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: `/f/profile/?userName=${userName}`,
+        success: (userGameData) => {
+          const objChamp = $('#bestChampion');
+          const objUser = $('#bestUserName');
+          const $userIdLink = $('<a>', {
+            href: `/profile/?userName=${userName}`,
+            class: 'home-user-name',
+          }).text(userName);
+          const { champion, line } = common.user.summaryMostData(userGameData);
+
+          objUser.append($userIdLink);
+          common.champion.getImg(objChamp, champion, null);
+          this.setUserLine(line);
+        },
+        error(e) {
+          console.log(e.responseText);
+        },
+      });
+    };
+    this.setUserLine = (line) => {
+      const obj = $('#bestUserLine');
+
+      if (line === undefined) {
+        line = 'Unknown';
+      }
+
+      obj.append(`주 라인: ${line}`);
+    };
+    this.setUserKDA = (result) => {
+      const obj = $('#bestUserKDA');
+      const { kill, asist, death } = result;
+
+      if (death === 0) {
+        result.death = 1;
+      }
+
+      const kda = ((kill + asist) / death).toFixed(2);
+
+      obj.append(`KDA: ${kda}`);
+    };
+  }
 }
 
-home.setSeasonTitle = function(season)
-{
-	var objTitle = $("#bestTitle");
+const home = new Home();
 
-	objTitle.text(season + " 시즌 MVP");
-}
+window.home = home;
 
-home.getSeasonData = function(season){
-	$.ajax ({
-		type: "GET",
-		dataType: "json",
-		url: "/f/season/users/?season=" + season,
-		success: function(userMonthData)
-		{
-			var summaryUsers = [];
-
-			summaryUsers = common.season.summaryUsers(userMonthData);
-			var carry = stats.title.findCarry(summaryUsers);
-			home.setBestPlayer(carry.userId);
-			home.setUserKDA(carry);
-		},
-		error: function(e)
-		{
-			console.log(e.responseText);
-		}
-	});
-}
-
-home.setBestPlayer = function(userName, userData){
-	home.loadUserData(userName);
-}
-
-home.loadUserData = function(userName)
-{
-	$.ajax ({
-		type: "GET",
-		dataType: "json",
-		url: "/f/profile/?userName=" + userName,
-		success: function(userGameData)
-		{
-			var objChamp = $("#bestChampion");
-			var objUser = $("#bestUserName");
-		        var $userIdLink = $('<a>',
-                	        {'href':'/profile/?userName=' + userName,
-                	         'class':'home-user-name'}).text(userName);
-			var mostData = common.user.summaryMostData(userGameData);
-
-			objUser.append($userIdLink);
-			common.champion.getImg(objChamp,mostData.champion,null);
-			home.setUserLine(mostData.line);
-		},
-		error: function(e)
-		{
-			console.log(e.responseText);
-		}
-	});
-}
-
-home.setUserLine = function(line) {
-	var obj = $("#bestUserLine");
-
-	if( line === undefined )
-	{
-		line = "Unknown";
-	}
-
-	obj.append( "주 라인: "+ line);
-}
-
-home.setUserKDA = function(result) {
-	var obj = $("#bestUserKDA");
-	var kda = 0;
-
-	if( result.death === 0 )
-	{
-		result.death = 1;
-	}
-
-	kda = ((result.kill + result.asist)/result.death).toFixed(2);
-
-	obj.append("KDA: " + kda);
-}
-
+export default home;

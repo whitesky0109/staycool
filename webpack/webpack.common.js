@@ -9,11 +9,11 @@ const moment = require('moment');
  */
 const entry = {
   common: path.join(__dirname, '../static/airgg/js/common.js'),
-  // home: path.join(__dirname, '../static/airgg/js/home.js'),
+  home: path.join(__dirname, '../static/airgg/js/home.js'),
   // member: path.join(__dirname, '../static/airgg/js/member.js'),
   // position: path.join(__dirname, '../static/airgg/js/position.js'),
   // ranking: path.join(__dirname, '../static/airgg/js/ranking.js'),
-  // stats: path.join(__dirname, '../static/airgg/js/stats.js'),
+  stats: path.join(__dirname, '../static/airgg/js/stats.js'),
   // profile: path.join(__dirname, '../static/airgg/js/profile.js'),
 };
 
