@@ -3,15 +3,17 @@
   "description": "staycool LOL Web Application",
   "version": "0.1.0",
   "scripts": {
-    "dev:server": "webpack-dev-server --hot --inline --config webpack/webpack.dev.js",
-    "watch": "webpack -w --config webpack/webpack.dev.js",
-    "build": "webpack -p --progress --config webpack/webpack.prod.js"
+    "serve": "python manage.py runserver 0.0.0.0:80",
+    "watch": "npm run v1:watch",
+    "build": "npm run v1:build",
+    "v1:watch": "webpack -w --config v1/build/webpack.dev.js",
+    "v1:build": "webpack -p --progress --config v1/build/webpack.prod.js"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.0",
-    "@babel/preset-env": "^7.2.0",
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
     "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.4",
+    "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^2.0.1",
     "copy-webpack-plugin": "^5.0.1",
     "eslint": "^5.10.0",
@@ -26,18 +28,15 @@
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1",
-    "webpack-merge": "^4.2.1"
+    "webpack-merge": "^4.2.1",
+    "yarn": "^1.13.0"
   },
   "dependencies": {
-    "ajax-form": "^2.1.4",
+    "@babel/polyfill": "^7.4.0",
+    "@babel/runtime": "^7.4.2",
+    "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
-    "chart.js": "^2.7.2",
-    "coreapi": "^0.1.1",
-    "csrf": "^3.0.6",
-    "default": "^0.1.1",
-    "jquery": "^3.3.1",
-    "popper.js": "^1.14.7",
-    "prettify": "^0.1.7"
+    "chart.js": "^2.7.2"
   },
   "author": [
     "wakefiled",

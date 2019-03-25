@@ -29,7 +29,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'www.staycool.co.kr'
+    'www.staycool.co.kr',
+    'localhost',
+    '211.107.16.253',
 ]
 
 
