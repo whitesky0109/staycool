@@ -1,6 +1,7 @@
 // Import dependencies
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 /**
  * Entry point for the bundle.
@@ -69,6 +70,36 @@ const optimization = {
  */
 const plugins = [
   new CleanWebpackPlugin(),
+  new HtmlWebpackPlugin({
+    inject: false,
+    chunks: ['home'],
+    filename: '../../templates/v1/home.html',
+    template: 'v1/src/home/home.template.html',
+  }),
+  new HtmlWebpackPlugin({
+    inject: false,
+    chunks: ['member'],
+    filename: '../../templates/v1/member.html',
+    template: 'v1/src/member/member.template.html',
+  }),
+  new HtmlWebpackPlugin({
+    inject: false,
+    chunks: ['position'],
+    filename: '../../templates/v1/position.html',
+    template: 'v1/src/position/position.template.html',
+  }),
+  new HtmlWebpackPlugin({
+    inject: false,
+    chunks: ['profile'],
+    filename: '../../templates/v1/profile.html',
+    template: 'v1/src/profile/profile.template.html',
+  }),
+  new HtmlWebpackPlugin({
+    inject: false,
+    chunks: ['ranking'],
+    filename: '../../templates/v1/ranking.html',
+    template: 'v1/src/ranking/ranking.template.html',
+  }),
 ];
 
 

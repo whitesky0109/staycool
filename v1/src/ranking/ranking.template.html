@@ -1,0 +1,53 @@
+{% load static %}
+<!doctype html>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<html>
+
+<link rel="stylesheet" href="{% static 'airgg/css/main.css' %}?ver=20190309" />
+<link rel="stylesheet" href="{% static 'airgg/css/ranking.css' %}?ver=20190309"/>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<body>
+	<div id ='alrHome' class="main-title mb-2"></div>
+	<div id="alrMenu" class="alr-menu"></div>
+	<div id="seasonMonitor" class="sub-nav-div"></div>
+
+	<div class="main-func-div col-lg-7">
+		<h3 id="seasonTitle"></h3>
+
+		<div id="rankingFirst" class="ranking-first">
+		</div>
+
+		<div id="rankingHighRankers" class="row ranking-highest">
+		</div>
+
+		<table class="table table-hover">
+		        <colgroup>
+		                <col width="50">
+		                <col width="50">
+		                <col width="50">
+		                <col width="50">
+		        </colgroup>
+		        <thead class="thead">
+		                <tr>
+		                        <th>아이디</th>
+		                        <th>티어</th>
+		                        <th>플레이</th>
+		                        <th>승률</th>
+		                </tr>
+		        </thead>
+		        <tbody id="rankingList">
+				<!-- Do sometihng -->
+			</tbody>
+		</table>
+	</div>
+	<script type="text/javascript" src="{% static 'airgg/riot_api/dragonhead.js' %}"></script>
+	<script type="text/javascript" src="{% static 'airgg/riot_api/9.2.1/manifest.js' %}"></script>
+	<script type="text/javascript" src="{% static 'airgg/riot_api/9.2.1/js/dragonmagic.js' %}"></script>
+
+	<script type="text/javascript" src="{% static 'build/<%= webpack.assetsByChunkName.ranking %>' %}?ver=20190219"></script>
+
+</body>
+<footer id="airFooter" class="main-func-div">
+	<div id="airVersion"></div>
+</footer>
+</html>
