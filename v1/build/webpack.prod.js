@@ -1,7 +1,6 @@
 // Import dependencies
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const WebpackCommon = require('./webpack.common');
 
 /**
@@ -17,7 +16,6 @@ const WebpackCommon = require('./webpack.common');
  * A webpack plugin to edit loader options.
  */
 const plugins = [
-  new UglifyJsPlugin(),
   new webpack.LoaderOptionsPlugin({
     minimize: true,
   }),
