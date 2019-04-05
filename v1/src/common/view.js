@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-restricted-syntax */
-import { settings, locationSrv, newElement } from '../utils';
+import { settings, locationSrv, newElement, backendSrv } from '../utils';
 import commonCtrl from './index';
 
 export const setHomeBanner = (elem) => {
@@ -96,4 +96,15 @@ export const setImg = (elem, championInfo, option) => {
     size: 'normal',
   };
   elem.insertAdjacentHTML('beforeend', window.Riot.DDragon.fn.getImg(championInfo, imgOption));
+};
+
+export const setChampionImg = async (elem, champ, option) => {
+  try {
+    // invalid mvc pattern
+    const { data } = await backendSrv.getChampionImg(champ);
+    const championInfo = data.data[champ];
+    setImg(elem, championInfo, option);
+  } catch (e) {
+    console.error(e);
+  }
 };

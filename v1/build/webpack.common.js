@@ -12,6 +12,7 @@ const entry = {
   position: path.join(__dirname, '../src/position/index.js'),
   profile: path.join(__dirname, '../src/profile/index.js'),
   ranking: path.join(__dirname, '../src/ranking/index.js'),
+  stats: path.join(__dirname, '../src/stats/index.js'),
 };
 
 const output = {
@@ -99,6 +100,12 @@ const plugins = [
     chunks: ['ranking'],
     filename: '../../templates/v1/ranking.html',
     template: 'v1/src/ranking/ranking.template.html',
+  }),
+  new HtmlWebpackPlugin({
+    inject: false,
+    chunks: ['ranking'],
+    filename: '../../templates/v1/stats.html',
+    template: 'v1/src/stats/stats.template.html',
   }),
 ];
 

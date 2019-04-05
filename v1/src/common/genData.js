@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-continue */
 /* eslint-disable eqeqeq */
 /* eslint-disable no-restricted-syntax */
@@ -198,4 +199,105 @@ export const summaryUsers = (userSeasonData) => {
   }
 
   return obj;
+};
+
+export const summaryPositionUsers = (userSeasonData) => {
+  const users = {};
+
+  for (const data in userSeasonData) {
+    const {
+      line, user_id, kill, death, asist, win,
+    } = userSeasonData[data].fields;
+
+    if (!users[line]) {
+      users[line] = {};
+    }
+
+    if (!users[line][user_id]) {
+      users[line][user_id] = {
+        kill,
+        death,
+        asist,
+        win,
+        play: 1,
+      };
+    } else {
+      users[line][user_id].kill += kill;
+      users[line][user_id].death += death;
+      users[line][user_id].asist += asist;
+      if (win == 1) {
+        users[line][user_id].win += 1;
+      }
+      users[line][user_id].play += 1;
+    }
+  }
+
+  return users;
+};
+
+export const summaryRelative = (userSeasonData, player) => {
+  const gameData = {};
+  const gameNumArr = [];
+  const relativeObj = {};
+
+  for (const data in userSeasonData) {
+    const obj = userSeasonData[data].fields;
+
+    if (obj.user_id === player) {
+      gameNumArr.push(obj.game_num);
+    }
+
+    if (gameData[obj.game_num] === undefined) {
+      gameData[obj.game_num] = {};
+    }
+
+    if (gameData[obj.game_num][obj.user_id] === undefined) {
+      gameData[obj.game_num][obj.user_id] = {
+        win: obj.win,
+        line: obj.line,
+      };
+    }
+  }
+
+  for (const num of gameNumArr) {
+    for (const userId in gameData[num]) {
+      if (gameData[num][player].win === true && gameData[num][userId].win === false) {
+        if (relativeObj[userId] === undefined) {
+          relativeObj[userId] = {
+            win: 1,
+            play: 1,
+            TOP: 0,
+            JUG: 0,
+            MID: 0,
+            BOT: 0,
+            SUP: 0,
+          };
+          relativeObj[userId][gameData[num][userId].line] += 1;
+        } else {
+          relativeObj[userId].win += 1;
+          relativeObj[userId].play += 1;
+          relativeObj[userId][gameData[num][userId].line] += 1;
+        }
+      }
+      if (gameData[num][player].win === false && gameData[num][userId].win === true) {
+        if (relativeObj[userId] === undefined) {
+          relativeObj[userId] = {
+            win: 0,
+            play: 1,
+            TOP: 0,
+            JUG: 0,
+            MID: 0,
+            BOT: 0,
+            SUP: 0,
+          };
+          relativeObj[userId][gameData[num][userId].line] += 1;
+        } else {
+          relativeObj[userId].play += 1;
+          relativeObj[userId][gameData[num][userId].line] += 1;
+        }
+      }
+    }
+  }
+
+  return relativeObj;
 };

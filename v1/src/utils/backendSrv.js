@@ -35,9 +35,9 @@ class BackendSrv {
         season,
       },
     });
-    this.getMostDuoData = () => Axios.get('/f/season/duo/', {
+    this.getMostDuoData = season => Axios.get('/f/season/duo/', {
       params: {
-        season: 0,
+        season,
       },
     });
   }
