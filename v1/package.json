@@ -6,8 +6,8 @@
     "serve": "python manage.py runserver 0.0.0.0:80",
     "watch": "npm run v1:watch",
     "build": "npm run v1:build",
-    "v1:watch": "webpack -w --config v1/build/webpack.dev.js",
-    "v1:build": "webpack -p --progress --config v1/build/webpack.prod.js"
+    "v1:watch": "webpack -w --config build/webpack.dev.js",
+    "v1:build": "webpack -p --progress --config build/webpack.prod.js"
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",
