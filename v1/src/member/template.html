@@ -3,53 +3,53 @@
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 <html>
 
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
 <body>
-	<div id ='alrHome' class="main-title mb-2"></div>
+	<div id='alrHome' class="main-title mb-2"></div>
 	<div id="alrMenu" class="alr-menu"></div>
-<div class="chart-container">
-<table class="member-total-table">
-	<colgroup>
-		<col width="500">
-		<col width="500">
-	</colgroup>
-	<tbody>
-		<tr>
-			<td><img class='member-master' src="{% static 'airgg/img/master.jpg' %}"></img></td>
-			<td><canvas id="mostLinePie" height="300px"></canvas></td>
-		</tr>
-	</tbody>
-	
-</table>
-</div>
-<div class="member-div col-lg-7">
-<table class="table table-hover">
-	<colgroup>
-		<col width="50">
-		<col width="50">
-		<col width="50">
-	</colgroup>
-	<thead class="thead">
-		<tr>
-			<th class="ranking-table_header">아이디</th>
-			<th class="ranking-table_header">직책</th>
-			<th class="ranking-table_header">좋아하는 라인</th>
-		</tr>
-	</thead>
-	<tbody id="memberTableBody">
-	</tbody>
-</table>
-</div>
+	<div class="chart-container">
+		<table class="member-total-table">
+			<colgroup>
+				<col width="500">
+				<col width="500">
+			</colgroup>
+			<tbody>
+				<tr>
+					<td><img class='member-master' src="{% static 'airgg/img/master.jpg' %}"></img></td>
+					<td><canvas id="mostLinePie" height="300px"></canvas></td>
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+	<div class="member-div col-lg-7">
+		<table class="table table-hover">
+			<colgroup>
+				<col width="50">
+				<col width="50">
+				<col width="50">
+			</colgroup>
+			<thead class="thead">
+				<tr>
+					<th class="ranking-table_header">아이디</th>
+					<th class="ranking-table_header">직책</th>
+					<th class="ranking-table_header">좋아하는 라인</th>
+				</tr>
+			</thead>
+			<tbody id="memberTableBody">
+			</tbody>
+		</table>
+	</div>
 
 	<script type="text/javascript" src="{% static 'airgg/riot_api/dragonhead.js' %}"></script>
 	<script type="text/javascript" src="{% static 'airgg/riot_api/9.2.1/manifest.js' %}"></script>
 	<script type="text/javascript" src="{% static 'airgg/riot_api/9.2.1/js/dragonmagic.js' %}"></script>
 
-	<script type="text/javascript" src="{% static 'build/<%= webpack.assetsByChunkName.member %>' %}?ver=20190219"></script>
+	<script type="text/javascript"
+		src="{% static 'build/<%= webpack.assetsByChunkName.member %>' %}?ver=20190219"></script>
 
 </body>
 <footer id="airFooter" class="main-func-div">
 	<div id="airVersion"></div>
 </footer>
+
 </html>

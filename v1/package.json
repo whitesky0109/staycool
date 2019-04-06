@@ -3,6 +3,7 @@
   "description": "staycool LOL Web Application",
   "version": "0.1.0",
   "scripts": {
+    "serve": "python ../manage.py runserver 0.0.0.0:80",
     "watch": "webpack -w --config build/webpack.dev.js",
     "build": "webpack -p --progress --config build/webpack.prod.js"
   },

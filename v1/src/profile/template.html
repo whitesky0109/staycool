@@ -3,10 +3,8 @@
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 <html>
 
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
 <body>
-	<div id ='alrHome' class="main-title mb-2"></div>
+	<div id='alrHome' class="main-title mb-2"></div>
 	<div id="alrMenu" class="alr-menu"></div>
 	<div id="seasonMonitor" class="sub-nav-div"></div>
 
@@ -25,37 +23,39 @@
 
 		<div class="row ml-2 mt-1 mb-2 mr-1 profile-champions">
 			<table class="table table-hover">
-		        <colgroup>
-		                <col width="30">
-		                <col width="30">
-		                <col width="30">
-		                <col width="30">
-		                <col width="30">
-		        </colgroup>
-		        <thead class="thead">
-		                <tr>
-		                        <th>챔피언</th>
-		                        <th>플레이</th>
-		                        <th>AVR KDA</th>
-		                        <th>K/D/A</th>
-		                        <th>승률</th>
-		                </tr>
-		        </thead>
-		        	<tbody id="profileChampTableBody">
+				<colgroup>
+					<col width="30">
+					<col width="30">
+					<col width="30">
+					<col width="30">
+					<col width="30">
+				</colgroup>
+				<thead class="thead">
+					<tr>
+						<th>챔피언</th>
+						<th>플레이</th>
+						<th>AVR KDA</th>
+						<th>K/D/A</th>
+						<th>승률</th>
+					</tr>
+				</thead>
+				<tbody id="profileChampTableBody">
 				</tbody>
 			</table>
 		</div>
 	</div>
-	
+
 
 	<script type="text/javascript" src="{% static 'airgg/riot_api/dragonhead.js' %}"></script>
 	<script type="text/javascript" src="{% static 'airgg/riot_api/9.2.1/manifest.js' %}"></script>
 	<script type="text/javascript" src="{% static 'airgg/riot_api/9.2.1/js/dragonmagic.js' %}"></script>
 
-	<script type="text/javascript" src="{% static 'build/<%= webpack.assetsByChunkName.profile %>' %}?ver=20190219"></script>
+	<script type="text/javascript"
+		src="{% static 'build/<%= webpack.assetsByChunkName.profile %>' %}?ver=20190219"></script>
 
 </body>
 <footer id="airFooter" class="main-func-div">
 	<div id="airVersion"></div>
 </footer>
+
 </html>

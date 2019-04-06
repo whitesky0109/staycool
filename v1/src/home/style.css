@@ -1,6 +1,7 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
 @import '../common/style.css';
 
-ß.home-main-div {
+.home-main-div {
 	width: 1080px;
 	margin-left: auto;
 	margin-right: auto;
