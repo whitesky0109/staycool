@@ -3,7 +3,7 @@
 /* eslint-disable import/prefer-default-export */
 import Chart from 'chart.js';
 
-import * as commonView from '../common/view';
+import common from '../common';
 import { newElement } from '../utils';
 
 let chart = null;
@@ -15,8 +15,8 @@ export const init = () => {
   const objHome = document.getElementById('alrHome');
   const objMenu = document.getElementById('alrMenu');
 
-  commonView.setHomeBanner(objHome);
-  commonView.createMenubar(objMenu);
+  common.view.setHomeBanner(objHome);
+  common.view.createMenubar(objMenu);
 };
 
 

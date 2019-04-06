@@ -3,9 +3,7 @@
 import '@babel/polyfill';
 import { backendSrv, locationSrv } from '../utils';
 
-import commonCtrl from '../common';
-import * as commonView from '../common/view';
-import * as commonData from '../common/model';
+import common from '../common';
 
 import * as view from './view';
 import * as model from './model';
@@ -13,10 +11,10 @@ import * as model from './model';
 export default class HomeCtrl {
   constructor() {
     const getParams = locationSrv.getRequest(); // ???
-    const season = commonData.getSeason(getParams.season);
+    const season = common.model.getSeason(getParams.season);
     this.season = season;
 
-    commonCtrl.updateVersion();
+    common.controller.updateVersion();
   }
 
   init() {
@@ -25,7 +23,7 @@ export default class HomeCtrl {
 
     this.getSeasonData(this.season);
 
-    commonCtrl.setUpdateFunc((ss) => {
+    common.controller.setUpdateFunc((ss) => {
       view.clearPage();
       view.setSeasonTitle(ss);
 
@@ -37,8 +35,8 @@ export default class HomeCtrl {
     try {
       const { data } = await backendSrv.getSeasonData(season);
 
-      const summaryUsers = commonData.createSummaryUsers(data);
-      const carry = commonData.findCarry(summaryUsers);
+      const summaryUsers = common.model.createSummaryUsers(data);
+      const carry = common.model.findCarry(summaryUsers);
 
       this.loadUserData(carry.userId);
       const kda = model.getKda(carry);
@@ -51,7 +49,7 @@ export default class HomeCtrl {
   async loadUserData(userName) {
     try {
       const { data: userData } = await backendSrv.getUserData(userName);
-      const { champion, line } = commonData.summaryMostData(userData);
+      const { champion, line } = common.model.summaryMostData(userData);
 
       view.setBestPlayer(userName);
       view.setUserLine(line);
@@ -59,7 +57,7 @@ export default class HomeCtrl {
       const { data: championInfo } = await backendSrv.getChampionImg(champion);
 
       const champElem = document.getElementById('bestChampion');
-      commonView.setImg(champElem, championInfo.data[champion], null);
+      common.view.setImg(champElem, championInfo.data[champion], null);
     } catch (e) {
       console.error(e);
     }

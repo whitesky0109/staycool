@@ -3,7 +3,7 @@
 import {
   settings, locationSrv, newElement, backendSrv,
 } from '../utils';
-import commonCtrl from './index';
+import common from './index';
 
 export const setHomeBanner = (elem) => {
   const imgElem = newElement('img', {
@@ -52,7 +52,7 @@ export const createSeasonMonitor = (elem) => {
   const objSpan = newElement('span', { class: 'input-group-text' });
   objSpan.innerHTML = 'Season';
   const objSelect = newElement('select', { id: 'airSeason', class: 'form-control input-sm-7' }, {
-    change: commonCtrl.changeSeason.bind(commonCtrl),
+    change: common.controller.changeSeason.bind(common.controller),
   });
   const objDummy = newElement('div', { class: 'sub-nav-div-dummy' });
 

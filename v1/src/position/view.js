@@ -2,14 +2,14 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable import/prefer-default-export */
 import { newElement, emptyElement } from '../utils';
-import * as commonView from '../common/view';
+import common from '../common';
 
 export const init = () => {
   const objHome = document.getElementById('alrHome');
   const objMenu = document.getElementById('alrMenu');
 
-  commonView.setHomeBanner(objHome);
-  commonView.createMenubar(objMenu);
+  common.view.setHomeBanner(objHome);
+  common.view.createMenubar(objMenu);
 };
 
 export const creatSelectUser = (elem, members, id) => {
@@ -79,5 +79,5 @@ export const setTeamChampImg = (teamNum, champion) => {
     classes: 'ml-3',
   };
   const champElem = document.getElementById(`team${teamNum}MostChampDiv`);
-  commonView.setImg(champElem, champion, imgOption);
+  common.view.setImg(champElem, champion, imgOption);
 };

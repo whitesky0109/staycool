@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 import { emptyElement, newElement } from '../utils';
 
-import * as commonView from '../common/view';
+import common from '../common';
 
 export const setSeasonTitle = (season) => {
   const objTitle = document.getElementById('bestTitle');
@@ -43,7 +43,7 @@ export const init = () => {
   const objMenu = document.getElementById('alrMenu');
   const objSeasonMonitor = document.getElementById('seasonMonitor');
 
-  commonView.setHomeBanner(objHome);
-  commonView.createMenubar(objMenu);
-  commonView.createSeasonMonitor(objSeasonMonitor);
+  common.view.setHomeBanner(objHome);
+  common.view.createMenubar(objMenu);
+  common.view.createSeasonMonitor(objSeasonMonitor);
 };

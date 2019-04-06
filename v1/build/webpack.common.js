@@ -83,42 +83,13 @@ const optimization = {
  */
 const plugins = [
   new CleanWebpackPlugin(),
-  new HtmlWebpackPlugin({
-    inject: false,
-    chunks: ['home'],
-    filename: '../../templates/v1/home.html',
-    template: 'src/home/template.html',
-  }),
-  new HtmlWebpackPlugin({
-    inject: false,
-    chunks: ['member'],
-    filename: '../../templates/v1/member.html',
-    template: 'src/member/template.html',
-  }),
-  new HtmlWebpackPlugin({
-    inject: false,
-    chunks: ['position'],
-    filename: '../../templates/v1/position.html',
-    template: 'src/position/template.html',
-  }),
-  new HtmlWebpackPlugin({
-    inject: false,
-    chunks: ['profile'],
-    filename: '../../templates/v1/profile.html',
-    template: 'src/profile/template.html',
-  }),
-  new HtmlWebpackPlugin({
-    inject: false,
-    chunks: ['ranking'],
-    filename: '../../templates/v1/ranking.html',
-    template: 'src/ranking/template.html',
-  }),
-  new HtmlWebpackPlugin({
-    inject: false,
-    chunks: ['ranking'],
-    filename: '../../templates/v1/stats.html',
-    template: 'src/stats/template.html',
-  }),
+  ...['home', 'member', 'position', 'profile', 'ranking', 'stats']
+    .map(value => new HtmlWebpackPlugin({
+      inject: false,
+      chunks: [value],
+      filename: `../../templates/v1/${value}.html`,
+      template: `src/${value}/template.html`,
+    })),
 ];
 
 

@@ -2,8 +2,7 @@
 /* eslint-disable class-methods-use-this */
 import '@babel/polyfill';
 import { locationSrv, emptyElement, backendSrv } from '../utils';
-import commonCtrl from '../common';
-import * as commonData from '../common/model';
+import common from '../common';
 
 import * as view from './view';
 import * as model from './model';
@@ -20,7 +19,7 @@ export default class ProfileCtrl {
     view.setUserName(this.userName);
     this.updateUserData(this.userName, this.season);
 
-    commonCtrl.setUpdateFunc((ss) => {
+    common.controller.setUpdateFunc((ss) => {
       emptyElement('profileName');
       emptyElement('profileMainInfo');
       emptyElement('profileChampTableBody');
@@ -29,23 +28,23 @@ export default class ProfileCtrl {
       this.updateUserData(this.userName, ss);
     });
 
-    commonCtrl.updateVersion();
+    common.controller.updateVersion();
   }
 
   async updateUserData(name, season) {
     try {
       const { data } = await backendSrv.getSeasonUserData(name, season);
 
-      const { line, winRatio, champion } = commonData.summaryMostData(data);
+      const { line, winRatio, champion } = common.model.summaryMostData(data);
       view.setMainInfo(line, winRatio);
 
-      const lineData = commonData.summaryLine(data);
+      const lineData = common.model.summaryLine(data);
       const { winratioArr, playrateArr } = model.setLineInfo(lineData);
       view.addWinrateRadarChart(winratioArr);
       view.addPlayrateRadarChart(playrateArr);
       view.updateChart();
 
-      const champData = commonData.summaryChampion(data);
+      const champData = common.model.summaryChampion(data);
       const tableData = model.genTableData(champData);
       view.setChampTable(tableData);
 

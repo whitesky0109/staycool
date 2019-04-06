@@ -3,7 +3,7 @@
 /* eslint-disable class-methods-use-this */
 import '@babel/polyfill';
 import { backendSrv } from '../utils';
-import commonCtrl from '../common';
+import common from '../common';
 
 import * as view from './view';
 import * as model from './model';
@@ -16,7 +16,7 @@ export default class PositionCtrl {
 
   init() {
     view.init();
-    commonCtrl.updateVersion();
+    common.controller.updateVersion();
     this.getUserIds();
   }
 

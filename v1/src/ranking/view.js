@@ -1,16 +1,16 @@
 /* eslint-disable import/prefer-default-export */
 import { newElement, settings } from '../utils';
 
-import * as commonView from '../common/view';
+import common from '../common';
 
 export const init = () => {
   const objHome = document.getElementById('alrHome');
   const objMenu = document.getElementById('alrMenu');
   const objSeasonMonitor = document.getElementById('seasonMonitor');
 
-  commonView.setHomeBanner(objHome);
-  commonView.createMenubar(objMenu);
-  commonView.createSeasonMonitor(objSeasonMonitor);
+  common.view.setHomeBanner(objHome);
+  common.view.createMenubar(objMenu);
+  common.view.createSeasonMonitor(objSeasonMonitor);
 };
 
 export const setSeasonTitle = (season) => {

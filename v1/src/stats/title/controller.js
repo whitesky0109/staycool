@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import { backendSrv, settings } from '../../utils';
 
-import * as commonModel from '../../common/model';
+import common from '../../common';
 
 import * as model from './model';
 import * as view from './view';
@@ -10,7 +10,7 @@ import * as view from './view';
 export const getSeasonUserData = async (season) => {
   try {
     const { data } = await backendSrv.getSeasonData(season);
-    const summaryUsers = commonModel.summaryUsers(data);
+    const summaryUsers = common.model.summaryUsers(data);
 
     const carry = model.findCarry(summaryUsers);
     const murder = model.findMurder(summaryUsers);

@@ -1,5 +1,5 @@
 import { newElement } from '../../utils';
-import * as commonView from '../../common/view';
+import common from '../../common';
 
 import * as ctrl from './controller';
 
@@ -28,7 +28,7 @@ const getTableBody = (elem, champ, { pick, ban, win }) => {
   }
   const trElem = newElement('tr', { class: 'pickban-list-table_row' });
   const $championObj = newElement('td');
-  commonView.setChampionImg($championObj, champ, ctrl.imgOption);
+  common.view.setChampionImg($championObj, champ, ctrl.imgOption);
 
   trElem.appendChild($championObj);
   trElem.insertAdjacentHTML('beforeend', `

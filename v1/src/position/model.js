@@ -1,7 +1,7 @@
 /* eslint-disable no-continue */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
-import * as commonModel from '../common/model';
+import common from '../common';
 
 export const predictLine = (teamMostDatas) => {
   const resObj = {
@@ -57,8 +57,8 @@ export const generateTeamData = (memberIDs, teamData) => {
   for (const member of memberIDs) {
     if (member === 'UNKNOWN') continue;
 
-    const mostData = commonModel.summaryMostData(teamData[member]);
-    const champData = commonModel.summaryChampion(teamData[member]);
+    const mostData = common.model.summaryMostData(teamData[member]);
+    const champData = common.model.summaryChampion(teamData[member]);
 
     teamMostData[member] = mostData;
 

@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
-import * as commonView from '../../common/view';
+import common from '../../common';
 import { newElement } from '../../utils';
 import * as controller from './controller';
 
@@ -42,7 +42,7 @@ const toMostChampDOM = (champ, { win, pick, ban }) => {
   $divObj.appendChild($pickBanObj);
   $divObj.appendChild($winRatioObj);
 
-  commonView.setChampionImg($divObj, champ, controller.imgOption);
+  common.view.setChampionImg($divObj, champ, controller.imgOption);
 
   return $divObj;
 };

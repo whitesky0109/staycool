@@ -2,7 +2,7 @@
 /* eslint-disable import/prefer-default-export */
 import { backendSrv, settings } from '../../utils';
 
-import * as commonModel from '../../common/model';
+import common from '../../common';
 
 import * as model from './model';
 import * as view from './view';
@@ -11,7 +11,7 @@ export const getUserData = async (season) => {
   try {
     const { data } = await backendSrv.getSeasonData(season);
 
-    const summaryPUsers = commonModel.summaryPositionUsers(data);
+    const summaryPUsers = common.model.summaryPositionUsers(data);
     const mostTopUser = model.findMostLiner(summaryPUsers.TOP);
     const mostMidUser = model.findMostLiner(summaryPUsers.MID);
     const mostJugUser = model.findMostLiner(summaryPUsers.JUG);

@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
 import Chart from 'chart.js';
-import * as commonView from '../common/view';
+import common from '../common';
 import { newElement, settings, backendSrv } from '../utils';
 
 let chart = null;
@@ -68,9 +68,9 @@ export const init = () => {
   const objMenu = document.getElementById('alrMenu');
   const objSeasonMonitor = document.getElementById('seasonMonitor');
 
-  commonView.setHomeBanner(objHome);
-  commonView.createMenubar(objMenu);
-  commonView.createSeasonMonitor(objSeasonMonitor);
+  common.view.setHomeBanner(objHome);
+  common.view.createMenubar(objMenu);
+  common.view.createSeasonMonitor(objSeasonMonitor);
 
   initRadarChart();
 };
@@ -119,7 +119,7 @@ export const setChampImg = (elem, champion) => {
     size: 'normal',
     classes: 'profile-champTable_img',
   };
-  commonView.setImg(elem, champion, imgOption);
+  common.view.setImg(elem, champion, imgOption);
 };
 
 

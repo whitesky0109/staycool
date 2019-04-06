@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { backendSrv } from '../../utils';
 
-import * as commonModel from '../../common/model';
+import common from '../../common';
 
 import * as view from './view';
 
@@ -9,7 +9,7 @@ export const getData = async (season, userId) => {
   try {
     const { data } = await backendSrv.getSeasonData(season);
 
-    const summaryRelative = commonModel.summaryRelative(data, userId);
+    const summaryRelative = common.model.summaryRelative(data, userId);
 
     const keys = Object.keys(summaryRelative);
     keys.sort((a, b) => summaryRelative[b].play - summaryRelative[a].play);

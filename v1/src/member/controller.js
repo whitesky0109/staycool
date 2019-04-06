@@ -3,7 +3,8 @@
 import '@babel/polyfill';
 import { backendSrv } from '../utils';
 
-import commonCtrl from '../common';
+import common from '../common';
+
 import * as model from './model';
 import * as view from './view';
 
@@ -22,7 +23,7 @@ export default class MemberCtrl {
     view.initPieChart();
     this.updateMembers();
 
-    commonCtrl.updateVersion();
+    common.controller.updateVersion();
   }
 
   async updateMembers() {
