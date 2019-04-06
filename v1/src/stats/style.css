@@ -1,0 +1,64 @@
+.stats-main-div {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.stats-title {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.img {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@import '../common/style.css';
+
+.row.stats-title-div {
+	padding: 10px;
+}
+
+.best-duo {
+	border: 1px solid;
+	z-index:1;
+	position:relative;
+	width:512px;
+	height:300px;
+	margin:auto;
+}
+
+.best-duo:after{
+	width:512px;
+	height:300px;
+	z-index:-1;
+	position:absolute;
+	top:0;
+	left:0;
+	content:"";
+	background-image: url('../../images/background/slamdunk-hifive.jpg') ;
+	background-repeat:no-repeat;
+	background-position:center;
+	background-origin:content-box;
+	background-size: 100%;
+	opacity: 0.3!important; filter:alpha(opacity=30);
+}
+
+.stats-relative-searchBtn{
+	background-color:darkgray;
+}
+
+.stats-title-img {
+	width: 200px;
+	height: 200px;
+}
+
+.stats-main-most {
+	border: 1px solid;
+	width: 512px;
+	margin:auto;
+	padding-bottom: 10px;
+}

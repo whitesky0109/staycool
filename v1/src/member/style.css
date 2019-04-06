@@ -1,0 +1,28 @@
+
+.member-div {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.member-table_link {
+	color: black;
+}
+
+.member-total-table {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.member-master {
+	width: 500px;
+}
+
+#mostLinePie {
+	margin-left: auto;
+	margin-right: auto;
+	
+}

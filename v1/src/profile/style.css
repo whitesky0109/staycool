@@ -1,0 +1,78 @@
+@import '../common/style.css';
+
+body {
+	font-family: 'OpenSans-Light';
+}
+
+.profile-main-div {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.profile-user-background {
+	z-index: -1;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	opacity: 0.6;
+	width:100%;
+}
+
+.profile-user-info {
+	border: 1px solid;
+}
+
+.profile-user-champimg {
+	border-radius: 8px;
+}
+
+.profile-user-rader {
+	border: 1px solid;
+}
+
+.profile-user-highlight {
+	border: 1px solid;
+}
+
+.profile-name {
+	color: black;
+}
+
+.profile-summary {
+	float-right: auto;
+	float-left: auto;
+	text-align: center;
+}
+
+.row.profile-lineratio {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.container.profile-champions {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	padding-top: 30px;
+	border-radius: 5px;
+}
+
+.profile-champTable_row {
+	text-align: center;
+}
+
+.profile-champTable_img {
+	border-radius: 8px;
+}
+
+.img {
+	margin-left: auto;
+	margin-right: auto;
+}
+

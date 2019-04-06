@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { backendSrv } from '../../utils';
 
-import * as commonModel from '../../common/genData';
+import * as commonModel from '../../common/model';
 
 import * as view from './view';
 

@@ -4,6 +4,7 @@
 
 export const updatePosition = (obj, data) => {
   const updateObj = Object.assign(obj);
+
   for (const index in data) {
     const { preference_line: preferenceLine } = data[index].fields;
     updateObj[preferenceLine] += 1;

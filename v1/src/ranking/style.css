@@ -1,0 +1,30 @@
+@import '../common/style.css';
+
+body {
+	font-family: 'OpenSans-Light';
+}
+
+.ranking-first {
+	width: 500px;
+	height: 300px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 20px;
+	background-image:url('../../images/background/best_ring2.png');
+	background-repeat: no-repeat;
+	background-size: 500px 300px;
+	position: relative;
+}
+
+.ranking-highest_name {
+	color: black;
+}
+
+.ranking-tier-img {
+	width: 50px;
+}
+
+.ranking-highest-tier-img {
+	width: 100px;
+	height: 100px;
+}

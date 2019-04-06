@@ -1,6 +1,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-restricted-syntax */
-import { settings, locationSrv, newElement, backendSrv } from '../utils';
+import {
+  settings, locationSrv, newElement, backendSrv,
+} from '../utils';
 import commonCtrl from './index';
 
 export const setHomeBanner = (elem) => {
