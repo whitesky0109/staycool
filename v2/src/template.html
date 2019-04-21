@@ -1,0 +1,20 @@
+{% load static %}
+<!doctype html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+</head>
+
+<body>
+	<div id="app">
+		<router-view></router-view>
+	</div>
+	<script type="text/javascript" src="{% static 'airgg/riot_api/dragonhead.js' %}"></script>
+	<script type="text/javascript" src="{% static 'airgg/riot_api/9.2.1/manifest.js' %}"></script>
+	<script type="text/javascript" src="{% static 'airgg/riot_api/9.2.1/js/dragonmagic.js' %}"></script>
+
+	<script type="text/javascript" src="{% static 'build/airgg-vue.js' %}?ver=20190219"></script>
+</body>
+
+</html>

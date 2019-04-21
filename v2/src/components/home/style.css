@@ -1,0 +1,45 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '../../common/style.css';
+
+.home-main-div {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.home-bestplayer{
+	padding-top: 60px;
+	width: 720px;
+	height: 720px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	background-image: url('../../../images/background/line.jpg');
+	background-repeat: no-repeat;
+	background-size: 100%;
+	position: relative;
+}
+
+.home-user-name {
+	color: black;
+}
+
+.home-master-sign {
+	background-image: url('../../../images/background/sign.png');
+	background-repeat: no-repeat;
+	background-size: 100%;
+	position: relative;
+	width: 100px;
+	height: 100px;
+	margin-left: 70%;
+	margin-top: 50px;
+}
+
+.home-addbanner-div {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	border: 1px solid;
+}

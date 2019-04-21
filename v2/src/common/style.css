@@ -1,0 +1,92 @@
+body {
+	font-family: 'OpenSans-Light';
+
+}
+
+.alr-search-menu{
+	text-align: center;
+}
+
+.alr-search-btn {
+	background: transparent;
+	border: 0;
+	outline: 0;
+}
+
+.alr-search-input {
+	width: 200px;
+	font-size: 1.5em;
+	text-align: left;
+}
+
+.alr-menu{
+	width: 1080px;
+	height: 60px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+	background: gray;
+	border-radius: 5px;
+}
+
+.alr-menubar {
+    list-style-type: none;
+    margin: 0;
+    padding: 5px;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+.alr-menubar.li-category {
+    font-size: 1.5em;
+    float: left;
+}
+
+.alr-menubar.li-category a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-right: 20px;
+    text-decoration: none;
+}
+
+.alr-menubar.li-category a:hover{
+    font-size: 1.2em;
+    padding-top:1px;
+}
+
+.alr-menubar.li-search {
+	float: right;
+}
+
+.alr-version{
+    text-align: center;
+}
+
+.main-title {
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	border: 2px solid;
+}
+
+.sub-nav-div{	
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.sub-nav-div-dummy {
+	width: 80%;
+}
+
+.main-func-div{	
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
